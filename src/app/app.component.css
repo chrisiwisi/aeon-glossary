@@ -7,8 +7,16 @@
 
 h3 {
   font-size: 32px;
-  padding-bottom: 16px;
+  margin-bottom: 0;
   font-weight: 500;
+  color: #9ca3af;
+}
+
+.credits {
+  font-size: 0.8em;
+  margin-bottom: 16px;
+  color: #9ca3af;
+  text-decoration: none;
 }
 
 .form {
