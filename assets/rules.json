@@ -280,6 +280,1812 @@
         ]
     },
     {
+        "id": "I.2.1",
+        "name": "Game State",
+        "rule": "The \"game state\" refers to the collective set of conditions, variables, and rules that define the current situation and progress of the game being played. It encompasses all relevant information regarding the positions, statuses, resources, actions the players can take, and game elements within the game environment.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.2",
+        "name": "Effect",
+        "rule": "An 'effect' is any text found on a game element, including the rulebook, that has the potential to alter the game state upon activation or meeting certain conditions. This includes symbols used as abbreviations for text. Effects are separated by periods ('.')",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.3.1",
+        "name": "Active Effects",
+        "rule": "An Active Effect is an effect that costs something to use. Active effects end once Resolved.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.3.2",
+        "name": "Constant Effects",
+        "rule": "A Constant Effect is an effect with no cost to use. Constant effects must be resolved every time their timing condition is met and end once Resolved.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.3.3",
+        "name": "Passive Effects",
+        "rule": "A Passive Effect is a constant effect with no timing conditions. Passive effects do not resolve and are instead continuous.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.4",
+        "name": "Resolving Effects",
+        "rule": "To Resolve an effect, follow its instruction through to completion. This may require you to find those instructions in this rulebook (search for it in the Master Index). Afterwards, the effect is considered Resolved. Always resolve effects in the order you read them in (top to bottom, left to right). Always completely resolve one effect (and any effects that it triggers) before moving on to the next listed effect on a game element.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.5",
+        "name": "Triggers",
+        "rule": "A “Trigger” is a condition that an effect can have. An effect with a trigger does not resolve unless its trigger’s condition is met. Any effect or ability with a specific trigger must be resolved after the trigger occurs or is checked, before resolving any effects other than the ones caused or enabled by it. ",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.6",
+        "name": "Modifier",
+        "rule": "A “modifier” is any text on any game element that applies to an effect and changes how it resolves. A modifier can be permanent or temporary.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.7",
+        "name": "Immediate",
+        "rule": "If an effect contains the word “immediately” it must be resolved the moment it is triggered and takes precedence over any other lingering effects as well as overruling any conflicting rules.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.8",
+        "name": "Instead",
+        "rule": "Effects with the word “Instead” are resolved in place of another effect, which is Ignored (e.g. “Opening 2 instead” on a Gear card means that the value of its original “Opening” keyword is Ignored in favor of the new effect).",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.9",
+        "name": "May",
+        "rule": " When instructed to resolve an effect with the word “may”, you must choose whether or not to resolve the effect. Regardless of your choice, the effect is considered resolved after you make the decision. If an effect does not include the word “may”, you must resolve it.\n",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.10",
+        "name": "When",
+        "rule": "When instructed to resolve an effect with the word “when”, resolve this effect after you resolve the effect it refers to (or, in some cases, when you begin to resolve it), but before any other actions or effects. Example: If an effect triggers a “When you draw a Trauma card,” it activates immediately after you draw the card but before you resolve it.\n",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.11",
+        "name": "When you are about to",
+        "rule": "When instructed to resolve an effect with the phrase “when you are about to”, resolve it immediately before you resolve the effect that is about to happen (i.e. if an ability is triggered “when you are about to die,” it activates after another effect instructs you to die, but before it is actually resolved).",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.12",
+        "name": "Timing-Conflict Resolution",
+        "rule": "If more than one effect is triggered at the same time, you may choose the order in which these effects are resolved, unless stated otherwise. If any of these effects make another impossible or unviable, Ignore the impossible/unviable one. (Which effect is impossible/unviable could be different with different resolution orders.)",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.13",
+        "name": "Owned Effects",
+        "rule": "All effects in the game are “owned” by one of the following entities: an Argonaut, a Titan, the Primordial, the Argo, or the Game itself. An entity owns an effect if that effect is on any other game element that is exclusive to that entity.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.2.14",
+        "name": "Voluntary/Involuntary",
+        "rule": "Effects are voluntary if the affected entity owns the effect. (I.2.13) Effects are involuntary if the affected entity does not own the effect.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Effects"
+        ]
+    },
+    {
+        "id": "I.3.1",
+        "name": "Ability Box",
+        "rule": "An ability box is any graphic container with effects inside on a Gear card, Titan sheet, Mnemos card, or Technology card.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Abilities"
+        ]
+    },
+    {
+        "id": "I.3.2",
+        "name": "Ability",
+        "rule": "An ability is any effect within an Ability Box.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Abilities"
+        ]
+    },
+    {
+        "id": "I.3.3",
+        "name": "Ability Usage",
+        "rule": "Abilities with no timing condition can only be used as a free action during their owner’s turn, all other abilities can only be used when their timing condition is met. Each available active (I.2.3.1) ability on a single game element can only be used once per Round.\n",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Abilities"
+        ]
+    },
+    {
+        "id": "I.3.4",
+        "name": "Active Ability Costs",
+        "rule": "If any of the following are listed before an ability, you must resolve all of them in order to activate that ability. \nFate/Rage/Danger. If any Triskelion stat is listed, you must gain the shown amount of that stat in order to activate the ability.\nExhaust. If the Exhaust symbol is listed, you must exhaust that ability box in order to activate the ability.\nDiscard. If the Discard symbol is listed, you must discard the game element the ability box is on in order to activate the ability.\nTokens. If a specific token symbol is listed, you must gain one of that token in order to activate the ability.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Abilities"
+        ]
+    },
+    {
+        "id": "I.3.5",
+        "name": "Named Abilities",
+        "rule": "The text of some abilities is preceded by an ability name and, optionally, a subtype, preceding their name. These are called Named Abilities.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Abilities"
+        ]
+    },
+    {
+        "id": "I.3.6",
+        "name": "Keywords",
+        "rule": "A keyword is a term used as shorthand for an ability used to convey specific common rules. All keywords are named abilities. See Appendix A for the list of all keywords and their definitions.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Abilities"
+        ]
+    },
+    {
+        "id": "I.3.6.1",
+        "name": "Stackable Keywords",
+        "rule": "A Stackable Keyword is any Keyword followed by an ‘X’, unless stated otherwise in its definition. Multiple instances of a Stackable Keyword may be activated simultaneously.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Abilities"
+        ]
+    },
+    {
+        "id": "I.4.1",
+        "name": "D10s",
+        "rule": "d10s are used for Attack Rolls, Evasion Rolls, Tests, and other miscellaneous Rolls. Treat the Progress symbol result as a ‘10’. A natural ‘10’ (on the die, no modifiers) on a d10 is always a success/hit whereas a natural ‘1’ is always a fail/miss. These dice are not piece limited.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Dice"
+        ]
+    },
+    {
+        "id": "I.4.1.1",
+        "name": "Crit Die",
+        "rule": "White d10s are called Crit Dice, and one of the dice in all Attack and Evasion rolls must be a Crit Die. Crit Dice have no significance outside of Attack and Evasion rolls.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Dice"
+        ]
+    },
+    {
+        "id": "I.4.2",
+        "name": "Power Dice",
+        "rule": "Power dice are used for Power Rolls and Armor Rolls. They come in three different colors (Red, Black, and White) and they are limited by the number of dice provided in the game box (X.5.7.1b). Power dice consist of three different symbols: Powers, Potentials, and Dots.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Dice"
+        ]
+    },
+    {
+        "id": "I.4.3",
+        "name": "Rerolling Dice",
+        "rule": "Many effects will allow you to re-roll some of your dice. For a single effect, each die can only be re-rolled once, and all dice being re-rolled must be declared before doing any re-rolls. If multiple players are rolling for the same effect at the same time, they must all declare whether they want to re-roll their dice before any of them does so.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Dice"
+        ]
+    },
+    {
+        "id": "I.4.3.1",
+        "name": "Fate Re-rolls",
+        "rule": "You must gain 1 Fate for each die you decide to re-roll.\nUsing Fate, you can re-roll Attack Rolls, Evasion Rolls and Tests.\nUsing Fate, you cannot re-roll Power Rolls, Armor Rolls and any other roll not listed above.\nTo re-roll an Argo Test you must gain Argo Fate instead.",
+        "keywords": [
+            "Game Aspects",
+            " Key Concepts",
+            " Dice"
+        ]
+    },
+    {
+        "id": "II.1",
+        "name": "The Argo",
+        "rule": "The Argo is represented by the Argo miniature that you move on the map. The Argo miniature is always on a Map tile.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics"
+        ]
+    },
+    {
+        "id": "II.2",
+        "name": "Argo Sheet",
+        "rule": "The Argo Sheet serves as the main means of tracking your campaign progress, resources, diplomacy, available Titans, and other campaign statistics. Whenever you gain or lose any of these statistics, adjust their value in the corresponding section of the Argo Sheet.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet"
+        ]
+    },
+    {
+        "id": "II.2.1.1",
+        "name": "Crew",
+        "rule": "Crew represents the strength of the able-bodied members of the Argo’s crew. Losing too much Crew will lead to a campaign loss.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet"
+        ]
+    },
+    {
+        "id": "II.2.1.2",
+        "name": "Hull",
+        "rule": "Hull represents the integrity of Argo’s hull. Losing too much Hull will lead to a campaign loss. ",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet"
+        ]
+    },
+    {
+        "id": "II.2.1.3",
+        "name": "Argo Fate",
+        "rule": "Argo Fate represents the collective destiny of the Argo and its crew. Like the Triskelion stat (III.3.3.2), the higher your Argo Fate, the more negative repercussions you’ll face. Gaining Argo Fate over 9 will lead to a campaign loss.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet"
+        ]
+    },
+    {
+        "id": "II.2.1.4",
+        "name": "Argo Knowledge",
+        "rule": "Argo Knowledge represents the collective knowledge about the Argo and the state of the world. It’s a cumulative stat that will only ever go up (IX.2.4). You cannot gain more than 20 Argo Knowledge in a Cycle.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet"
+        ]
+    },
+    {
+        "id": "II.2.2",
+        "name": "Resources",
+        "rule": "Resources are mainly gained from the Exploration deck and Primordial Battles. They are primarily used to craft Gear cards and activate certain Technology abilities. They differ between Cycles.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Resources"
+        ]
+    },
+    {
+        "id": "II.2.2.1",
+        "name": "Mortal Resources",
+        "rule": "Mortal resources are primarily gained from Exploration cards (VIII.3.2.1). They are noted in the Mortal part of the Cargo Hold section on the Argo Sheet.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Resources"
+        ]
+    },
+    {
+        "id": "II.2.2.2",
+        "name": "Primordial Resources",
+        "rule": "Primordial resources are primarily gained from Primordial Battles (X.6.3). They are noted in the Primordial part of the Cargo Hold section on the Argo Sheet.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Resources"
+        ]
+    },
+    {
+        "id": "II.2.2.2.3",
+        "name": "Primordial Cores",
+        "rule": "Of Primordial resources, Cores are the most valuable. You gain Cores from critically wounded BP III cards. When you gain a Core, write its Primordial’s name and update its quantity in the Cargo Hold under Cores.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Resources"
+        ]
+    },
+    {
+        "id": "II.2.2.3",
+        "name": "Divine Resources",
+        "rule": "Divine resources represent extremely rare items that are gained when instructed. They are noted in the Hidden Hold section of the Argo Sheet. ",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Resources"
+        ]
+    },
+    {
+        "id": "II.2.2.4",
+        "name": "Rare Resources",
+        "rule": "Rare resources include all resources (other than Cores) not listed on the Argo Sheet. They are incredibly limited. When you gain a Rare resource, write both its name and quantity under Rare Resources.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Resources"
+        ]
+    },
+    {
+        "id": "II.2.3.1",
+        "name": "Priests",
+        "rule": "Priests have no inherent effects, but some Technology abilities may have them as a cost.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Divine Resources"
+        ]
+    },
+    {
+        "id": "II.2.3.2",
+        "name": "Sisyphus Tears",
+        "rule": "Sisyphus Tears are used to replay Battles (X.6.1.1).",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Divine Resources"
+        ]
+    },
+    {
+        "id": "II.2.3.3",
+        "name": "Pygmalion Stones",
+        "rule": "Pygmalion Stones are used to save titans who died in Battle (X.6.4.1). Ignore this rule until instructed otherwise (Cycle II inward odyssey): Whenever an Argo-bred Titan dies, make a Pygmalion mark. When you have 3 Pygmalion marks, gain a Pygmalion Stone. ",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Divine Resources"
+        ]
+    },
+    {
+        "id": "II.2.3.4",
+        "name": "Echoes of Recollection",
+        "rule": "When an Argonaut dies, before resolving any other effects, you may spend an Echo of Recollection to ignore that Argonaut death. This cannot be used to “save” an Argonaut from a Mnemos Breakthrough.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet",
+            " Divine Resources"
+        ]
+    },
+    {
+        "id": "II.2.4",
+        "name": "Diplomacy Score",
+        "rule": "Factions are represented by your Diplomacy Score and Diplomacy Modifier with that Faction, and many game elements will refer to those values.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet"
+        ]
+    },
+    {
+        "id": "II.2.4.3",
+        "name": "Diplomacy Track",
+        "rule": "The Diplomacy track on the Argo sheet is for noting your current standing with each Faction in the Cycle. Whenever you gain or lose Diplomacy with a Faction, mark the appropriate space on the corresponding track. The numbers in parentheses above the track sections denote the Diplomacy Modifier you should apply if you are within a given threshold. Whenever you test Diplomacy, modify your result by that value.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet"
+        ]
+    },
+    {
+        "id": "II.2.4.4",
+        "name": "Diplomacy Triggers",
+        "rule": "Various game elements will include Diplomacy triggers (I.2.5) that refer to your Diplomacy Threshold or Score with the Local Faction (VIII.1.5).",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet"
+        ]
+    },
+    {
+        "id": "II.2.4.5",
+        "name": "At War",
+        "rule": "If you ever reach the At War section of any Faction’s Diplomacy track, ignore Diplomacy gain and loss with that Faction.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Argo Sheet"
+        ]
+    },
+    {
+        "id": "II.3.1",
+        "name": "Events",
+        "rule": "Events are anything written on the Timeline.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Timeline"
+        ]
+    },
+    {
+        "id": "II.3.2",
+        "name": "Adding Events",
+        "rule": "When instructed to add an Event to the Timeline, note its name on the indicated day.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Timeline"
+        ]
+    },
+    {
+        "id": "II.3.3",
+        "name": "Types of Events",
+        "rule": "The type of Event determines when during a Campaign Round it is resolved.\nBattle Events. Battle events trigger during the Encounter Step.\nAdvancement Events. Advancement events trigger during the Advancement Step.\nStory Events. Story events trigger during the Story Step. \n",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Timeline"
+        ]
+    },
+    {
+        "id": "II.4.1",
+        "name": "Progress",
+        "rule": "For each Progress you gain, you must place 1 Progress token on your current Story card or the Inward Odyssey card (IX.2.4), if possible.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Progress and Doom",
+            " Antidoom"
+        ]
+    },
+    {
+        "id": "II.4.2",
+        "name": "Story Cards",
+        "rule": "Story cards are how you win Aeon Trespass: Odyssey. After completing a Cycle’s story introduction, you will gain Story card 1 on side A (Story Card 1A).\nMain story progression is resolved when you fulfill all requirements noted on your current Story card. This is frequently finding a specific map tile or placing a certain number of Progress tokens on it.\nWhen you meet the current Story card’s requirements, you will resolve its story progression during the Story Step (VIII.7). \nEvery Cycle has 4 Story cards. Completing Story card 4 (A or B) is the only way to win a Cycle.\n",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Progress and Doom",
+            " Antidoom"
+        ]
+    },
+    {
+        "id": "II.4.3",
+        "name": "Doom",
+        "rule": "For each Doom you gain, you must place 1 Doom token on your current Doom card.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Progress and Doom",
+            " Antidoom"
+        ]
+    },
+    {
+        "id": "II.4.3.1",
+        "name": "Unavoidable Doom",
+        "rule": "Unavoidable Doom is Doom that cannot be mitigated or lowered in any way.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Progress and Doom",
+            " Antidoom"
+        ]
+    },
+    {
+        "id": "II.4.4",
+        "name": "Doom Cards",
+        "rule": "Doom cards show the slowly unfolding plans of the villain (or villains) of the Cycle and how they come to fruition. After completing a Cycle’s story introduction, you will gain Doom card 1 on side A (Doom Card 1A).\nDoom progression is resolved only if you fulfill all the requirements noted on your current Doom card. This is always a certain number of Doom tokens.\nWhen you meet the current Doom card’s requirements, you will resolve its doom progression during the Doom Step (VIII.8).\nEvery Cycle has 3 Doom cards.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Progress and Doom",
+            " Antidoom"
+        ]
+    },
+    {
+        "id": "II.5.1",
+        "name": "Winning a cycle",
+        "rule": "You only win if a Story Paragraph explicitly says so. Completing Story card 4 (A or B) is the only way to win a Cycle.",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Campaign Win and Loss Conditions"
+        ]
+    },
+    {
+        "id": "II.5.2",
+        "name": "Losing a cycle",
+        "rule": "There are many ways to lose. When you reach one of the conditions listed below, the game will direct you to a story paragraph that informs you how to proceed. If you are not directed to a specific paragraph, instead see Campaign Loss in your current Storybook.\nResolving the final Doom card (3B) of the Cycle.\nCrew or Hull reaches 0\nGaining Argo Fate over 9.\nGetting to the end of the Timeline.\nInitiating a Battle with 0 Titans aboard the Argo.\nOther narrative-related events.\n",
+        "keywords": [
+            "Game Aspects",
+            " Campaign Basics",
+            " Campaign Win and Loss Conditions"
+        ]
+    },
+    {
+        "id": "III.0.1",
+        "name": "The Argonauts",
+        "rule": "There are always exactly 4 active Argonauts, no matter how many players take part in a campaign. If you play with a smaller group, distribute the Argonauts between players as desired.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts"
+        ]
+    },
+    {
+        "id": "III.0.4",
+        "name": "Least and Most Likely Argonaut.",
+        "rule": "The “least likely Argonaut” is the Argonaut with the least amount of Mnemos cards. In case of a tie, the one with the least amount of Mnemos nodes. If there’s still a tie, choose randomly from the tied players. Conversely, the “most likely Argonaut” (or the ‘strongest’ Argonaut) is the Argonaut with the most Mnemos cards and Mnemos nodes. If there’s a tie, choose randomly from the tied players.\n\"Fated Mnemos\" cards unintuitively do not count as \"Mnemos Cards\".",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts"
+        ]
+    },
+    {
+        "id": "III.1",
+        "name": "Argonaut Sheet",
+        "rule": "An Argonaut Sheet, just like the Argo Sheet, is used to track progress, but for a given Argonaut. Here, you will write an Argonaut’s name (from the Argonaut Portrait card or one devised by you) and keep track of the many aspects of the Argonaut that the sheet is tied to.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts"
+        ]
+    },
+    {
+        "id": "III.2.1",
+        "name": "Skills",
+        "rule": "Each Argonaut has six Skills: Courage, Cunning, Endurance, Fury, Will and Wisdom. They have no inherent meaning and are just used for Tests.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Argonaut Skills"
+        ]
+    },
+    {
+        "id": "III.2.2",
+        "name": "Skill Value",
+        "rule": "Whenever you need to know the value of a particular Skill for an Argonaut, look at their portrait, Mnemos cards, Fated Mnemos cards, and notes section of their Argonaut sheet and add up all of the values for that skill shown in those places (all positive values except for Fated Mnemoses). For convenience, you may write the just calculated value in the Skills section of the Argonaut sheet to skip this process in the future, but make sure to update the Argonaut sheet if any of that Argonaut’s Mnemos cards, Fated Mnemos cards, or notes change.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Argonaut Skills"
+        ]
+    },
+    {
+        "id": "III.2.3",
+        "name": "Skill Modifiers",
+        "rule": "Any Rolls made with a Skill have the value of that Skill added to it. (Skills can be negative.)",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Argonaut Skills"
+        ]
+    },
+    {
+        "id": "III.3.1",
+        "name": "Triskelion",
+        "rule": "The Triskelion is a triple dial that represents the union of Mortal, Divine, and Titan elements that make the junction between Argonauts and Titans possible, shown through the stats of Danger, Fate, and Rage, respectively.\nStats are shared between the Argonaut and the Titan they choose to take into Battle. \nAny Danger, Fate, or Rage gained in an adventure stays until instructed to lose it.\n",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Triskelion"
+        ]
+    },
+    {
+        "id": "III.3.3.1",
+        "name": "Danger",
+        "rule": "Danger is gained when you are attacked and also through suffering other negative effects. Many abilities and Gear cards become more powerful when you reach a certain Danger value.\nIf you gain Danger over 9 during a Battle, perform a Trauma Draw (VI.9.6), even if it wasn’t dealt during a Primordial Attack. \n",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Triskelion"
+        ]
+    },
+    {
+        "id": "III.3.3.2",
+        "name": "Fate",
+        "rule": "Fate is gained to re-roll your dice and to pay for many abilities. High Fate may enable additional negative effects from Primordial Attacks.\nIf you gain Fate over 9 during a Battle, immediately draw a Moiros card (X.7.12). Unless the Death by Fate Trait is in effect.\n",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Triskelion"
+        ]
+    },
+    {
+        "id": "III.3.3.3",
+        "name": "Rage",
+        "rule": "Rage is gained each time you attack, giving you access to additional abilities from your Kratos Table. \nIf you gain Rage over 9 during a Battle, your Titan dies at the end of its current action. If it is not in the middle of one of its own actions, it dies immediately.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Triskelion"
+        ]
+    },
+    {
+        "id": "III.3.4",
+        "name": "Over 9 Out of Battle",
+        "rule": "If any of your Triskelion stats goes over 9 outside of Battle, your Argonaut dies (III.4.2).",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Triskelion"
+        ]
+    },
+    {
+        "id": "III.4.1",
+        "name": "Leaving the Argo",
+        "rule": "A story effect may cause an Argonaut to leave the Argo (retire). When this happens, take a new Argonaut Sheet, draw a new Portrait card (or choose a Skill to apply a +1 bonus to) and draw a random Mnemos card from the Mnemos Vault.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Argonaut Retirement"
+        ]
+    },
+    {
+        "id": "III.4.2",
+        "name": "Argonaut Death",
+        "rule": "Your Argonaut dies only when explicitly stated.\nWhen an Argonaut dies, immediately consult the Rude Awakening Special Event of your current Cycle, it will instruct you on how to create a new Argonaut. \nNever discard or destroy the Argonaut Sheets of deceased Argonauts, as some events might reference them later.\n",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Argonaut Retirement"
+        ]
+    },
+    {
+        "id": "III.5.1",
+        "name": "Gaining Mnemoses",
+        "rule": "When you gain a Mnemos card, find the associated Mnemos card in the game box and write its title on your Argonaut Sheet. Then, write the paragraph number of the first Mnemos Breakthrough above the Breakthrough symbol on the corresponding Mnemos track.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Mnemos"
+        ]
+    },
+    {
+        "id": "III.5.2",
+        "name": "Mnemos Cards",
+        "rule": "On the back of a Mnemos card you will find a title and an illustration, as well as a cryptic note as to its nature. \nOn its front, the card shows the Cycle number, three Mnemos levels, each with a corresponding ability and a Breakthrough paragraph number, as well as Skill bonuses for your Argonaut and the Mnemos traits. \nYou gain access to the Level 1 ability as soon as you gain the Mnemos card, while the Level 2 and Level 3 abilities are unlocked only after resolving the first and second Mnemos Breakthroughs, respectively. \nThe Skill bonuses listed at the bottom of the card are applied onto your Argonaut Sheet upon gaining the Mnemos card. They are permanent, as long as you have the Mnemos card. \nThe 3 words at the top of a Mnemos card are its traits.\n",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Mnemos"
+        ]
+    },
+    {
+        "id": "III.5.3",
+        "name": "Mnemos Nodes",
+        "rule": "Mnemos nodes are like experience points for your individual Mnemos cards. Each Mnemos progress track goes from 0 to 10 nodes. A Mnemos Breakthrough is triggered whenever you reach 3, 7, or 10 Mnemos Nodes on a single Mnemos card. See also Gaining Mnemos Nodes (IX.2.2.4).",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Mnemos"
+        ]
+    },
+    {
+        "id": "III.5.4",
+        "name": "Mnemos Breakthrough",
+        "rule": "When a Mnemos card’s Breakthrough is triggered, during the Story Step, resolve the Mnemos adventure code (IX.2.5) (written above the Breakthrough symbol on the Mnemos progress track) and then unlock the next Mnemos Ability.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Mnemos"
+        ]
+    },
+    {
+        "id": "III.5.5",
+        "name": "Mnemos Card Limit",
+        "rule": "Each Argonaut can have a maximum of 2 Mnemos cards. If an argonaut is instructed to gain a Mnemos card and is already at their limit, the Mnemos card goes to another random Argonaut instead. If all Argonauts already have 2 Mnemos cards, the new Mnemos is instead added to the Mnemos Vault.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Mnemos"
+        ]
+    },
+    {
+        "id": "III.5.6",
+        "name": "Mnemos Vault",
+        "rule": "The Mnemos Vault is a deck that consists of all Mnemos cards you have unlocked during your campaign, which are not currently assigned to any Argonaut. Keep it separate from other Mnemos cards.\nWhen an Argonaut dies or leaves the Argo for any reason, return their unresolved Mnemos cards to the Vault.\n\n",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Mnemos"
+        ]
+    },
+    {
+        "id": "III.5.7",
+        "name": "Resolved Mnemoses",
+        "rule": "Once you resolve the last Breakthrough of a Mnemos card, it becomes resolved. This means that your Argonaut leaves the Argo or stays with a consequence. If they retire, this Mnemos does not return to the Mnemos Vault. Instead, Archive it.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Mnemos"
+        ]
+    },
+    {
+        "id": "III.5.7.1",
+        "name": "Katharsis",
+        "rule": "Any Mnemos resolution which tells you to mark a Choice Matrix node is called a Katharsis. When you choose a Katharsis, write the Matrix code in the Katharsis box on your Argonaut Sheet.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Mnemos"
+        ]
+    },
+    {
+        "id": "III.6.1",
+        "name": "Fated Mnemos",
+        "rule": "Fated Mnemos cards, though they have a similar namesake, are not considered Mnemos cards for the purposes of any effect.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Fated Mnemos"
+        ]
+    },
+    {
+        "id": "III.6.2",
+        "name": "Fated Mnemos Card Limit",
+        "rule": "Each Argonaut can have 2 Fated Mnemos cards at the same time. These do not count towards the limit of 2 Mnemos cards per Argonaut.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Fated Mnemos"
+        ]
+    },
+    {
+        "id": "III.6.3",
+        "name": "Gaining Fated Mnemoses",
+        "rule": "When you gain a Fated Mnemos, search the game box for all of the Fated Mnemos cards associated with the Cycle you are currently playing, shuffle them and draw a random card. Then, note it on your Argonaut Sheet similar to a regular Mnemos (III.5.1). Fated Mnemos cards are always gained black side up.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Fated Mnemos"
+        ]
+    },
+    {
+        "id": "III.6.5",
+        "name": "Resolving Fated Mnemoses",
+        "rule": "If all the nodes to the left of the first breakthrough symbol are marked, resolve it during the Story Step. This simply involves flipping the card over, writing the blue side (trauma growth) ability on your Argonaut Sheet, then returning the card to the box. (Fated Mnemoses do not have associated adventures.)",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Fated Mnemos"
+        ]
+    },
+    {
+        "id": "III.6.6",
+        "name": "Trauma Abilities",
+        "rule": "There is no limit to the amount of trauma growth abilities a single Argonaut can have. (You can even gain the same trauma growth ability more than once and their effects will stack.)",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Fated Mnemos"
+        ]
+    },
+    {
+        "id": "III.7.1",
+        "name": "Afflictions",
+        "rule": "Afflictions introduce additional effects that are similar to Conditions (X.7.11) but are tied to the Argonauts.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Afflictions and Boons"
+        ]
+    },
+    {
+        "id": "III.7.2",
+        "name": "Boons",
+        "rule": "Boons, though rarer, are the positive equivalent of Afflictions. These can come in the form of personal traits, equipment or allies. Note these on your Argonaut Sheets.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Afflictions and Boons"
+        ]
+    },
+    {
+        "id": "III.7.5.1",
+        "name": "Mazetouched",
+        "rule": "No inherent effects.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Afflictions and Boons"
+        ]
+    },
+    {
+        "id": "III.7.5.2",
+        "name": "Consumed by Rage",
+        "rule": "A Titan with the Consumed by Rage affliction must apply all Fate-gated Primordial effects, regardless of their Fate value.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Afflictions and Boons"
+        ]
+    },
+    {
+        "id": "III.7.5.3",
+        "name": "Black Breath",
+        "rule": "A Titan with the Black Breath affliction has -1 Ambrosia Limit (X.7.14.1).",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Afflictions and Boons"
+        ]
+    },
+    {
+        "id": "III.7.5.4",
+        "name": "Fractured",
+        "rule": "A Titan with the Fractured affliction must apply all Fate-gated Primordial effects, regardless of their Fate value. In addition, they cannot gain nodes for Fated Mnemoses.",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Afflictions and Boons"
+        ]
+    },
+    {
+        "id": "III.7.5.5",
+        "name": "Moirai Mistake",
+        "rule": "A Titan with the Moirai Mistake affliction has “Crit Miss: Immediately full miss the Attack.”",
+        "keywords": [
+            "Game Aspects",
+            " The Argonauts",
+            " Afflictions and Boons"
+        ]
+    },
+    {
+        "id": "IV.1.1",
+        "name": "Gaia-born",
+        "rule": "All Dreamwalker-class Titans may also be referred to as Gaia-born Titans.",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Titan Types"
+        ]
+    },
+    {
+        "id": "IV.1.2",
+        "name": "Argo-bred",
+        "rule": "All Titan classes besides Dreamwalker are collectively referred to as Argo-bred Titans.\nYou can have more than one Titan of a given Argo-bred class.\nYou cannot breed (VIII.6.7.1a) a Titan of a given Argo-bred class if you already have one, but you can still gain it from other sources, such as adventures or fusing (VIII.6.7.2a).\nYou can only take one Titan of a given Argo-bred class into Battle, regardless of the number of Titans of that class you have.",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Titan Types"
+        ]
+    },
+    {
+        "id": "IV.2",
+        "name": "Titan Sheet",
+        "rule": "Each Titan is represented by a large Titan Sheet that includes all the basic information about a given Titan class. Besides the Titan class name and illustration, it shows the Titan Power die, Speed value, inherent abilities, Trauma Table, and Kratos Table.",
+        "keywords": [
+            "Game Aspects",
+            " Titans"
+        ]
+    },
+    {
+        "id": "IV.3.1",
+        "name": "Titan Power",
+        "rule": "Power die you include in every Power Roll you perform. Some Titans have Keywords next to their Power die that apply to all of their Attacks.",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Titan Attributes"
+        ]
+    },
+    {
+        "id": "IV.3.2",
+        "name": "Titan Speed",
+        "rule": "A value used for determining the distance a Titan’s Movement Action can go (X.4.3).",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Titan Attributes"
+        ]
+    },
+    {
+        "id": "IV.3.3",
+        "name": "Ability Boxes",
+        "rule": "Abilities available to you while you are junctioned with this Titan.",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Titan Attributes"
+        ]
+    },
+    {
+        "id": "IV.4",
+        "name": "Trauma Table",
+        "rule": "The Trauma Table features the Titan’s Trauma thresholds (Minor, Major, Grave, and Obol), which are value ranges that correspond to your current severity level. When you are instructed to check your Trauma Table, compare your Danger value to the thresholds and see which one it falls within.",
+        "keywords": [
+            "Game Aspects",
+            " Titans"
+        ]
+    },
+    {
+        "id": "IV.5",
+        "name": "Kratos Table",
+        "rule": "The Kratos Table shows Rage levels and corresponding abilities and bonuses applied to every Attack that Titan performs.\nYou must apply the benefits of your current Rage level, as well as all preceding levels, on a Titan’s Kratos table during each of its Titan Attacks.\n",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Kratos Table"
+        ]
+    },
+    {
+        "id": "IV.5.2",
+        "name": "Kratos Table Abilities",
+        "rule": "Similar to constant abilities, Kratos Table abilities do not have a cost, but they are resolved differently. Most Kratos Table abilities modify the Titan’s Attack, by giving you access to either additional keywords or unique effects.\nMost Kratos Table levels give you a choice of two options. These are always exclusive: If you decide to apply one of these options, you cannot apply the other. Options may include more than one effect. Kratos Table symbols that are linked with a “+” symbol are both part of the same option.\nYou do not have to use any of your Kratos Table abilities until you reach the second ability window, at which point you must activate all applicable effects from your Kratos Table (1 option per level) that are still available.",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Kratos Table"
+        ]
+    },
+    {
+        "id": "IV.6.1",
+        "name": "Effects That Ask for Named Titans",
+        "rule": "Some effects may require you to note a Titan’s name somewhere (like the Timeline). In such a case, if the Titan is not named, you must immediately name it as part of resolving this effect.",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Named Titans"
+        ]
+    },
+    {
+        "id": "IV.6.2",
+        "name": "Pattern Cards",
+        "rule": "Patterns will override a Titan’s Trauma Table or Kratos Table and sometimes introduce new rules or abilities.\nWhenever a Titan is assigned a Pattern, they must get a name. \nA Titan can have more than one Pattern, but if both Patterns relate to the same game element, the newer one will override the older (and that card will be discarded).\nAt the start of Cycle I, Patterns are unique, one-of-a-kind things: a Titan is assigned a Pattern from a Story effect and it becomes its permanent feature (it cannot be removed). When a Titan with an assigned Pattern dies, that Pattern is archived. \nOnce you unlock the Gymnasion deck in Cycle II, gain Pattern cards you archived up until that point and put them in the deck.",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Named Titans"
+        ]
+    },
+    {
+        "id": "IV.6.2.5",
+        "name": "Spartan and Delphian Dreamwalker",
+        "rule": "Spartan and Delphian strain pattern cards are cycle-specific base modifiers to dreamwalker-class titans that are applied by default in their respective cycles. These patterns cannot be assigned otherwise and never go to the Gymnasion deck.",
+        "keywords": [
+            "Game Aspects",
+            " Titans",
+            " Named Titans"
+        ]
+    },
+    {
+        "id": "V.1.1",
+        "name": "Weapons",
+        "rule": "Weapons are any Gear cards that occupy Hand slots. Weapons can occupy one, two, or three Hand slots. Weapons are the only source of Offensive Gear Stats, though many also have Defensive Gear Stats.\nBy default, Titans have two Hand slots.",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "V.1.2",
+        "name": "Armor",
+        "rule": "Armor cards usually grant one or more Defensive Gear Stats.\nBy default, Titans have one Armor slot.",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "V.1.3",
+        "name": "Support",
+        "rule": "Support cards infrequently have Defensive or Offensive Gear Stats, but will give you access to unique abilities and effects.\nBy default, Titans have two Support slots. \n",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "V.1.4",
+        "name": "Attachments",
+        "rule": "Attachment cards must be attached to another game element (such as other Gear cards or the Titan Sheet). They may modify the game element they are attached to, apply additional effects, or give you access to completely new abilities. \nBy default, a Titan Sheet can have up to three Attachments and each other Gear card can have up to one. \nIf a game element is Exhausted, Discarded, or Lost, its attachments are as well.\n",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "V.2",
+        "name": "Gear Attributes",
+        "rule": "I don't think this is something that needs to be looked up on the regular. This is your bread and butter fot this game",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "V.2.2.5",
+        "name": "Sun Resistance X",
+        "rule": "Each Sun Attack hit deals X less Danger to you.",
+        "keywords": [
+            "Game Aspects",
+            " Gear",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "V.2.2.6",
+        "name": "Midas Resistance X",
+        "rule": "X additional Midas tokens may be placed on this card before it becomes aurified (see X.X.X midas tokens).",
+        "keywords": [
+            "Game Aspects",
+            " Gear",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "V.4.1",
+        "name": "Weapon Traits",
+        "rule": "Weapon traits include: Axe, Blade, Bow, Cestus, Club, Discus, Hammer, Javelin, Khopesh, Knife, Shield, Slabsword, Spear, Sword, Whip, Kusarigama, Lance, Scythe, Pistol, Lightningthrower, and Harpoon.\nIf a weapon has multiple weapon traits, when you declare it as an active weapon (X.5.1), choose one of its weapon traits and treat it as if it only had that weapon trait for the duration of that Titan Attack Sequence.\nTreat weapon cards with no weapon traits as having the Other weapon trait.",
+        "keywords": [
+            "Game Aspects",
+            " Gear",
+            " Traits"
+        ]
+    },
+    {
+        "id": "V.5",
+        "name": "Fists",
+        "rule": "If, at any point of the Battle, a Titan loses their weapon card(s), they may immediately equip a Fists card and use it as a One- or Two-Handed weapon (abiding by Slot limitations). For all intents and purposes, Fists are treated as any other Gear card.\nEach Titan can use a single Fists card. If a Titan has a Fists card and loses it, they cannot equip another one that Battle.\nIf, at any point of the Battle, a Titan gains a weapon card that uses up their hand slot(s) occupied by Fists, you must set the Fists card aside. It is then no longer equipped on the Titan. \n",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "V.6.1",
+        "name": "Exhausted Gear",
+        "rule": "Exhausted Gear cannot be used as an active weapon (X.5.1), used for its defensive statistics (V.2.2), nor can its active abilities be used.",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "V.6.2",
+        "name": "Exhaustible Gear",
+        "rule": "Some game effects refer to Exhaustible Gear. Exhaustible Gear includes all Gear cards with the Cumbersome keyword or with active abilities that include Exhausting in their cost.",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "V.6.3",
+        "name": "Gear Backside",
+        "rule": "The back of Gear cards includes information about which Cycle the Gear card belongs to, the Technology card that allows you to craft the Gear, as well as some flavor text. Some Gear cards may also include additional rules there and other Gear cards are double-sided, with different names on either side.",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "V.7.1",
+        "name": "Ascendancy",
+        "rule": "When you use a Gear card with a Power Level that is lower than the number of the current Cycle, that Gear card suffers all of the following penalties:\nIf the Gear card is a weapon, it cannot utilize nor place any Kratos tokens.\nThe Gear card cannot benefit from Power Reroll X.\nIncrease the Fate cost of all abilities on the Gear card by 1 (or 2 in Cycle 3). (If there is no Fate cost initially, this does not add one.)\nIf the Gear card is Armor or a Shield, during Armor rolls, ignore 1 rolled Potential.\nThe Gear card has -1 to its listed Evasion Rerolls.\nThe Gear card has -1 to its listed Evasion Bonus.",
+        "keywords": [
+            "Game Aspects",
+            " Gear"
+        ]
+    },
+    {
+        "id": "VI.0.1.1",
+        "name": "Regular Primordials",
+        "rule": "There are usually two regular Primordials in each Cycle, as noted on the Evolution Track on the Argo Sheet. You can expect to face these at regular intervals (VIII.5.2). As the campaign progresses, they will evolve and become more powerful (VI.2.2).",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.0.1.2",
+        "name": "Adversary",
+        "rule": "Adversaries are special Primordials that hunt you on the Voyage Map (see VI.13 for more).",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.0.1.3",
+        "name": "Boss Primordial",
+        "rule": "Boss Battles may be triggered from various Story and Doom adventures. Each Cycle leads to a final showdown with the boss Primordial.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.0.2",
+        "name": "Primordial Facing",
+        "rule": "Every Primordial miniature has a front, which is the direction it is facing. Which side of the Primordial is the front is up to you, it’s just important to stick with whatever choice you make. ",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.0.2.1",
+        "name": "In Front",
+        "rule": "To find out if a game element is in front of the Primordial, draw an imaginary line passing along the edges of the spaces occupied by the Primordial miniature’s front. All spaces beyond this line in the direction the Primordial is facing are considered to be in front. Adjacency is not required to be considered in front.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.0.2.2",
+        "name": "In Rear",
+        "rule": "Rear designates only the spaces adjacent to the Primordial which are on the opposite side of the model from the front. These are marked with the Rear space symbol on the Primordial diagram.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.1.2.1",
+        "name": "Primordial Levels",
+        "rule": "Primordials have a Level which is most often tied to its Evolution or Battle Track during campaign play, and to the Tree of Knowledge for the Mnestis Theatre. A Primordial’s Level determines its Attribute values and any Traits it may have.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.1.2.2",
+        "name": "Level Boxes",
+        "rule": "Each Primordial sheet has a list of 9 Level Boxes. A Level Box holds all the information regarding a particular Primordial Level, which includes the Level numeral, Main Attributes Bonuses, a list of added or removed Traits, and, sometimes, a definition of a newly introduced Trait.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.1.2.3",
+        "name": "Level Attribute Bonuses",
+        "rule": "The following is a list of Attribute Bonuses from Level Boxes. These do not stack with previous bonuses.\nAT bonus. Increase the AT of each BP card by this value.\nDanger bonus. Increase the Danger dealt by each Primordial Attack Sequence (or each hit, if stated as such) by this value. Only increase the Danger of hits that already deal Danger.\nEvasion dice bonus. Increase the number of Evasion dice that need to be rolled for each Primordial Attack Sequence by this value.\nEscalations. At the start of Battle, Escalate the Primordial a number of times equal to this value.\nDanger/Fate Bonus. Increase the Fate dealt by each Primordial Attack Sequence (or each hit, if stated as such) by this value. If the Attack Sequence does not deal Fate, increase the Danger instead. Only increase the Danger/Fate of hits that already deal Danger/Fate (respectively).\n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.1.2.4",
+        "name": "Evolution and Battle Tracks",
+        "rule": "Most Battles will tell you to either mark one Evolution box or one Battle box on the respective Primordial’s track. The numeral in the box you mark is the Level used for that Primordial fight. (Adversaries and Bosses have no numbers because they are always considered Level 1.)",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.3.1.1",
+        "name": "Unavoidable Knockback",
+        "rule": "Resolved the same as Knockback X (A.48), but it cannot be avoided or modified in any way. When a Titan suffers Unavoidable Knockback, they receive it in a direction that makes them go immediately away from the Primordial, without going through it. If there are 2 or more equally viable directions, you may choose which to receive. This is triggered every time a Primordial ends its movement on a Titan (VI.8.4). The amount of Knockback is listed on the Primordial sheet.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Primordial Trait"
+        ]
+    },
+    {
+        "id": "VI.3.1.2",
+        "name": "Blindspot",
+        "rule": "Blindspots are spaces the Primordial cannot see, shown on the Primordial Diagram. Titans in Blindspots are excluded from targeting, unless the targeting specifically mentions Blindspots. Titans in the Blindspot gain +1 Precision.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Primordial Trait"
+        ]
+    },
+    {
+        "id": "VI.3.1.3",
+        "name": "Weakspots",
+        "rule": "Weakspots don’t have any inherent effects of their own, but other effects may cause them to gain effects.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Primordial Trait"
+        ]
+    },
+    {
+        "id": "VI.3.1.4",
+        "name": "Lumbering",
+        "rule": "A Primordial with Lumbering cannot suffer Pushback or Knockback.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Primordial Trait"
+        ]
+    },
+    {
+        "id": "VI.5",
+        "name": "Signature and Routine",
+        "rule": "You should already know what these are about.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.6",
+        "name": "AI Cards",
+        "rule": "You should already know what these are about.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.6.2",
+        "name": "Window of Opportunity",
+        "rule": "AI Cards, as well as BP, Signature, Routine, and any other Primordial game elements, may have the Window of Opportunity symbol on them in front of any effect. These are a time frame in which any number of Titan Reactions can be used. During a single window of opportunity, each Titan may use any number of Reaction abilities in any order. All Reactions must happen before the effect on the game element with the symbol.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials"
+        ]
+    },
+    {
+        "id": "VI.7.1",
+        "name": "Resolving an Attack",
+        "rule": "To resolve a Primordial Attack, perform the following steps in order.\nStep 1: Targeting. Read the lines in the “targeting” area of the card one by one from top to bottom until you find the first one that you can resolve (VI.7.2). Once you find one that can be resolved, resolve it and do not check further targeting lines. \nIf no target line can be resolved and the card is an AI card, discard the card (Skip all remaining steps of VI.7.1) and the Primordial performs its Routine. \nWhatever game element is selected becomes a Target. A Titan that becomes a Target in the Targeting step remains the Target until the end of this Attack.\nStep 3: Primordial Attack. Resolve a Primordial Attack Action (VI.9) or a Primordial Judge Action (VI.10), whichever is instructed.\nStep 4: After Attack. Resolve After Attack effects, if any (VI.7.3). \n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.7.2.2",
+        "name": "Priority Target",
+        "rule": "The Titan with the Priority Target token (X.1.12) is considered to be the Priority Target and is a tiebreaker for Targeting. If two or more Titans are ever equally viable Targets (fulfill all instructions of the same targeting line) but one of them is the Priority Target, the Priority Target becomes the Target.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.7.3.3",
+        "name": "After Attack",
+        "rule": "Always resolve the After Attack effects unless the Target performed a Chain Break or died (X.7.3).\nAfter Attack instructions are resolved against each Target.\nIf a Primordial Attack includes an After Final Attack instruction, the After Final Attack instead only takes effect after resolving all Attack Sequences queued by that Attack. \n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.1",
+        "name": "Primordial Movement",
+        "rule": "Always Move the Primordial along the shortest possible path to the Target of the AI card.\nIf the Primordial is not in a straight line from its Target, Move it in such a way that it zig-zags until it is in a straight line from the Target, then continue the Move.\nAlways move the Primordial one space at a time to resolve any triggered effects.\nAt the beginning of a move, the Primordial always turns to face the Target first.\nPrimordial movement is not hindered by any other game element.\nThe Primordial stops its Move when in range (for Ranged Attack Actions), when adjacent (for any other Attack Actions), or when it has moved a number of spaces equal to its Speed.\n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.2",
+        "name": "Primordial move onto Destructible Terrain",
+        "rule": "When a Primordial moves onto a space containing a Destructible Terrain tile, that tile is Destroyed and removed from the board.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.3",
+        "name": "Primordial move through Titan spaces",
+        "rule": "When a Primordial moves through a space containing a Titan, that Titan suffers Crash.\n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.4",
+        "name": "Primordial steps on Titan spaces",
+        "rule": "When a Primordial ends movement on a space containing a Titan, that Titan suffers Crash and Unavoidable Knockback (VI.3.1.1).",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.5.1",
+        "name": "Appear Behind",
+        "rule": "Jump, but the Primordial has Unlimited Speed and moves to the furthest space adjacent to the Target.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.5.2",
+        "name": "Appear in Front",
+        "rule": "Jump, but the Primordial has Unlimited Speed and moves to the closest space adjacent to the Target.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.5.3",
+        "name": "Primordial Jump",
+        "rule": "Move as normal, but ignore Crash for passed Titans (VI.8.3).",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.5.4",
+        "name": "Land on Top",
+        "rule": "Jump, but the Primordial has Unlimited Speed and moves to the closest space occupied by the Target. The Target (only) is Displaced and does not suffer Crash.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.5.5",
+        "name": "Move Lateral",
+        "rule": "Check the four cardinal directions from the Primordial for the shortest straight line that would end with the Target(s) of the Attack Action in a straight line from the Primordial. Move the Primordial that way.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.5.6",
+        "name": "Move to LOCATION",
+        "rule": "The Primordial has Unlimited Speed for this movement, and moves to LOCATION instead of towards the Target(s)",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.8.5.7",
+        "name": "Move X",
+        "rule": "Move as normal, but use X instead of the Primordial’s Speed value.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.1",
+        "name": "Primordial Attack Action",
+        "rule": "Step 1: Move. If there is a Move instruction, resolve a Primordial Move Action.\nStep 2: Check Range. Check if the Target(s) are in range of the Attack Action (adjacent by default). If they are not, stop resolving the Attack Action. (Proceed to After Attack.)\nOut of Reach (OoR) Evade. If a Target was in range before Step 1 but no longer is due to a Titan’s Reaction, that Reaction is referred to as an Out of Reach Evade (or OoR for short).\nStep 3: Initiate Attack Sequences. Queue (X.7.22) an Attack Sequence against each Target. Queue all Attack Sequences from a single Attack as a Set (X.7.22.1a). \n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.2",
+        "name": "Primordial Attack Sequence",
+        "rule": "Step 1: Turn. Turn the Primordial towards its Target, unless the Target is a Zone.\nStep 2: Evasion Roll. In the upper right corner of the card that triggered this Attack Sequence, there is a number of Evasion dice and an Evasion Roll difficulty number. The Target rolls the specified number of dice. \nIf the Target has any Evasion rerolls (or wants to reroll with Fate), they may use them before counting hits.\nStep 3: Count Hits. Add any Evasion bonus the Target may have to each Evasion die rolled, then the Target receives a number of hits equal to the number of die results that didn’t meet or beat the Evasion roll difficulty.\nStep 4: Attack Consequences & Effects. If a Titan is left with at least one hit, it must resolve all effects of the Attack Action.\n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.2.2.a",
+        "name": "Crit Evade",
+        "rule": "If a Titan rolls a natural ‘10’ with the Crit Die (I.4.1.1) on the Evasion Roll, they resolve all “Crit Evade:” effects.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.2.2.c",
+        "name": "Crit Evade Fail",
+        "rule": "For each time a Titan rolls a natural ‘1’ on the Evasion Roll, they resolve all “Crit Evade Fail:” effects.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.2.3.a",
+        "name": "Full Evade",
+        "rule": "If there are zero hits, it is a Full Evade. Trigger all “Full Evade:” abilities and skip Step 4 of this Attack Sequence.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.3",
+        "name": "Gain Danger From Attacks",
+        "rule": "When instructed to gain Danger from an Attack, you must first immediately perform an Armor Roll if you have any non-exhausted cards with Armor dice. Afterwards, gain Danger equal to value dealt minus the number of Potentials rolled in the Armor Roll. If a Titan gains at least 1 Danger this way, it immediately performs a Trauma Draw (VI.9.6).",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.3.1",
+        "name": "Armor Roll",
+        "rule": "To perform an Armor Roll, roll a pool of Power dice equal to the total of all Armor dice on all of your equipped cards (Remember, if you use a weapon to defend, you cannot use other equipped weapons during the same Attack).",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.3.2",
+        "name": "Massive Danger",
+        "rule": "When you would gain Danger that would put you over 9, raise Danger to 9 and treat the following Trauma Draw as if it was increased to the actual value you would've been at. If your Danger temporarily goes up to at least 14, 18, or 21 this way, add the respective Obol cards to the Obol deck immediately. Cards added to the Obol deck as a result of Massive Danger remain there until the end of Battle.\nDanger 14+. Add the “You died horribly” card to the Obol deck. \nDanger 18+. Also add the “Your gruesome death becomes legend” card to the Obol deck. \nDanger 21+. Also add the “Your death transcends reality” card to the Obol deck.\n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Trauma"
+        ]
+    },
+    {
+        "id": "VI.9.4.1",
+        "name": "Raising a Trauma Level",
+        "rule": "When instructed to raise your Trauma Level by X, gain enough Danger to be in the next Trauma Threshold (as noted by your Trauma Table) and repeat X times. Treat the Massive Danger levels as higher Trauma Thresholds as necessary. If an Attack instructed you to do this, perform a Trauma Draw.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Trauma"
+        ]
+    },
+    {
+        "id": "VI.9.5",
+        "name": "Trauma Cards",
+        "rule": "There are four severity levels of Trauma cards: Minor, Major, Grave, and Obol, the same as the thresholds found in your Trauma Table. \nWhen you discard a Trauma card, place it at the bottom of its corresponding deck. \nAll Trauma cards are either positive or negative, as denoted by the +/- sign in the bottom right corner of the card. You Live! Obols are positive traumas, and You Died. Obols are negative.\n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Trauma"
+        ]
+    },
+    {
+        "id": "VI.9.6.1",
+        "name": "Obols (and Obol Draw)",
+        "rule": "To Perform an Obol Draw, shuffle the Obol deck and draw the top card. Resolved and discarded Obols are always shuffled back into the Obol deck rather than being placed on the bottom. (An Obol Draw is still a Trauma Draw.)",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Trauma"
+        ]
+    },
+    {
+        "id": "VI.9.6.2",
+        "name": "Simultaneous Obol Draws",
+        "rule": "If you are ever forced to perform two or more Obol Draws at the same time, you die instead. (Consecutive effects are not simultaneous.)",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Trauma"
+        ]
+    },
+    {
+        "id": "VI.9.6.3",
+        "name": "Surviving a Trauma Draw",
+        "rule": "A Titan “survives” a Trauma draw if they did not draw a Trauma card that instructed them to die.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Trauma"
+        ]
+    },
+    {
+        "id": "VI.9.7.1",
+        "name": "Laser Attack",
+        "rule": "To perform a Laser Attack, draw a line between the Primordial and the Target. If this line crosses over a Titan or Obstacle Terrain tile that is adjacent to the Target, that Titan/Terrain tile immediately becomes the Target. If a Terrain tile becomes the Target this way, it is destroyed and the rest of the Attack Action is skipped.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.7.1.a",
+        "name": "Double/Triple Laser Attack",
+        "rule": "Resolved as a Simultaneous Attack consisting of one Laser Attack originating from every front space. If any of these Lasers does not connect with a Target, the first crossed Obstacle Terrain becomes a Target.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.7.1.b",
+        "name": "Sideways Laser Attack",
+        "rule": "When a Laser Attack instructs you to “continue sideways”, then, after hitting a Black Ice Terrain tile, resolve additional Laser Attacks (as Double/Triple Laser Attack) from the two sides of the tile orthogonal to the side hit. This Attack does not destroy Black Ice tiles.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.7.1.c",
+        "name": "Omnilaser Attack",
+        "rule": "Resolved as a Double/Triple Laser Attack, but the Lasers originate from every side of the Primordial.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.7.1.d",
+        "name": "Timefront Laser Attack",
+        "rule": "Resolve a Laser Attack originating from every Timefront space.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.7.2",
+        "name": "Range Attack X",
+        "rule": "Ranged Attacks can be performed against a Titan as long as it is within X spaces of the Primordial, instead of requiring adjacency.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.7.3",
+        "name": "Sequential Attack",
+        "rule": "Sequential Attacks are performed against multiple Targets instead of one. Each Attack only gets queued if the previous one wasn’t ended by a Chain Break (X.7.6). Primordial Movement during this Attack does not cause crash. ",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.7.4",
+        "name": "Simultaneous Attack",
+        "rule": "Simultaneous Attacks are performed against multiple Targets instead of one. Queue Attacks as a set (X.7.22).",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.7.5",
+        "name": "Sun Attack",
+        "rule": "Target every space that is not shaded.\nShaded: Every space adjacent to a non-shaded Titan, Obstacle Terrain tile, or Obscuring Terrain tile that is opposite the Sun Edge is shaded.\nSun Edge: The Sun Edge is the Board Edge opposite the Primordial’s Front.\n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.9.7.6",
+        "name": "Zone Attack",
+        "rule": "Zone Attacks are performed against a set of spaces instead of Titans; Queue (as a set) Attack Sequences against each Titan in the Zone.\nZone X: Performed against all spaces within X spaces of the source of the Attack, including diagonally.\nDiagram Zones: Performed against the specific spaces shown on the diagram. ",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.10.2",
+        "name": "Judge Test",
+        "rule": "A Judge Test is considered a Solo Argonaut Test (IX.1.6.2a) for all purposes. To resolve a Judge Test, perform an Argonaut Test. In the upper right corner of the card that Triggered the Judge Action, there is a number of dice and the Test difficulty. The Target rolls the specified number of dice instead of just one. Each Fail is instead considered a Hit.\n If the Target is left with at least one hit, they must trigger all effects of the Judge Action. If these include Danger, resolve Danger from Attacks (VI.9.3) as normal, but skip the Armor Roll step.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.11",
+        "name": "BP Cards",
+        "rule": "You know 'em, you love 'em",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Combat"
+        ]
+    },
+    {
+        "id": "VI.12.1",
+        "name": "Creating VPs",
+        "rule": " Until instructed to “create a VP” from an effect, the VP is ignored.\nWhen a Primordial VP is created, remove the interchangeable part of the Primordial miniature and switch it with the Vantage Point part. Alternatively, if you don’t want to switch the parts, you can use the VP space marked on the Primordial Sheet instead. (Not all VPs have interchangeable parts.)\nIf a Primordial has no associated VP description, you cannot create VPs on it by any means.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Vantage Points"
+        ]
+    },
+    {
+        "id": "VI.12.2",
+        "name": "Climbing a VP",
+        "rule": "A Titan adjacent to a Primordial with a VP may perform a Climb test as a free action (X.7.20). If you succeed, place your Titan on the VP space. Only one Titan can occupy a single VP at a given time.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Vantage Points"
+        ]
+    },
+    {
+        "id": "VI.12.3",
+        "name": "Falling down from a VP",
+        "rule": "At the end of the Primordial Round, most VPs force you to perform a Hold on test (X.7.20) to find out if you fall down. The particular effects of falling from a VP are explained on the Primordial Sheet.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Vantage Points"
+        ]
+    },
+    {
+        "id": "VI.12.4",
+        "name": "Movement and VPs",
+        "rule": "A Titan may move from a Primordial VP space to a space adjacent to the Primordial using a Movement Action, or any move-like ability, as if they were adjacent spaces. If a Titan suffers Knockdown or involuntary movement while on a VP space, they must first be Displaced to a space adjacent to the Primordial. ",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Vantage Points"
+        ]
+    },
+    {
+        "id": "VI.12.6",
+        "name": "VPs, Adjacency, and Range",
+        "rule": "Titans on VPs are considered adjacent and in range 1 to the Primordial and all Titans adjacent to this Primordial. They measure range to other Titans and game elements from the space occupied by the Primordial that is closest to that Titan or game element. Other Titans adjacent to the Primordial are not considered to be adjacent to Titans on VPs.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Vantage Points"
+        ]
+    },
+    {
+        "id": "VI.13.1",
+        "name": "Introducing an Adversary",
+        "rule": "The Storybooks will instruct you on when to introduce an Adversary into your campaign. When an Adversary is introduced into a campaign, write its name on the Adversary Track. ",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Adversary"
+        ]
+    },
+    {
+        "id": "VI.13.3",
+        "name": "Activating the Adversary",
+        "rule": "Whenever you are instructed to resolve an Adversary symbol, resolve one of the following, checking each in order (if you resolve one of them, skip checking the rest).\nIf the Adversary is already present on the Map, move it (VI.13.6)\nIf the Adversary is not on the Map and one symbol is drawn during the Exploration Step (only), nothing happens.\nIf the Adversary is not on the Map, and you either drew two symbols during this Exploration Step or triggered one symbol during any other Step, spawn the Adversary: Place the small miniature of the current Adversary four tiles away from the Argo. If you can’t place it four tiles away, place it as far away as possible.\nIf you spawned the Adversary during the Exploration Step, ignore all other Adversary Activation symbols until the end of the Exploration Step.\n",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Adversary"
+        ]
+    },
+    {
+        "id": "VI.13.5",
+        "name": "Adversary Battles",
+        "rule": "When told to resolve an Adversary battle, go to the corresponding Battle Scenario in the Storybook. Adversaries are not tied to a single Cycle and you may need to refer to other Cycles’ Storybooks.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Adversary"
+        ]
+    },
+    {
+        "id": "VI.13.5.2",
+        "name": "Argo Move Onto Adversary",
+        "rule": "An Adversary Battle is only triggered from Adversary movement (never Argo movement).",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Adversary"
+        ]
+    },
+    {
+        "id": "VI.13.6",
+        "name": "Adversary Movement Rules\n",
+        "rule": "The Adversary always moves one tile towards the Argo along the shortest available path. \nIf Adversary movement causes it to end on the same Map tile as the Argo, remove its miniature from the map and trigger an Adversary Battle. If the Adversary is already on the same tile as the Argo during an activation, it does not move but you still trigger the Adversary Battle.\nThe Adversary moves one tile per symbol.\nThe Adversary can only move through revealed tiles.\nThe Adversary can move onto any adjacent Map tile, even if it is not connected by a directional arrow. It ignores tile sectors and all Map symbols.\nIf there is more than one equally viable path, the Adversary prioritizes horizontal movement as long as it brings it closer to the Argo. “Closer”, in this case, means along the shortest possible path of revealed map tiles (do not count distance of facedown/unplaced tiles). \n In Cycle 2, instead, prioritize vertical movement.",
+        "keywords": [
+            "Game Aspects",
+            " Primordials",
+            " Adversary"
+        ]
+    },
+    {
         "id": "VII.1",
         "name": "Gameplay Flow",
         "rule": "This game is played over many sessions. During a game session, you will likely play a few Campaign Rounds. Each Campaign Round is made up of a series of Steps. Each of these Steps incorporates one or more of the game’s Phases: Voyage Phase, Adventure Phase, or Battle Phase. ",
@@ -482,6 +2288,166 @@
             "Game Phases",
             " Campaign Round",
             " Movement Step"
+        ]
+    },
+    {
+        "id": "X.8.9.1",
+        "name": "Ambrosia (Terrain Trait)",
+        "rule": "When a Titan ends its movement on this tile (voluntarily or not), it gains 1 Ambrosia token. If a Titan starts its turn on this tile and doesn’t move until the end of this turn, it gains 1 Ambrosia token. If a Titan moves through this tile but does not end its movement on it, test (6+). If you fail, gain 1 Ambrosia token.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.2",
+        "name": "Board Edge",
+        "rule": "This tile counts as a Board Edge (X.1.6).",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.3",
+        "name": "Boundless",
+        "rule": "You cannot voluntarily move onto this tile. If you would be forced to move onto or beyond this tile or Board Edge, you die.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.4",
+        "name": "Chasm",
+        "rule": "Titans cannot voluntarily move through Chasm spaces. If a Titan ends involuntary movement on a Chasm space, it dies. If it is pushed back or pulled through a Chasm space, it dies. If a Chasm tile is placed under a Titan, it dies.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.5",
+        "name": "Cover",
+        "rule": "Titans on this tile have +1 Evasion .",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.6",
+        "name": "Destructible",
+        "rule": "When the Primordial moves onto this tile or a Titan is involuntarily moved onto it, the tile is destroyed. ",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.6.1",
+        "name": "Reinforced Destructible",
+        "rule": "When this tile would be destroyed, instead flip it and the corresponding terrain card over. It then becomes Destructible.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.7",
+        "name": "Elevated",
+        "rule": "No inherent effect.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.8",
+        "name": "Exposed",
+        "rule": "If the Primordial is on this tile, it has -1 To-Hit.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.9",
+        "name": "Indestructible",
+        "rule": "This Terrain tile cannot be destroyed in any way. It invalidates Terrain placement on top of it.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.10",
+        "name": "Inhabited",
+        "rule": "Apply any bonuses and penalties listed on the Terrain card based on your Diplomacy Score with the Local Faction. If this Terrain tile is destroyed, lose 1 Diplomacy with the Local Faction.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.11",
+        "name": "Obscuring",
+        "rule": "This tile blocks Line of Sight except to or from Targets standing on any of its spaces.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.12",
+        "name": "Obstacle",
+        "rule": "Titans cannot move through this tile.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.13",
+        "name": "Slippery",
+        "rule": "When a Titan voluntarily moves onto this tile, it must continue to move in the same cardinal direction for the rest of the movement as long as it is on this tile or until it cannot move further. If a Titan moved diagonally onto this tile, it must continue in a cardinal direction instead.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.14",
+        "name": "Trap",
+        "rule": "This tile has special interactions with the Primordial, listed on the Terrain card.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
+        ]
+    },
+    {
+        "id": "X.8.9.15",
+        "name": "Treasure",
+        "rule": "This tile has special interactions with Titans, listed on the Terrain card.",
+        "keywords": [
+            "Game Phases",
+            " Terrain",
+            " Keywords"
         ]
     },
     {
@@ -1901,6 +3867,26 @@
             "Appendix",
             " Keyword List",
             " Cycle 3"
+        ]
+    },
+    {
+        "id": "C.4.1",
+        "name": "Persian Dreamwalkers",
+        "rule": "All Dreamwalker-class Titans acquired in Cycle 4 (even from campaign setup) come with the Persian Dreamwalker strain Pattern card.",
+        "keywords": [
+            "Appendix",
+            " Keyword List",
+            " Cycle 4"
+        ]
+    },
+    {
+        "id": "C.5.1",
+        "name": "Cycladian Dreamwalkers",
+        "rule": "All Dreamwalker-class Titans acquired in Cycle 5 (even from campaign setup) come with the Cycladian Dreamwalker strain Pattern card.",
+        "keywords": [
+            "Appendix",
+            " Keyword List",
+            " Cycle 5"
         ]
     }
 ]
