@@ -23,7 +23,7 @@ public class Prompt {
                 "i dunno",
                 15946573,
                 "Thread id und so",
-                "complete",
+                "completed",
                 "should be object",
                 12456487,
                 null,
