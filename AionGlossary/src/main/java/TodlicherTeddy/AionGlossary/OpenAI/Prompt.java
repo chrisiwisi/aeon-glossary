@@ -28,7 +28,7 @@ public class Prompt {
                 12456487,
                 null,
                 "user",
-                new String[]{"this is another object?", "second object"},
+                new String[]{"this is a response object?", "second response object"},
                 "assistant id",
                 "run id",
                 new String[]{"attachment object[]", "second attachment object[]"},
