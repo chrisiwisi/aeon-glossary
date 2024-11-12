@@ -2,12 +2,22 @@ package TodlicherTeddy.AionGlossary.OpenAI;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class Prompt {
-    private final String promptText;
     @Value( "${aion.openai.thread-id}" )
     private String threadId;
+    private final OpenAiService openAiService;
+
+    public Prompt addMessage(String message) {
+        openAiService.addPrompt(message);
+        return this;
+    }
 
     public Prompt run() {
         return this;

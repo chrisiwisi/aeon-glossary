@@ -1,6 +1,5 @@
 package TodlicherTeddy.AionGlossary;
 
-import TodlicherTeddy.AionGlossary.OpenAI.MessageService;
 import TodlicherTeddy.AionGlossary.OpenAI.OpenAiInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -14,11 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class Config implements WebMvcConfigurer {
     private final OpenAiInterceptor openAiInterceptor;
-
-    @Bean
-    MessageService messageService() {
-        return new MessageService();
-    }
 
     @Bean
     RestTemplate restTemplate(RestTemplateBuilder builder) {

@@ -1,5 +1,8 @@
 package TodlicherTeddy.AionGlossary.OpenAI;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record Message(
         String id,
         String object,

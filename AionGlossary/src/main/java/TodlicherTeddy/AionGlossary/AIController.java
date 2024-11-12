@@ -20,6 +20,6 @@ public class AIController {
     @GetMapping("/messages") //TODO maybe return no internal ids?
     ResponseEntity<Message> completion(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
         log.trace("A new rules question was asked: {}", message);
-        return ResponseEntity.ok(messageService.prompt(message).run().poll().latestResponse());
+        return ResponseEntity.ok(messageService.prompt(message));
     }
 }

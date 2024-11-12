@@ -1,11 +1,17 @@
 package TodlicherTeddy.AionGlossary.OpenAI;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MessageService {
+@RequiredArgsConstructor
+public class MessageService  {
+    private final ApplicationContext context;
 
-    public Prompt prompt(String message) {
-        return new Prompt(message);
+    public Message prompt(String message) {
+        Prompt prompt = context.getBean(Prompt.class);
+        return prompt.addMessage(message).run().poll().latestResponse();
     }
 }

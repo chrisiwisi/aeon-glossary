@@ -62,7 +62,7 @@ public class OpenAITests extends BaseTestCase {
                         .body("WRITE MOCK JSON HERE"));
         //TODO mock the other requests
 
-        Message response = this.messageService.prompt("What is a pygmalion Stone?").run().poll().latestResponse();
+        Message response = this.messageService.prompt("What is a pygmalion Stone?");
 
         assertThat(response.status(), is("completed"));
         assertThat(response.content().length, is(1));
