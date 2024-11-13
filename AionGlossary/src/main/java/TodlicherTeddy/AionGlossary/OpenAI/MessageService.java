@@ -1,5 +1,6 @@
 package TodlicherTeddy.AionGlossary.OpenAI;
 
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.FullThread;
 import TodlicherTeddy.AionGlossary.OpenAI.DTOs.Message;
 import lombok.RequiredArgsConstructor;
 
@@ -15,4 +16,9 @@ public class MessageService  {
         Prompt prompt = context.getBean(Prompt.class);
         return prompt.addMessage(message).run().poll().latestResponse();
     }
+
+    public FullThread getFullThread() {
+        return context.getBean(Prompt.class).getFullThread();
+    }
+
 }
