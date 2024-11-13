@@ -18,12 +18,23 @@ public class OpenAiService {
     private String baseUri;
     @Value("${aion.openai.thread-id}")
     private String threadID;
+    @Value("${aion.openai.thread-id}")
+    private String assistantID;
 
     public MessageResponse addPrompt(String message) {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("role", "user");
-        parameters.put("content", message);
-        log.info("{}/threads/{}/messages", this.baseUri, this.threadID);
-        return restTemplate.postForObject(this.baseUri + "/threads/" + this.threadID + "/messages", parameters, MessageResponse.class);
+        log.info("Adding prompt [{}]", message);
+        Map<String, String> body = new HashMap<>();
+        body.put("role", "user");
+        body.put("content", message);
+        return restTemplate.postForObject(this.baseUri + "/threads/" + this.threadID + "/messages", body, MessageResponse.class);
     }
+
+    public RunResponse run() {
+        log.info("Starting run for assistant [{}]", assistantID);
+        Map<String, String> body = new HashMap<>();
+        body.put("assistant_id", assistantID);
+        return restTemplate.postForObject(this.baseUri + "/threads/" + this.threadID + "/runs", body, RunResponse.class);
+    }
+
+
 }
