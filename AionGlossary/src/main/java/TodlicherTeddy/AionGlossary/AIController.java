@@ -1,6 +1,6 @@
 package TodlicherTeddy.AionGlossary;
 
-import TodlicherTeddy.AionGlossary.OpenAI.Message;
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.Message;
 import TodlicherTeddy.AionGlossary.OpenAI.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

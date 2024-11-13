@@ -1,5 +1,6 @@
 package TodlicherTeddy.AionGlossary.OpenAI;
 
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.Message;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.ApplicationContext;

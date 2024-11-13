@@ -1,4 +1,4 @@
-package TodlicherTeddy.AionGlossary.OpenAI;
+package TodlicherTeddy.AionGlossary.OpenAI.DTOs;
 
 public record RunPoll(
         String last_error,

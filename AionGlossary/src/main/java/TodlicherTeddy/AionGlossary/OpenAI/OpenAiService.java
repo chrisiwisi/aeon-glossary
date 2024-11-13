@@ -1,5 +1,8 @@
 package TodlicherTeddy.AionGlossary.OpenAI;
 
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.MessageResponse;
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.RunPoll;
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.RunResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

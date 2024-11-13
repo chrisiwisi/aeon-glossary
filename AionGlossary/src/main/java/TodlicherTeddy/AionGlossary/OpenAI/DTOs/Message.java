@@ -1,4 +1,4 @@
-package TodlicherTeddy.AionGlossary.OpenAI;
+package TodlicherTeddy.AionGlossary.OpenAI.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

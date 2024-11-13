@@ -1,6 +1,6 @@
 package TodlicherTeddy.AionGlossary;
 
-import TodlicherTeddy.AionGlossary.OpenAI.Message;
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.Message;
 import TodlicherTeddy.AionGlossary.OpenAI.MessageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
