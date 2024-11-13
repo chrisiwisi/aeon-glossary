@@ -22,12 +22,12 @@ public class AIController {
 
     //TODO split into send message and poll response, also add a getAllMessages thread
     @GetMapping("/messages") //TODO maybe return no internal ids?
-    ResponseEntity<Message> completion(@RequestParam(value = "message", defaultValue = "Tell me a joke about greek mythology") String message) {
+    ResponseEntity<FullThread> completion(@RequestParam(value = "message", defaultValue = "Tell me a joke about greek mythology") String message) {
         log.trace("A new rules question was asked: {}", message);
         return ResponseEntity.ok(messageService.prompt(message));
     }
 
-    @GetMapping("/thread")
+    @GetMapping("/threads")
     ResponseEntity<FullThread> thread() { //TODO give every user/ group of users their own Thread
         log.trace("Fetching all messages in thread");
         return ResponseEntity.ok(messageService.getFullThread());
