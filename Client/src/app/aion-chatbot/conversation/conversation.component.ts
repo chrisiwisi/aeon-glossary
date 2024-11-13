@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {MessageDTO} from "../MessageDTO";
 
 @Component({
   selector: 'app-conversation',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './conversation.component.css'
 })
 export class ConversationComponent {
+  @Input() messages!: MessageDTO[];
 
 }

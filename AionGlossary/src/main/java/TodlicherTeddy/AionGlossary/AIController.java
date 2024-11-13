@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AIController {
     private final MessageService messageService;
 
+    //TODO split into send message and poll response, also add a getAllMessages thread
     @GetMapping("/messages") //TODO maybe return no internal ids?
     ResponseEntity<Message> completion(@RequestParam(value = "message", defaultValue = "Tell me a joke about greek mythology") String message) {
         log.trace("A new rules question was asked: {}", message);

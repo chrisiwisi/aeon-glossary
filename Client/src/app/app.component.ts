@@ -7,11 +7,14 @@ import {FormsModule} from "@angular/forms";
 import {SearchService} from "./search/search.service";
 import {Rule} from "./rules-card/Rule";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {ConversationComponent} from "./aion-chatbot/conversation/conversation.component";
+import {ChatPromptComponent} from "./aion-chatbot/chat-prompt/chat-prompt.component";
+import {AionComponent} from "./aion-chatbot/aion.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RulesCardComponent, NgForOf, SearchPipe, FormsModule, HttpClientModule, NgClass],
+  imports: [RouterOutlet, RulesCardComponent, NgForOf, SearchPipe, FormsModule, HttpClientModule, NgClass, ConversationComponent, ChatPromptComponent, AionComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -23,17 +26,11 @@ export class AppComponent {
   http: HttpClient = inject(HttpClient);
   searchService: SearchService = inject(SearchService);
 
-  chatBox: boolean = false;
-
   constructor() {
     this.http.get<Rule[]>('assets/rules.json').subscribe(res => {
       this.rules = res;
       this.searchService.addSearchObjects(res);
     });
-  }
-
-  toggleChatbox() {
-    this.chatBox = !this.chatBox;
   }
 
 }
