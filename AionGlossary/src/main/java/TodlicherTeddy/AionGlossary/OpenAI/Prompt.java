@@ -1,5 +1,6 @@
 package TodlicherTeddy.AionGlossary.OpenAI;
 
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.FullThread;
 import TodlicherTeddy.AionGlossary.OpenAI.DTOs.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,21 +36,10 @@ public class Prompt {
     }
 
     public Message latestResponse() {
-        return new Message(
-                "id",
-                "i dunno",
-                15946573,
-                "Thread id und so",
-                "completed",
-                "should be object",
-                12456487,
-                null,
-                "user",
-                new String[]{"this is a response object?", "second response object"},
-                "assistant id",
-                "run id",
-                new String[]{"attachment object[]", "second attachment object[]"},
-                "metadata"
-        );
+        return getFullThread().data()[0];
+    }
+
+    public FullThread getFullThread() {
+        return openAiService.getFullThread();
     }
 }

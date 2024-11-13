@@ -1,5 +1,6 @@
 package TodlicherTeddy.AionGlossary.OpenAI;
 
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.FullThread;
 import TodlicherTeddy.AionGlossary.OpenAI.DTOs.MessageResponse;
 import TodlicherTeddy.AionGlossary.OpenAI.DTOs.RunPoll;
 import TodlicherTeddy.AionGlossary.OpenAI.DTOs.RunResponse;
@@ -61,5 +62,10 @@ public class OpenAiService {
             log.error("last error [{}] incomplete details [{}]", result.last_error(), result.incomplete_details());
         }
         return status;
+    }
+
+    public FullThread getFullThread() {
+        log.info("Fetching full thread for thread [{}]", this.threadID);
+        return restTemplate.getForObject(this.baseUri + "/threads/" + this.threadID + "/messages", FullThread.class);
     }
 }
