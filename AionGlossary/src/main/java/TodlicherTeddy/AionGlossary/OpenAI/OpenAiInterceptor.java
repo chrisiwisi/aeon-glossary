@@ -1,30 +1,34 @@
 package TodlicherTeddy.AionGlossary.OpenAI;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.io.IOException;
+import java.net.URI;
 
 @Component
 @Slf4j
-public class OpenAiInterceptor implements HandlerInterceptor {
+public class OpenAiInterceptor implements ClientHttpRequestInterceptor {
     @Value("${aion.openai.api-key}")
     private String apiKey;
 
     @Override
-    public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws Exception {
-        String requestURI = request.getRequestURI();
-        log.info("[preHandle][{}][{}]{}", request, request.getMethod(), requestURI);
-
-        if (isOpenAiCall(requestURI)) {
-            response.setHeader("Authorization", "Bearer " + this.apiKey);
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        URI requestURI = request.getURI();
+        log.trace("[RequestInterceptor][{}] Adding headers", requestURI.getAuthority());
+        if (isOpenAiCall(requestURI.getAuthority())) {
+            request.getHeaders().set("Authorization", "Bearer " + this.apiKey);
+            request.getHeaders().set("OpenAI-Beta", "assistants=v2");
         }
-        return true;
+        return execution.execute(request, body);
     }
 
     private boolean isOpenAiCall(final String requestURI) {
-        return requestURI.startsWith("https://api.openai.com");
+        return requestURI.equals("api.openai.com");
     }
 }
