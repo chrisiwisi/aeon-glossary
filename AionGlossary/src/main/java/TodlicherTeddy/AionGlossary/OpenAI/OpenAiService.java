@@ -22,7 +22,7 @@ public class OpenAiService {
     private String baseUri;
     @Value("${aion.openai.thread-id}")
     private String threadID;
-    @Value("${aion.openai.thread-id}")
+    @Value("${aion.openai.assistant-id}")
     private String assistantID;
 
     public MessageResponse addPrompt(String message) {
