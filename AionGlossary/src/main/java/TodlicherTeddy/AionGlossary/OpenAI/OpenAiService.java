@@ -30,11 +30,33 @@ public class OpenAiService {
     }
 
     public RunResponse run() {
-        log.info("Starting run for assistant [{}]", assistantID);
+        log.info("Starting run for assistant [{}]", this.assistantID);
         Map<String, String> body = new HashMap<>();
-        body.put("assistant_id", assistantID);
+        body.put("assistant_id", this.assistantID);
         return restTemplate.postForObject(this.baseUri + "/threads/" + this.threadID + "/runs", body, RunResponse.class);
     }
 
-
+    public String poll(String runID) {
+        log.info("Polling for run [{}]", runID);
+        String status = "queued";
+        RunPoll result = null;
+        while (status.equals("queued") || status.equals("in_progress")) {
+            result = restTemplate.getForEntity(this.baseUri + "/threads/" + this.threadID + "/runs/" + runID, RunPoll.class).getBody();
+            if (result == null) {
+                log.error("Polling for run [{}] failed and returned no response", runID);
+                return "error";
+            }
+            status = result.status();
+            try { //TODO remove this and replace with ScheduledExecutorService and maybe an async response to client
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                log.error("Thread was interrupted while polling for run [{}]", runID);
+            }
+        }
+        log.info("Polling for run [{}] completed with status [{}]", runID, status);
+        if (!status.equals("completed")) {
+            log.error("last error [{}] incomplete details [{}]", result.last_error(), result.incomplete_details());
+        }
+        return status;
+    }
 }
