@@ -1,7 +1,7 @@
 package TodlicherTeddy.AionGlossary.OpenAI;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
+@Slf4j
 public class Prompt {
-    @Value( "${aion.openai.thread-id}" )
-    private String threadId;
     private final OpenAiService openAiService;
+    private String runID;
 
     public Prompt addMessage(String message) {
         openAiService.addPrompt(message);
@@ -20,10 +20,16 @@ public class Prompt {
     }
 
     public Prompt run() {
+        runID = openAiService.run().id();
         return this;
     }
 
     public Prompt poll() {
+        if (runID == null) {
+            log.error("Poll has been called before a run was created");
+            return this;
+        }
+        openAiService.poll(runID);
         return this;
     }
 
