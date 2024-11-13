@@ -12,7 +12,7 @@ import {FormsModule} from "@angular/forms";
 })
 export class ChatPromptComponent {
   userInput: string = '';
-  @Output() messageChange = new EventEmitter();
+  @Output() messageChange: EventEmitter<string> = new EventEmitter<string>();
 
   sendMessage() {
     if (this.userInput.trim() !== '') {

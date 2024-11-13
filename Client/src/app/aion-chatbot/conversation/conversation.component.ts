@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, Input, Signal, ViewChild} from '@angular/core';
 import {MessageDTO} from "../MessageDTO";
 import {NgClass, NgForOf} from "@angular/common";
 
@@ -13,7 +13,7 @@ import {NgClass, NgForOf} from "@angular/common";
   styleUrl: './conversation.component.css'
 })
 export class ConversationComponent implements AfterViewChecked {
-  @Input() messages!: MessageDTO[] | undefined;
+  @Input() messages!: Signal<MessageDTO[]>;
 
   @ViewChild('conversationContainer', { static: true }) conversationContainer!: ElementRef<HTMLDivElement>;
 

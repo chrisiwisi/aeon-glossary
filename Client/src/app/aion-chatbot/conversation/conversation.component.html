@@ -1,5 +1,5 @@
 <div #conversationContainer class="conversation-container">
-  <div *ngFor="let message of messages" class="message-container" [ngClass]="{'user-message': message.role === 'user', 'bot-message': message.role === 'assistant'}">
+  <div *ngFor="let message of messages().reverse()" class="message-container" [ngClass]="{'user-message': message.role === 'user', 'bot-message': message.role === 'assistant'}">
     <div class="message">
       <p>{{ message.content[0].text.value }}</p>
     </div>
