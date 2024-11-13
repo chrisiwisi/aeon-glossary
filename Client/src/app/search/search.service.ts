@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import MiniSearch from "minisearch";
-import {Rule} from "./rules-card/Rule";
+import {Rule} from "../rules-card/Rule";
 
 @Injectable({
   providedIn: 'root'

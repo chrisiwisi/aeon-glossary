@@ -2,9 +2,9 @@ import {Component, inject} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {RulesCardComponent} from "./rules-card/rules-card.component";
 import {NgClass, NgForOf} from "@angular/common";
-import {SearchPipe} from "./search.pipe";
+import {SearchPipe} from "./search/search.pipe";
 import {FormsModule} from "@angular/forms";
-import {SearchService} from "./search.service";
+import {SearchService} from "./search/search.service";
 import {Rule} from "./rules-card/Rule";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 

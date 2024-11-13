@@ -1,5 +1,5 @@
 import {inject, Pipe, PipeTransform} from '@angular/core';
-import {Rule} from "./rules-card/Rule";
+import {Rule} from "../rules-card/Rule";
 import {SearchService} from "./search.service";
 import {SearchResult} from "minisearch";
 
