@@ -18,7 +18,7 @@ public class AIController {
     private final MessageService messageService;
 
     @GetMapping("/messages") //TODO maybe return no internal ids?
-    ResponseEntity<Message> completion(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+    ResponseEntity<Message> completion(@RequestParam(value = "message", defaultValue = "Tell me a joke about greek mythology") String message) {
         log.trace("A new rules question was asked: {}", message);
         return ResponseEntity.ok(messageService.prompt(message));
     }
