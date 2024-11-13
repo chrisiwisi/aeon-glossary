@@ -1,3 +1,5 @@
+import {MessageContentDTO} from "./MessageContentDTO";
+
 export interface MessageDTO {
   id: string,
   object: string,
@@ -6,7 +8,7 @@ export interface MessageDTO {
   thread_id: string,
   run_id: string,
   role: string,
-  content: any[],
+  content: MessageContentDTO[],
   attachments: any[],
   metadata: any
 }

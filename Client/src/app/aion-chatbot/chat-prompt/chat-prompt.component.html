@@ -1,4 +1,4 @@
-<div>
-  show message here
+<div class="chat-prompt-input">
+  <input type="text" [(ngModel)]="userInput" (keydown.enter)="sendMessage()" placeholder="Type your question...">
+  <button (click)="sendMessage()">Send</button>
 </div>
-<input type="text">

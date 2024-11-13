@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {MessageDTO} from "./MessageDTO";
 import {NgClass} from "@angular/common";
 import {ConversationComponent} from "./conversation/conversation.component";
 import {ChatPromptComponent} from "./chat-prompt/chat-prompt.component";
+import {MessageDTO} from "./MessageDTO";
 
 @Component({
   selector: 'app-aion',
@@ -17,10 +17,9 @@ import {ChatPromptComponent} from "./chat-prompt/chat-prompt.component";
 })
 export class AionComponent {
   chatBox: boolean = false;
-  messages: MessageDTO[] = [];
+  messages: MessageDTO[] | undefined;
 
   toggleChatbox() {
     this.chatBox = !this.chatBox;
   }
-
 }
