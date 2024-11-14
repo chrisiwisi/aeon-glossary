@@ -1,0 +1,8 @@
+services:
+  aion-app:
+    image: todlicherTeddy/aion-glossary
+    build: .
+    container_name: Aion-Glossary
+    restart: unless-stopped
+    ports:
+      - 8008: 8008

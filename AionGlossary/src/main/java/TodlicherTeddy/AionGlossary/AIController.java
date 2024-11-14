@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "aionGlossary/api/v1")
 @Slf4j
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = {"http://localhost:4200/", "https://todlicherteddy.github.io/aeon-glossary/"})
 public class AIController {
     private final MessageService messageService;
 
