@@ -1,5 +1,5 @@
 import {AfterViewChecked, Component, ElementRef, Input, Signal, ViewChild} from '@angular/core';
-import {MessageDTO} from "../MessageDTO";
+import {MessageDTO} from "../DTOs/MessageDTO";
 import {NgClass, NgForOf} from "@angular/common";
 
 @Component({

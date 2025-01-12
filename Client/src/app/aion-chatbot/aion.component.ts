@@ -2,9 +2,9 @@ import {Component, OnInit, signal} from '@angular/core';
 import {NgClass} from "@angular/common";
 import {ConversationComponent} from "./conversation/conversation.component";
 import {ChatPromptComponent} from "./chat-prompt/chat-prompt.component";
-import {MessageDTO} from "./MessageDTO";
+import {MessageDTO} from "./DTOs/MessageDTO";
 import {AionService} from "./aion.service";
-import {FullThreadDTO} from "./FullThreadDTO";
+import {FullThreadDTO} from "./DTOs/FullThreadDTO";
 
 @Component({
   selector: 'app-aion',
