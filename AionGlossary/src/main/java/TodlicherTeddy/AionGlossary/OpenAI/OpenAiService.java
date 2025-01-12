@@ -21,32 +21,30 @@ public class OpenAiService {
     private final RestTemplate restTemplate;
     @Value("${aion.openai.base-uri}")
     private String baseUri;
-    @Value("${aion.openai.thread-id}")
-    private String threadID;
     @Value("${aion.openai.assistant-id}")
     private String assistantID;
 
-    public MessageResponse addPrompt(String message) {
+    public MessageResponse addPrompt(String threadID, String message) {
         log.info("Adding prompt [{}]", message);
         Map<String, String> body = new HashMap<>();
         body.put("role", "user");
         body.put("content", message);
-        return restTemplate.postForObject(this.baseUri + "/threads/" + this.threadID + "/messages", body, MessageResponse.class);
+        return restTemplate.postForObject(this.baseUri + "/threads/" + threadID + "/messages", body, MessageResponse.class);
     }
 
-    public RunResponse run() {
+    public RunResponse run(String threadID) {
         log.info("Starting run for assistant [{}]", this.assistantID);
         Map<String, String> body = new HashMap<>();
         body.put("assistant_id", this.assistantID);
-        return restTemplate.postForObject(this.baseUri + "/threads/" + this.threadID + "/runs", body, RunResponse.class);
+        return restTemplate.postForObject(this.baseUri + "/threads/" + threadID + "/runs", body, RunResponse.class);
     }
 
-    public String poll(String runID) {
+    public String poll(String threadID, String runID) {
         log.info("Polling for run [{}]", runID);
         String status = "queued";
         RunPoll result = null;
         while (status.equals("queued") || status.equals("in_progress")) {
-            result = restTemplate.getForEntity(this.baseUri + "/threads/" + this.threadID + "/runs/" + runID, RunPoll.class).getBody();
+            result = restTemplate.getForEntity(this.baseUri + "/threads/" + threadID + "/runs/" + runID, RunPoll.class).getBody();
             if (result == null) {
                 log.error("Polling for run [{}] failed and returned no response", runID);
                 return "error";
@@ -65,9 +63,9 @@ public class OpenAiService {
         return status;
     }
 
-    public FullThread getFullThread() {
-        log.info("Fetching full thread for thread [{}]", this.threadID);
-        return restTemplate.getForObject(this.baseUri + "/threads/" + this.threadID + "/messages", FullThread.class);
+    public FullThread getFullThread(String threadID) {
+        log.info("Fetching full thread for thread [{}]", threadID);
+        return restTemplate.getForObject(this.baseUri + "/threads/" + threadID + "/messages", FullThread.class);
     }
 
     public ThreadCreationResponse createNewThread() {

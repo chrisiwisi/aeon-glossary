@@ -1,7 +1,7 @@
 package TodlicherTeddy.AionGlossary;
 
 import TodlicherTeddy.AionGlossary.OpenAI.DTOs.Message;
-import TodlicherTeddy.AionGlossary.OpenAI.MessageService;
+import TodlicherTeddy.AionGlossary.OpenAI.PromptFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class OpenAITests extends BaseTestCase {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private MessageService messageService;
+    private PromptFactory promptFactory;
     @Autowired
     private RestTemplate restTemplate;
 
@@ -62,7 +62,7 @@ public class OpenAITests extends BaseTestCase {
                         .body("WRITE MOCK JSON HERE"));
         //TODO mock the other requests
 
-        Message response = this.messageService.prompt("What is a pygmalion Stone?").data()[0];
+        Message response = this.promptFactory.createPrompt(this.ThreadID).addMessage("What is a pygmalion Stone?").run().poll().getFullThread().data()[0];
 
         assertThat(response.content().length, is(1));
         assertThat(response.content()[0].toString(), containsString("pygmalion Stone"));
