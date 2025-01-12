@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MessageService  {
+    //getBean('insert name', Prompt.class) can be used to implement multiple implementations of Prompt for different APIs
     private final ApplicationContext context;
 
     public FullThread prompt(String message) {
@@ -19,6 +20,10 @@ public class MessageService  {
 
     public FullThread getFullThread() {
         return context.getBean(Prompt.class).getFullThread();
+    }
+
+    public String createNewThread() {
+        return context.getBean(Prompt.class).createNewThread();
     }
 
 }

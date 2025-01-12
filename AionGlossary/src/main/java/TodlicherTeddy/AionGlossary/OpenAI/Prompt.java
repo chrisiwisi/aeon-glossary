@@ -42,4 +42,8 @@ public class Prompt {
     public FullThread getFullThread() {
         return openAiService.getFullThread();
     }
+
+    public String createNewThread() {
+        return openAiService.createNewThread().id();
+    }
 }

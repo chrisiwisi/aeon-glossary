@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +28,15 @@ public class AIController {
         return ResponseEntity.ok(messageService.prompt(message));
     }
 
+    //TODO without authentication everyone can theoretically guess an id and read the messages of others!
     @GetMapping("/threads")
-    ResponseEntity<FullThread> thread() { //TODO give every user/ group of users their own Thread
+    ResponseEntity<String> thread() {
+        log.trace("Opening a new Thread");
+        return ResponseEntity.ok(messageService.createNewThread());
+    }
+
+    @GetMapping("/threads/{id}")
+    ResponseEntity<FullThread> getFullThread(@PathVariable(value = "id") Long id) {
         log.trace("Fetching all messages in thread");
         return ResponseEntity.ok(messageService.getFullThread());
     }

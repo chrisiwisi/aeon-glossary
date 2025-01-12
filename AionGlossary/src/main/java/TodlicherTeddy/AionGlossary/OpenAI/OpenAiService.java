@@ -4,6 +4,7 @@ import TodlicherTeddy.AionGlossary.OpenAI.DTOs.FullThread;
 import TodlicherTeddy.AionGlossary.OpenAI.DTOs.MessageResponse;
 import TodlicherTeddy.AionGlossary.OpenAI.DTOs.RunPoll;
 import TodlicherTeddy.AionGlossary.OpenAI.DTOs.RunResponse;
+import TodlicherTeddy.AionGlossary.OpenAI.DTOs.ThreadCreationResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,5 +68,10 @@ public class OpenAiService {
     public FullThread getFullThread() {
         log.info("Fetching full thread for thread [{}]", this.threadID);
         return restTemplate.getForObject(this.baseUri + "/threads/" + this.threadID + "/messages", FullThread.class);
+    }
+
+    public ThreadCreationResponse createNewThread() {
+        log.info("Creating a new OpenAI thread");
+        return restTemplate.getForObject(this.baseUri + "/threads", ThreadCreationResponse.class);
     }
 }
