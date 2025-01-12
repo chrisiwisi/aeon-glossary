@@ -70,6 +70,7 @@ public class OpenAiService {
 
     public ThreadCreationResponse createNewThread() {
         log.info("Creating a new OpenAI thread");
-        return restTemplate.getForObject(this.baseUri + "/threads", ThreadCreationResponse.class);
+        Map<String, String> body = new HashMap<>();
+        return restTemplate.postForObject(this.baseUri + "/threads", body, ThreadCreationResponse.class);
     }
 }
