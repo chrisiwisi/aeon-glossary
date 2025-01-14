@@ -1,0 +1,16 @@
+<div class="content-wrapper">
+  <h3>{{title}}</h3>
+  <a class="credits" href="https://docs.google.com/document/d/1u3q2ngOWhVvixLbz3PiR-4HG0A1OpcAzCM-9cveigu4/edit#heading=h.1suxi92ppa1y">Powered by THE LAW OF AT:O</a>
+  <div class="form" #searchBar>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+    </svg>
+    <input type="text" class="search-bar" placeholder="Search anything..." [(ngModel)]="searchTerm">
+  </div>
+
+  <div class="card-container">
+    <app-rules-card *ngFor="let rule of rules | search: searchTerm" [rule]="rule"></app-rules-card>
+  </div>
+
+  <app-aion></app-aion>
+</div>
