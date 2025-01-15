@@ -14,5 +14,8 @@
       <td>insert image</td>
       <td><input type="text" [value]="letter.value.romanLetter" (change)="updateLetter(letter.key, $event)"></td>
     </tr>
+    <tr>
+      <td><button (click)="addLetter()">+</button></td>
+    </tr>
   </table>
 </div>

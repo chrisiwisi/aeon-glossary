@@ -44,4 +44,8 @@ export class CodeNoteComponent implements OnInit {
     //create new letter
     this.alphabet.set(letterKey, {id: letterKey, romanLetter: newValue} as Letter);
   }
+
+  addLetter() {
+    this.alphabet.set(this.alphabet.size, { id: this.alphabet.size, romanLetter: ''} as Letter)
+  }
 }
