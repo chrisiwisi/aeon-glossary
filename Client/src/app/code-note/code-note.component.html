@@ -3,5 +3,16 @@
   <div *ngFor="let message of messages">{{ message | decode }}</div>
 
   <h2>Letters</h2>
-  <div *ngFor="let letter of alphabet | keyvalue">{{ letter.key }} | {{ letter.value.romanLetter }}</div>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Image</th>
+      <th>Letter</th>
+    </tr>
+    <tr *ngFor="let letter of alphabet | keyvalue">
+      <td>{{ letter.key }}</td>
+      <td>insert image</td>
+      <td><input type="text" [value]="letter.value.romanLetter" (change)="updateLetter(letter.key, $event)"></td>
+    </tr>
+  </table>
 </div>
