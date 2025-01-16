@@ -5,7 +5,7 @@ import {NgForOf} from "@angular/common";
 import {RulesCardComponent} from "../rules-card/rules-card.component";
 import {SearchPipe} from "../search/search.pipe";
 import {Rule} from "../rules-card/Rule";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {SearchService} from "../search/search.service";
 
 @Component({
