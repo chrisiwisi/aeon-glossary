@@ -9,8 +9,7 @@ import { HttpClient } from "@angular/common/http";
 import {SearchService} from "../search/search.service";
 
 @Component({
-  selector: 'app-glossary-page',
-  standalone: true,
+    selector: 'app-glossary-page',
     imports: [
         AionComponent,
         FormsModule,
@@ -18,8 +17,8 @@ import {SearchService} from "../search/search.service";
         RulesCardComponent,
         SearchPipe
     ],
-  templateUrl: './glossary-page.component.html',
-  styleUrl: './glossary-page.component.css'
+    templateUrl: './glossary-page.component.html',
+    styleUrl: './glossary-page.component.css'
 })
 export class GlossaryPageComponent {
   title = 'Aeon Glossary';

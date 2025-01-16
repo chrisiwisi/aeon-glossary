@@ -10,15 +10,14 @@ import {ChatPromptComponent} from "./aion-chatbot/chat-prompt/chat-prompt.compon
 import {AionComponent} from "./aion-chatbot/aion.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, RulesCardComponent, NgForOf, SearchPipe, FormsModule, 
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule, NgClass, ConversationComponent, ChatPromptComponent, AionComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    imports: [RouterOutlet, RulesCardComponent, NgForOf, SearchPipe, FormsModule,
+        // TODO: `HttpClientModule` should not be imported into a component directly.
+        // Please refactor the code to add `provideHttpClient()` call to the provider list in the
+        // application bootstrap logic and remove the `HttpClientModule` import from this component.
+        HttpClientModule, NgClass, ConversationComponent, ChatPromptComponent, AionComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 export class AppComponent {
 }

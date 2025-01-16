@@ -1,11 +1,10 @@
 import {Component, Inject} from '@angular/core';
 
 @Component({
-  selector: 'app-modular-overlay',
-  standalone: true,
-  imports: [],
-  templateUrl: './modular-overlay.component.html',
-  styleUrl: './modular-overlay.component.css'
+    selector: 'app-modular-overlay',
+    imports: [],
+    templateUrl: './modular-overlay.component.html',
+    styleUrl: './modular-overlay.component.css'
 })
 export class ModularOverlayComponent {
   constructor(

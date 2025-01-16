@@ -5,16 +5,15 @@ import {INVALID_LETTER, Letter, SPACE_LETTER} from "./Letter";
 import {FormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'app-code-note',
-  standalone: true,
-  imports: [
-    NgForOf,
-    DecodePipe,
-    KeyValuePipe,
-    FormsModule
-  ],
-  templateUrl: './code-note.component.html',
-  styleUrl: './code-note.component.css'
+    selector: 'app-code-note',
+    imports: [
+        NgForOf,
+        DecodePipe,
+        KeyValuePipe,
+        FormsModule
+    ],
+    templateUrl: './code-note.component.html',
+    styleUrl: './code-note.component.css'
 })
 export class CodeNoteComponent implements OnInit {
   alphabet: Map<number, Letter> = new Map<number, Letter>();

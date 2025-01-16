@@ -7,15 +7,14 @@ import {AionService} from "./aion.service";
 import {FullThreadDTO} from "./DTOs/FullThreadDTO";
 
 @Component({
-  selector: 'app-aion',
-  standalone: true,
-  imports: [
-    NgClass,
-    ConversationComponent,
-    ChatPromptComponent
-  ],
-  templateUrl: './aion.component.html',
-  styleUrl: './aion.component.css'
+    selector: 'app-aion',
+    imports: [
+        NgClass,
+        ConversationComponent,
+        ChatPromptComponent
+    ],
+    templateUrl: './aion.component.html',
+    styleUrl: './aion.component.css'
 })
 export class AionComponent implements OnInit {
   chatBox: boolean = false;
