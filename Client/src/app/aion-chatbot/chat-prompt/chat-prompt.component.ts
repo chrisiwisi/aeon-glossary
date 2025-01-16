@@ -2,12 +2,13 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 
 @Component({
-    selector: 'app-chat-prompt',
-    imports: [
-        FormsModule
-    ],
-    templateUrl: './chat-prompt.component.html',
-    styleUrl: './chat-prompt.component.css'
+  selector: 'app-chat-prompt',
+  imports: [
+    FormsModule
+  ],
+  templateUrl: './chat-prompt.component.html',
+  standalone: true,
+  styleUrl: './chat-prompt.component.css'
 })
 export class ChatPromptComponent {
   userInput: string = '';

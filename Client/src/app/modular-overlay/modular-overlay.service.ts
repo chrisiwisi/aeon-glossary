@@ -3,6 +3,7 @@ import {Overlay, OverlayConfig, OverlayRef} from "@angular/cdk/overlay";
 import {ModularOverlayRef} from "./modular-overlay-ref";
 import {ComponentPortal} from "@angular/cdk/portal";
 import {ModularOverlayComponent} from "./modular-overlay.component";
+import {FILE_PREVIEW_DIALOG_DATA} from "./modular-overlay.tokens";
 
 interface FilePreviewDialogConfig {
   panelClass?: string;
@@ -16,10 +17,13 @@ const DEFAULT_CONFIG: FilePreviewDialogConfig = {
   hasBackdrop: true,
   backdropClass: 'dark-backdrop',
   panelClass: 'tm-file-preview-dialog-panel',
-  message: ''
+  message: '',
+  injector: FILE_PREVIEW_DIALOG_DATA
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ModularOverlayService {
   constructor(
     private injector: Injector,

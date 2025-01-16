@@ -3,21 +3,26 @@ import {KeyValuePipe, NgForOf} from "@angular/common";
 import {DecodePipe} from "./decode.pipe";
 import {INVALID_LETTER, Letter, SPACE_LETTER} from "./Letter";
 import {FormsModule} from "@angular/forms";
+import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
 
 @Component({
-    selector: 'app-code-note',
-    imports: [
-        NgForOf,
-        DecodePipe,
-        KeyValuePipe,
-        FormsModule
-    ],
-    templateUrl: './code-note.component.html',
-    styleUrl: './code-note.component.css'
+  selector: 'app-code-note',
+  imports: [
+    NgForOf,
+    DecodePipe,
+    KeyValuePipe,
+    FormsModule
+  ],
+  templateUrl: './code-note.component.html',
+  standalone: true,
+  styleUrl: './code-note.component.css'
 })
 export class CodeNoteComponent implements OnInit {
   alphabet: Map<number, Letter> = new Map<number, Letter>();
   messages: number[][] = [];
+
+  constructor(private modularOverlayService: ModularOverlayService) {
+  }
 
   ngOnInit(): void {
     let placeholderLetters = " 123456789アイウエオカキクケコサシスセソタチツテト";
@@ -46,5 +51,9 @@ export class CodeNoteComponent implements OnInit {
 
   addLetter() {
     this.alphabet.set(this.alphabet.size, { id: this.alphabet.size, romanLetter: ''} as Letter)
+  }
+
+  openLetterModular() {
+    this.modularOverlayService.open({message: "yay, you pressed a button!"});
   }
 }

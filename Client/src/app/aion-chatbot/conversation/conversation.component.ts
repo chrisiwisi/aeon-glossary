@@ -3,13 +3,14 @@ import {MessageDTO} from "../DTOs/MessageDTO";
 import {NgClass, NgForOf} from "@angular/common";
 
 @Component({
-    selector: 'app-conversation',
-    imports: [
-        NgClass,
-        NgForOf
-    ],
-    templateUrl: './conversation.component.html',
-    styleUrl: './conversation.component.css'
+  selector: 'app-conversation',
+  imports: [
+    NgClass,
+    NgForOf
+  ],
+  templateUrl: './conversation.component.html',
+  standalone: true,
+  styleUrl: './conversation.component.css'
 })
 export class ConversationComponent implements AfterViewChecked {
   @Input() messages!: Signal<MessageDTO[]>;
