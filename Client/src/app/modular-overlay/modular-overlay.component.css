@@ -18,3 +18,7 @@ img {
 .overlay-content {
   padding: 1em;
 }
+
+canvas {
+  border: 1px solid black;
+}
