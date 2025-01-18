@@ -1,0 +1,21 @@
+:host {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.letter-preview {
+  max-width: 50px;
+}
+
+.letter-text-field {
+  max-width: 2rem;
+}
+
+.alphabet-table {
+  max-width: 300px;
+}
+
+.alphabet-table > tr > td {
+  text-align: center;
+}

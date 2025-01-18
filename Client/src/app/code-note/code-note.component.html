@@ -1,23 +1,27 @@
-<div>
-  <h2>Messages</h2>
-  <div *ngFor="let message of messages">{{ message | decode: alphabet }}</div>
+<h2>Messages</h2>
+<div *ngFor="let message of messages">{{ message | decode: alphabet }}</div>
 
-  <h2>Letters</h2>
-  <p>also try <a href="https://quipqiup.com/">quipquip</a> if you are stuck ;)</p>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Image</th>
-      <th>Letter</th>
-    </tr>
-    <tr *ngFor="let letter of alphabet | keyvalue">
-      <td>{{ letter.key }}</td>
-      <td><button *ngIf="!letter.value.imageURL" (click)="openLetterModular(letter.key)">+</button><img *ngIf="letter.value.imageURL" [src]="letter.value.imageURL" (click)="openLetterModular(letter.key)"></td>
-      <td><input type="text" [value]="letter.value.romanLetter" (change)="updateLetter(letter.key, $event)"></td>
-      <td><button (click)="changeLetterTest()">TEST</button></td>
-    </tr>
-    <tr>
-      <td><button (click)="addLetter()">+</button></td>
-    </tr>
-  </table>
-</div>
+<h2>Letters</h2>
+<!--p>also try <a href="https://quipqiup.com/">quipquip</a> if you are stuck ;)</p-->
+<table class="alphabet-table">
+  <tr>
+    <th>ID</th>
+    <th>Image</th>
+    <th>Letter</th>
+  </tr>
+  <tr *ngFor="let letter of alphabet | keyvalue">
+    <td>{{ letter.key }}</td>
+    <td>
+      <button *ngIf="!letter.value.imageURL" (click)="openLetterModular(letter.key)">+</button>
+      <img class="letter-preview" *ngIf="letter.value.imageURL" [src]="letter.value.imageURL"
+           (click)="openLetterModular(letter.key)"></td>
+    <td><input class="letter-text-field" type="text" [value]="letter.value.romanLetter"
+               (change)="updateLetter(letter.key, $event)"></td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <button (click)="addLetter()">Add letter</button>
+    </td>
+  </tr>
+</table>
+

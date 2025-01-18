@@ -22,3 +22,7 @@ img {
 canvas {
   border: 1px solid black;
 }
+
+#letter-drawing-canvas {
+  background: white;
+}
