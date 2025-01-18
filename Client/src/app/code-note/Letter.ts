@@ -1,6 +1,7 @@
 export type Letter = {
   id: number,
-  romanLetter: string
+  romanLetter: string,
+  imageURL?: string
 }
 
 export const INVALID_LETTER: Letter = {

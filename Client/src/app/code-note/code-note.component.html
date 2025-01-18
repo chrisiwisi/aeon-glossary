@@ -12,8 +12,9 @@
     </tr>
     <tr *ngFor="let letter of alphabet | keyvalue">
       <td>{{ letter.key }}</td>
-      <td><button (click)="openLetterModular(letter.key)">+</button></td>
+      <td><button *ngIf="!letter.value.imageURL" (click)="openLetterModular(letter.key)">+</button><img *ngIf="letter.value.imageURL" [src]="letter.value.imageURL" (click)="openLetterModular(letter.key)"></td>
       <td><input type="text" [value]="letter.value.romanLetter" (change)="updateLetter(letter.key, $event)"></td>
+      <td><button (click)="changeLetterTest()">TEST</button></td>
     </tr>
     <tr>
       <td><button (click)="addLetter()">+</button></td>

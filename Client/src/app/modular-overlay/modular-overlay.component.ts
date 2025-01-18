@@ -19,6 +19,7 @@ export class ModularOverlayComponent {
   constructor(
     public dialogRef: ModularOverlayRef,
     @Inject(LETTER_DATA) public letter: Letter) {
+    dialogRef.onClose.subscribe(() => this.saveImageToLetter());
   }
 
   ngAfterViewInit() {
@@ -78,10 +79,26 @@ export class ModularOverlayComponent {
         })
       ))
     ).subscribe();
+
+    //load previous image
+    if (this.letter.imageURL) {
+      let img = new Image();
+      let ctx = this.ctx;
+      img.onload = function (){
+        ctx.drawImage(img, 0, 0);
+      }
+      img.src = this.letter.imageURL;
+    }
   }
 
   resetCanvas() {
     this.ctx.reset();
+  }
+
+  saveImageToLetter() {
+    this.letter.imageURL = this.canvas.nativeElement.toDataURL("image/png",0.90);
+    console.log(`saved new image:`);
+    console.log(this.letter.imageURL);
   }
 
   undoCanvas() {
