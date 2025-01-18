@@ -12,7 +12,7 @@ import {finalize, fromEvent, switchMap, takeUntil, tap} from "rxjs";
 })
 export class ModularOverlayComponent {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
-  ctx!: CanvasRenderingContext2D;
+  canvasPosition: { x: number, y: number } = {x: 0, y: 0};
 
   constructor(
     public dialogRef: ModularOverlayRef,
@@ -20,7 +20,9 @@ export class ModularOverlayComponent {
   }
 
   ngAfterViewInit() {
-    this.ctx = this.canvas.nativeElement.getContext('2d')!;
+    const ctx = this.canvas.nativeElement.getContext('2d')!;
+    this.canvasPosition = this.canvas.nativeElement.getBoundingClientRect();
+
     const mouseDownStream = fromEvent<MouseEvent>(this.canvas.nativeElement, 'mousedown');
     const mouseMoveStream = fromEvent<MouseEvent>(this.canvas.nativeElement, 'mousemove');
     const mouseUpStream = fromEvent<MouseEvent>(window, 'mouseup');
@@ -32,20 +34,20 @@ export class ModularOverlayComponent {
     //MouseEvents draw on canvas
     mouseDownStream.pipe(
       tap((event: MouseEvent) => {
-        this.ctx.beginPath();
-        this.ctx.strokeStyle = 'black';
-        this.ctx.lineWidth = 15;
-        this.ctx.lineJoin = 'round';
-        this.ctx.moveTo(event.offsetX, event.offsetY);
+        ctx.beginPath();
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 15;
+        ctx.lineJoin = 'round';
+        ctx.moveTo(event.offsetX, event.offsetY);
       }),
       switchMap(() => mouseMoveStream.pipe(
         tap((event: MouseEvent) => {
-          this.ctx.lineTo(event.offsetX, event.offsetY);
-          this.ctx.stroke();
+          ctx.lineTo(event.offsetX, event.offsetY);
+          ctx.stroke();
         }),
         takeUntil(mouseUpStream),
         finalize(() => {
-          this.ctx.closePath();
+          ctx.closePath();
         })
       ))
     ).subscribe();
@@ -53,20 +55,24 @@ export class ModularOverlayComponent {
     //TouchEvents draw on canvas
     touchStartStream.pipe(
       tap((event: TouchEvent) => {
-        this.ctx.beginPath();
-        this.ctx.strokeStyle = 'black';
-        this.ctx.lineWidth = 15;
-        this.ctx.lineJoin = 'round';
-        this.ctx.moveTo(event.touches[0].clientX, event.touches[0].clientY);
+        ctx.beginPath();
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 15;
+        ctx.lineJoin = 'round';
+        //this fixes a bug where the boundingClientRect is wrong/not fully initialized yet in the ngAfterViewInit lifecycle
+        this.canvasPosition = this.canvas.nativeElement.getBoundingClientRect();
+        ctx.moveTo(event.touches[0].clientX - this.canvasPosition.x, event.touches[0].clientY - this.canvasPosition.y);
+        console.log(`clientX: ${event.touches[0].clientX}, clientY: ${event.touches[0].clientY}, canvasRectangle: ${JSON.stringify(this.canvasPosition)}`);
       }),
       switchMap(() => touchMoveStream.pipe(
         tap((event: TouchEvent) => {
-          this.ctx.lineTo(event.touches[0].clientX, event.touches[0].clientY);
-          this.ctx.stroke();
+          event.preventDefault();
+          ctx.lineTo(event.touches[0].clientX - this.canvasPosition.x, event.touches[0].clientY - this.canvasPosition.y);
+          ctx.stroke();
         }),
         takeUntil(touchEndStream),
         finalize(() => {
-          this.ctx.closePath();
+          ctx.closePath();
         })
       ))
     ).subscribe();

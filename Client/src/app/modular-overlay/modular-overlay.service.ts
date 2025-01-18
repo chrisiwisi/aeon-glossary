@@ -5,7 +5,7 @@ import {ComponentPortal} from "@angular/cdk/portal";
 import {ModularOverlayComponent} from "./modular-overlay.component";
 import {FILE_PREVIEW_DIALOG_DATA} from "./modular-overlay.tokens";
 
-interface FilePreviewDialogConfig {
+interface ModularOverlayDialogConfig {
   panelClass?: string;
   hasBackdrop?: boolean;
   backdropClass?: string;
@@ -13,10 +13,10 @@ interface FilePreviewDialogConfig {
   injector?: InjectionToken<any>;
 }
 
-const DEFAULT_CONFIG: FilePreviewDialogConfig = {
+const DEFAULT_CONFIG: ModularOverlayDialogConfig = {
   hasBackdrop: true,
   backdropClass: 'dark-backdrop',
-  panelClass: 'tm-file-preview-dialog-panel',
+  panelClass: 'modular-overlay-panel',
   message: '',
   injector: FILE_PREVIEW_DIALOG_DATA
 }
@@ -31,10 +31,9 @@ export class ModularOverlayService {
   ) {
   }
 
-  open(config: FilePreviewDialogConfig = {}) {
+  open(config: ModularOverlayDialogConfig = {}) {
     const dialogConfig = { ...DEFAULT_CONFIG, ...config };
     const overlayRef = this.createOverlay(dialogConfig);
-    // Instantiate remote control
     const dialogRef = new ModularOverlayRef(overlayRef);
 
     this.attachDialogContainer(overlayRef, dialogConfig, dialogRef);
@@ -42,12 +41,12 @@ export class ModularOverlayService {
     return dialogRef;
   }
 
-  private createOverlay(config: FilePreviewDialogConfig) {
+  private createOverlay(config: ModularOverlayDialogConfig) {
     const overlayConfig = this.getOverlayConfig(config);
     return this.overlay.create(overlayConfig);
   }
 
-  private attachDialogContainer(overlayRef: OverlayRef, config: FilePreviewDialogConfig, dialogRef: ModularOverlayRef) {
+  private attachDialogContainer(overlayRef: OverlayRef, config: ModularOverlayDialogConfig, dialogRef: ModularOverlayRef) {
     const injector = this.createInjector(config, dialogRef);
 
     const containerPortal = new ComponentPortal(ModularOverlayComponent, null, injector);
@@ -56,7 +55,7 @@ export class ModularOverlayService {
     return containerRef.instance;
   }
 
-  private createInjector(config: FilePreviewDialogConfig, dialogRef: ModularOverlayRef): Injector {
+  private createInjector(config: ModularOverlayDialogConfig, dialogRef: ModularOverlayRef): Injector {
     return Injector.create({
       parent: this.injector,
       providers: [
@@ -66,7 +65,7 @@ export class ModularOverlayService {
     });
   }
 
-  private getOverlayConfig(config: FilePreviewDialogConfig): OverlayConfig {
+  private getOverlayConfig(config: ModularOverlayDialogConfig): OverlayConfig {
     const positionStrategy = this.overlay.position()
       .global()
       .centerHorizontally()
