@@ -3,13 +3,14 @@ import {Overlay, OverlayConfig, OverlayRef} from "@angular/cdk/overlay";
 import {ModularOverlayRef} from "./modular-overlay-ref";
 import {ComponentPortal} from "@angular/cdk/portal";
 import {ModularOverlayComponent} from "./modular-overlay.component";
-import {FILE_PREVIEW_DIALOG_DATA} from "./modular-overlay.tokens";
+import {LETTER_DATA} from "./modular-overlay.tokens";
+import {Letter} from "../code-note/Letter";
 
 interface ModularOverlayDialogConfig {
   panelClass?: string;
   hasBackdrop?: boolean;
   backdropClass?: string;
-  message?: string;
+  data?: Letter;
   injector?: InjectionToken<any>;
 }
 
@@ -17,8 +18,8 @@ const DEFAULT_CONFIG: ModularOverlayDialogConfig = {
   hasBackdrop: true,
   backdropClass: 'dark-backdrop',
   panelClass: 'modular-overlay-panel',
-  message: '',
-  injector: FILE_PREVIEW_DIALOG_DATA
+  data: undefined,
+  injector: LETTER_DATA
 }
 
 @Injectable({
@@ -60,7 +61,7 @@ export class ModularOverlayService {
       parent: this.injector,
       providers: [
         {provide: ModularOverlayRef, useValue: dialogRef},
-        {provide: config.injector, useValue: config.message}
+        {provide: config.injector, useValue: config.data}
       ]
     });
   }

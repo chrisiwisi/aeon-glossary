@@ -1,7 +1,8 @@
 import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {ModularOverlayRef} from "./modular-overlay-ref";
-import {FILE_PREVIEW_DIALOG_DATA} from "./modular-overlay.tokens";
+import {LETTER_DATA} from "./modular-overlay.tokens";
 import {finalize, fromEvent, switchMap, takeUntil, tap} from "rxjs";
+import {Letter} from "../code-note/Letter";
 
 @Component({
   selector: 'app-modular-overlay',
@@ -17,7 +18,7 @@ export class ModularOverlayComponent {
 
   constructor(
     public dialogRef: ModularOverlayRef,
-    @Inject(FILE_PREVIEW_DIALOG_DATA) public message: any) {
+    @Inject(LETTER_DATA) public letter: Letter) {
   }
 
   ngAfterViewInit() {
@@ -63,7 +64,7 @@ export class ModularOverlayComponent {
         //this fixes a bug where the boundingClientRect is wrong/not fully initialized yet in the ngAfterViewInit lifecycle
         this.canvasPosition = this.canvas.nativeElement.getBoundingClientRect();
         this.ctx.moveTo(event.touches[0].clientX - this.canvasPosition.x, event.touches[0].clientY - this.canvasPosition.y);
-        console.log(`clientX: ${event.touches[0].clientX}, clientY: ${event.touches[0].clientY}, canvasRectangle: ${JSON.stringify(this.canvasPosition)}`);
+        //console.log(`clientX: ${event.touches[0].clientX}, clientY: ${event.touches[0].clientY}, canvasRectangle: ${JSON.stringify(this.canvasPosition)}`);
       }),
       switchMap(() => touchMoveStream.pipe(
         tap((event: TouchEvent) => {

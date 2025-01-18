@@ -12,7 +12,7 @@
     </tr>
     <tr *ngFor="let letter of alphabet | keyvalue">
       <td>{{ letter.key }}</td>
-      <td><button (click)="openLetterModular()">+</button></td>
+      <td><button (click)="openLetterModular(letter.key)">+</button></td>
       <td><input type="text" [value]="letter.value.romanLetter" (change)="updateLetter(letter.key, $event)"></td>
     </tr>
     <tr>

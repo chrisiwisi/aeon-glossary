@@ -53,7 +53,7 @@ export class CodeNoteComponent implements OnInit {
     this.alphabet.set(this.alphabet.size, { id: this.alphabet.size, romanLetter: ''} as Letter)
   }
 
-  openLetterModular() {
-    this.modularOverlayService.open({message: "yay, you pressed a button!"});
+  openLetterModular(letterID: number) {
+    this.modularOverlayService.open({data: this.alphabet.get(letterID)});
   }
 }
