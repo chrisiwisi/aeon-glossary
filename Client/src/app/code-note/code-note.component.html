@@ -1,5 +1,10 @@
 <h2>Messages</h2>
-<div *ngFor="let message of messages">{{ message | decode: alphabet }}</div>
+<div *ngFor="let message of messages" class="message-wrapper">
+  <div *ngFor="let result of message | decode: alphabet" class="letter-wrapper">
+    <p *ngIf="result.letter">{{result.letter}}</p>
+    <img *ngIf="result.URL && !result.letter" [src]="result.URL">
+  </div>
+</div>
 
 <h2>Letters</h2>
 <!--p>also try <a href="https://quipqiup.com/">quipquip</a> if you are stuck ;)</p-->

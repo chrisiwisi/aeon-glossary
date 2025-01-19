@@ -19,3 +19,16 @@
 .alphabet-table > tr > td {
   text-align: center;
 }
+
+.message-wrapper {
+  display: flex;
+}
+
+.letter-wrapper {
+  width: 30px;
+  outline: 1px solid black;
+}
+
+.letter-wrapper img {
+  max-width: 100%;
+}
