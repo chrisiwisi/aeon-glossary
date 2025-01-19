@@ -38,3 +38,17 @@
   max-width: 100%;
   margin-top: 60%;
 }
+
+.save-btn {
+  float: right;
+}
+
+.letters-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 90vw;
+  button {
+    height: 2rem;
+    margin-top: 1rem;
+  }
+}

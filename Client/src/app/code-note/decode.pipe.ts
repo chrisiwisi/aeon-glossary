@@ -12,7 +12,7 @@ export class DecodePipe implements PipeTransform {
     const letterArray: (Letter | undefined)[] = messageKeys.map((value) => alphabet.get(value));
     return letterArray.map((letter: Letter | undefined) => {
       if (letter) {
-        let result = {letter: ''} as { letter?: string, URL?: string };
+        let result = {letter: '*'} as { letter?: string, URL?: string };
         if (letter.imageURL) {result = {URL: letter.imageURL};}
         if (letter.romanLetter) {result = {...result, letter: letter.romanLetter};}
         return result;
