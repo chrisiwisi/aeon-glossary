@@ -97,8 +97,6 @@ export class ModularOverlayComponent {
 
   saveImageToLetter() {
     this.letter.imageURL = this.canvas.nativeElement.toDataURL("image/png",0.90);
-    console.log(`saved new image:`);
-    console.log(this.letter.imageURL);
   }
 
   undoCanvas() {
