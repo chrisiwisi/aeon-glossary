@@ -29,7 +29,7 @@ public class AIController {
 
     //TODO without authentication everyone can theoretically guess an id and read the messages of others!
     @GetMapping("/threads")
-    ResponseEntity<String> thread() {
+    ResponseEntity<String> createNewThread() {
         log.trace("Opening a new Thread");
         return ResponseEntity.ok(promptFactory.createPrompt().createNewThread());
     }

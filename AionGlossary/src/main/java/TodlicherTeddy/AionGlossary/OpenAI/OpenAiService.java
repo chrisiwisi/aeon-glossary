@@ -8,7 +8,9 @@ import TodlicherTeddy.AionGlossary.OpenAI.DTOs.ThreadCreationResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -59,6 +61,7 @@ public class OpenAiService {
         log.info("Polling for run [{}] completed with status [{}]", runID, status);
         if (!status.equals("completed")) {
             log.error("last error [{}] incomplete details [{}]", result.last_error(), result.incomplete_details());
+            throw new ErrorResponseException(HttpStatusCode.valueOf(500), new Error(result.last_error().code()));
         }
         return status;
     }
