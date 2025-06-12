@@ -12,11 +12,10 @@ import {ChatPromptComponent} from "./aion-chatbot/chat-prompt/chat-prompt.compon
 import {AionComponent} from "./aion-chatbot/aion.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, RulesCardComponent, NgForOf, SearchPipe, FormsModule, HttpClientModule, NgClass, ConversationComponent, ChatPromptComponent, AionComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    imports: [RouterOutlet, RulesCardComponent, NgForOf, SearchPipe, FormsModule, HttpClientModule, NgClass, ConversationComponent, ChatPromptComponent, AionComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'Aeon Glossary';
