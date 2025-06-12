@@ -18,6 +18,6 @@ It's very much a work in Progress at the moment.
 - [ ] add interactive AI powered chatbot
 
 ## Build
-Run  ng build --configuration production --base-href https://todlicherteddy.github.io/aeon-glossary/ to build the project. The build artifacts will be stored in the docs/ directory which will then be automatically deployed to github-pages.
+Run  ng build --configuration production --base-href https://Christian-Wieser.github.io/aeon-glossary/ to build the project. The build artifacts will be stored in the docs/ directory which will then be automatically deployed to github-pages.
 
 Or use `ng deploy` to deploy
