@@ -9,7 +9,9 @@
   </div>
 
   <div class="card-container">
-    <app-rules-card *ngFor="let rule of rules | search: searchTerm" [rule]="rule"></app-rules-card>
+    @for (rule of rules | search: searchTerm; track rule) {
+      <app-rules-card [rule]="rule"></app-rules-card>
+    }
   </div>
 
   <app-aion></app-aion>

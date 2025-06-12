@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {RulesCardComponent} from "./rules-card/rules-card.component";
-import {NgClass, NgForOf} from "@angular/common";
+import { NgClass } from "@angular/common";
 import {SearchPipe} from "./search/search.pipe";
 import {FormsModule} from "@angular/forms";
 import {SearchService} from "./search/search.service";
@@ -13,7 +13,7 @@ import {AionComponent} from "./aion-chatbot/aion.component";
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, RulesCardComponent, NgForOf, SearchPipe, FormsModule, HttpClientModule, NgClass, ConversationComponent, ChatPromptComponent, AionComponent],
+    imports: [RulesCardComponent, SearchPipe, FormsModule, HttpClientModule, AionComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

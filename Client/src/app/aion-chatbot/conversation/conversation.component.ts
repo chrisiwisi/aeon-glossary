@@ -1,13 +1,12 @@
 import {AfterViewChecked, Component, ElementRef, Input, Signal, ViewChild} from '@angular/core';
 import {MessageDTO} from "../DTOs/MessageDTO";
-import {NgClass, NgForOf} from "@angular/common";
+import { NgClass } from "@angular/common";
 
 @Component({
     selector: 'app-conversation',
     imports: [
-        NgClass,
-        NgForOf
-    ],
+    NgClass
+],
     templateUrl: './conversation.component.html',
     styleUrl: './conversation.component.css'
 })
