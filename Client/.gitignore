@@ -43,6 +43,6 @@ testem.log
 Thumbs.db
 
 /RulesTableConverter/Aeon\ Glossary.xlsx
-/RulesTableConverter/rules.json
+/src/assets/rules.json
 /docs/
 /.angular/
