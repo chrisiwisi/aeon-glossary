@@ -13,19 +13,28 @@ def detect_tags(text, include_tags):
     return sorted(tags)
 
 def extract_entries(md_text):
-    chapter_matches = [match.group(1) for match in re.finditer(r"\{#([^\}]+)\}", md_text)]
+    # Capture chapter headers and their position in the text
+    chapter_matches = [
+        (match.start(), match.group(1))
+        for match in re.finditer(r"\{#([^\}]+)\}", md_text)
+    ]
 
-    pattern = r"\n(?<!# )(\d+)\.\s+(?!#)\*\*(.+?)\*\*\s*((?:.|\n)*?)(?=\n\d+\.\s+(?!#)\*\*(?!\*)|\n\d+\.\s+#|\n#+\s+\*\*References List\*\*\s+\{#references-list\}|\Z)"
-    matches = re.findall(pattern, md_text, re.DOTALL)
+    # Rule pattern
+    pattern = r"\n(?<!# )(\d+)\.\s+(?!#)\*\*(.+?)\*\*\s*((?:.|\n)*?)(?=\n\d+\.\s+(?!#)\*\*(?!\*)|\n\d+\.\s+#|\n#+\s|\Z)"
+    rule_matches = list(re.finditer(pattern, md_text, re.DOTALL))
 
     entries = []
-    chapter_index = 1
-    current_chapter = "A"
-    for num, keyword, desc in matches:
-        if num == "1" and chapter_index + 1 < len(chapter_matches):
-            chapter_index += 1
-            current_chapter = chapter_matches[chapter_index]
-            
+    for match in rule_matches:
+        num, keyword, desc = match.groups()
+        rule_pos = match.start()
+
+        current_chapter = "A"
+        for pos, chap in chapter_matches:
+            if pos < rule_pos:
+                current_chapter = chap
+            else:
+                break
+
         entry = {
             "id": f"{current_chapter}.{num}",
             "name": keyword.strip(),
@@ -33,14 +42,37 @@ def extract_entries(md_text):
             "keywords": detect_tags(desc, current_chapter)
         }
         entries.append(entry)
+
     return entries
 
+
+
 def clean_rule_text(text):
-    return '\n'.join(
-        line.rstrip()
-        for line in text.strip().splitlines()
-        if line.strip()  # keep only non-empty lines
-    )
+    lines = text.strip().splitlines()
+    cleaned = []
+
+    for line in lines:
+        stripped = line.strip()
+
+        if not stripped:
+            cleaned.append("")
+            continue
+
+        leading_spaces = len(line) - len(stripped)
+
+        # Detect numbered list items like "1. **Something**"
+        if re.match(r"^\d+\.\s", stripped):
+            nesting_level = leading_spaces // 4
+            new_indent = " " * (3 * nesting_level)
+            cleaned.append(f"{new_indent}{stripped}")
+        else:
+            # Reduce indent to avoid Markdown code block
+            if leading_spaces >= 4:
+                cleaned.append(" " * (leading_spaces - 1) + stripped)
+            else:
+                cleaned.append(line.rstrip())
+
+    return "\n".join(cleaned)
 
 def main():
     parser = argparse.ArgumentParser(description="Extract keywords from markdown into JSON.")
