@@ -53,6 +53,7 @@ def clean_rule_text(text):
 
     for line in lines:
         stripped = line.strip()
+        stripped = replace_bookmark_links(stripped)
 
         if not stripped:
             cleaned.append("")
@@ -73,6 +74,11 @@ def clean_rule_text(text):
                 cleaned.append(line.rstrip())
 
     return "\n".join(cleaned)
+
+def replace_bookmark_links(text, base_url="https://docs.google.com/document/d/1u3q2ngOWhVvixLbz3PiR-4HG0A1OpcAzCM-9cveigu4/edit?tab=t.0"):
+    pattern = r"\[(.*?)\]\(#bookmark=([^\)]+)\)"
+    return re.sub(pattern, rf"[\1]({base_url}#bookmark=\2)", text)
+
 
 def main():
     parser = argparse.ArgumentParser(description="Extract keywords from markdown into JSON.")
