@@ -10,7 +10,7 @@ It's very much a work in Progress at the moment.
 
 - [x] A searchable list of definitions and keywords
 - [x] Include all keywords
-- [ ] Include the rest of the rules
+- [x] Include the rest of the rules
 - [ ] Make cards load dynamically instead of all at once
 - [ ] add filters for cycles and other categories
 - [ ] dynamically link references to other rules

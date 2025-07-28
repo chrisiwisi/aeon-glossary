@@ -6,6 +6,7 @@ import {SearchService} from "./search/search.service";
 import {Rule} from "./rules-card/Rule";
 import {HttpClient} from "@angular/common/http";
 import {AionComponent} from "./aion-chatbot/aion.component";
+import {environment} from "../environments/environment";
 
 @Component({
     selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent {
   title = 'Aeon Glossary';
   searchTerm: string = '';
   rules: Rule[] = [];
+  theLawUrl = environment.theLawUrl;
 
   http: HttpClient = inject(HttpClient);
   searchService: SearchService = inject(SearchService);
@@ -28,4 +30,5 @@ export class AppComponent {
     });
   }
 
+  protected readonly environment = environment;
 }
