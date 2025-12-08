@@ -23,24 +23,7 @@ export class CodeNoteComponent implements OnInit {
   messages: number[][] = [];
 
   ngOnInit(): void {
-    let storedAlphabet: string | null = localStorage.getItem('alphabet');
-    let storedMessages: string | null = localStorage.getItem('messages');
-
-    if (storedAlphabet) {
-      this.alphabet = new Map(JSON.parse(storedAlphabet));
-    } else {
-      this.alphabet.set(0, SPACE_LETTER);
-      for (let i = 1; i < 18; i++) {
-        this.alphabet.set(i, {id: i, romanLetter: ''});
-      }
-    }
-
-    if (storedMessages) {
-      this.messages = JSON.parse(storedMessages);
-    } else {
-      this.messages.push([1, 2, 3, 2, 4, 2, 0, 5, 6, 7, 7, 0, 8, 6, 9, 1, 0, 10, 11, 12]);
-      this.messages.push([10, 11, 12, 0, 3, 2, 13, 14, 0, 13, 6, 11, 7, 2, 15, 14, 1, 0, 15, 3, 14, 0, 7, 2, 5, 17, 0, 11, 8, 0, 15, 6, 16, 14]);
-    }
+    this.reloadFromLocalStorage();
   }
 
   updateLetter(letterKey: number, event: Event) {
@@ -61,12 +44,40 @@ export class CodeNoteComponent implements OnInit {
   }
 
   openLetterModular(letterID: number) {
-    this.modularOverlayService.open({data: this.alphabet.get(letterID)});
+    const letter = this.alphabet.get(letterID);
+    if (letter) {
+      this.modularOverlayService.openLetterCanvas(letter);
+    }
+  }
+
+  protected openMessageModular() {
+    this.modularOverlayService.openMessageInput(this.alphabet);
   }
 
   saveCurrentProgress() {
     localStorage.setItem('messages', JSON.stringify(this.messages));
     localStorage.setItem('alphabet', JSON.stringify(Array.from(this.alphabet.entries())));
+  }
+
+  reloadFromLocalStorage(): void {
+    let storedAlphabet: string | null = localStorage.getItem('alphabet');
+    let storedMessages: string | null = localStorage.getItem('messages');
+
+    if (storedAlphabet) {
+      this.alphabet = new Map(JSON.parse(storedAlphabet));
+    } else {
+      this.alphabet.set(0, SPACE_LETTER);
+      for (let i = 1; i < 18; i++) {
+        this.alphabet.set(i, {id: i, romanLetter: ''});
+      }
+    }
+
+    if (storedMessages) {
+      this.messages = JSON.parse(storedMessages);
+    } else {
+      this.messages.push([1, 2, 3, 2, 4, 2, 0, 5, 6, 7, 7, 0, 8, 6, 9, 1, 0, 10, 11, 12]);
+      this.messages.push([10, 11, 12, 0, 3, 2, 13, 14, 0, 13, 6, 11, 7, 2, 15, 14, 1, 0, 15, 3, 14, 0, 7, 2, 5, 17, 0, 11, 8, 0, 15, 6, 16, 14]);
+    }
   }
 
   protected deleteMessage(messageIndex: number) {

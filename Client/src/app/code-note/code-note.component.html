@@ -18,11 +18,18 @@
   </div>
 }
 
+<div>
+  <button (click)="openMessageModular()">+</button>
+</div>
+
 <!-- TODO add modular overlay button to add new messages -->
 
 <span class="letters-header-wrapper">
   <h2>Letters</h2>
-  <button class="save-btn" (click)="saveCurrentProgress()">Save</button>
+  <span>
+    <button class="save-btn" (click)="reloadFromLocalStorage()">Reload</button>
+    <button class="save-btn" (click)="saveCurrentProgress()">Save</button>
+  </span>
 </span>
 
 <table class="alphabet-table">

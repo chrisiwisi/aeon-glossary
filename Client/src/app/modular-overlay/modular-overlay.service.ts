@@ -1,16 +1,17 @@
 import {ComponentRef, Injectable, InjectionToken, Injector} from "@angular/core";
-import {Overlay, OverlayConfig, OverlayRef} from "@angular/cdk/overlay";
+import {ComponentType, Overlay, OverlayConfig, OverlayRef} from "@angular/cdk/overlay";
 import {ModularOverlayRef} from "./modular-overlay-ref";
 import {ComponentPortal} from "@angular/cdk/portal";
-import {ModularOverlayComponent} from "./modular-overlay.component";
+import {LetterCanvasComponent} from "./letter-canvas/letter-canvas.component";
 import {LETTER_DATA} from "./modular-overlay.tokens";
 import {Letter} from "../code-note/Letter";
+import {MessageInputComponent} from "./message-input/message-input.component";
+import {DIALOG_DATA} from "@angular/cdk/dialog";
 
 interface ModularOverlayDialogConfig {
   panelClass?: string;
   hasBackdrop?: boolean;
   backdropClass?: string;
-  data?: Letter;
   injector?: InjectionToken<any>;
 }
 
@@ -18,8 +19,7 @@ const DEFAULT_CONFIG: ModularOverlayDialogConfig = {
   hasBackdrop: true,
   backdropClass: 'dark-backdrop',
   panelClass: 'modular-overlay-panel',
-  data: undefined,
-  injector: LETTER_DATA
+  injector: DIALOG_DATA
 }
 
 @Injectable({
@@ -32,13 +32,24 @@ export class ModularOverlayService {
   ) {
   }
 
-  open(config: ModularOverlayDialogConfig = {}) {
+
+  openLetterCanvas(letter: Letter, config: ModularOverlayDialogConfig = {}) {
+    return this.open(LetterCanvasComponent, { ...config, data: letter });
+  }
+
+  openMessageInput(map: Map<number, Letter>, config: ModularOverlayDialogConfig = {}) {
+    return this.open(MessageInputComponent, { ...config, data: map });
+  }
+
+  private open<T, D>(component: ComponentType<T>, config: ModularOverlayDialogConfig & { data: D }): ModularOverlayRef {
     const dialogConfig = { ...DEFAULT_CONFIG, ...config };
     const overlayRef = this.createOverlay(dialogConfig);
     const dialogRef = new ModularOverlayRef(overlayRef);
 
-    this.attachDialogContainer(overlayRef, dialogConfig, dialogRef);
-    overlayRef.backdropClick().subscribe(_ => dialogRef.close());
+    this.attachDialogContainer(overlayRef, dialogConfig, dialogRef, component);
+
+    overlayRef.backdropClick().subscribe(() => dialogRef.close());
+
     return dialogRef;
   }
 
@@ -47,16 +58,21 @@ export class ModularOverlayService {
     return this.overlay.create(overlayConfig);
   }
 
-  private attachDialogContainer(overlayRef: OverlayRef, config: ModularOverlayDialogConfig, dialogRef: ModularOverlayRef) {
+  private attachDialogContainer<T, D>(
+    overlayRef: OverlayRef,
+    config: ModularOverlayDialogConfig & { data: D },
+    dialogRef: ModularOverlayRef,
+    component: ComponentType<T>
+  ): T {
     const injector = this.createInjector(config, dialogRef);
 
-    const containerPortal = new ComponentPortal(ModularOverlayComponent, null, injector);
-    const containerRef: ComponentRef<ModularOverlayComponent> = overlayRef.attach(containerPortal);
+    const containerPortal = new ComponentPortal(component, null, injector);
+    const containerRef: ComponentRef<T> = overlayRef.attach(containerPortal);
 
     return containerRef.instance;
   }
 
-  private createInjector(config: ModularOverlayDialogConfig, dialogRef: ModularOverlayRef): Injector {
+  private createInjector<D>(config: ModularOverlayDialogConfig & { data: D }, dialogRef: ModularOverlayRef): Injector {
     return Injector.create({
       parent: this.injector,
       providers: [

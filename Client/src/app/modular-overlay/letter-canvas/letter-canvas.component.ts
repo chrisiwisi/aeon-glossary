@@ -1,25 +1,28 @@
-import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
-import {ModularOverlayRef} from "./modular-overlay-ref";
-import {LETTER_DATA} from "./modular-overlay.tokens";
+import {Component, ElementRef, inject, Inject, ViewChild} from '@angular/core';
+import {ModularOverlayRef} from "../modular-overlay-ref";
+import {LETTER_DATA} from "../modular-overlay.tokens";
 import {finalize, fromEvent, switchMap, takeUntil, tap} from "rxjs";
-import {Letter} from "../code-note/Letter";
+import {Letter} from "../../code-note/Letter";
+import {OverlayRef} from "@angular/cdk/overlay";
+import {DIALOG_DATA} from "@angular/cdk/dialog";
 
 @Component({
-  selector: 'app-modular-overlay',
+  selector: 'app-letter-canvas',
   imports: [],
-  templateUrl: './modular-overlay.component.html',
+  templateUrl: './letter-canvas.component.html',
   standalone: true,
-  styleUrl: './modular-overlay.component.css'
+  styleUrl: './letter-canvas.component.css'
 })
-export class ModularOverlayComponent {
+export class LetterCanvasComponent {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
   canvasPosition: { x: number, y: number } = {x: 0, y: 0};
   ctx!: CanvasRenderingContext2D;
 
-  constructor(
-    public dialogRef: ModularOverlayRef,
-    @Inject(LETTER_DATA) public letter: Letter) {
-    dialogRef.onClose.subscribe(() => this.saveImageToLetter());
+  private dialogRef: ModularOverlayRef = inject(ModularOverlayRef);
+  private letter: Letter = inject(DIALOG_DATA);
+
+  constructor() {
+    this.dialogRef.onClose.subscribe(() => this.saveImageToLetter());
   }
 
   ngAfterViewInit() {

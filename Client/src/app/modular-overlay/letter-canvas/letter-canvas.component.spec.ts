@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModularOverlayComponent } from './modular-overlay.component';
+import { LetterCanvasComponent } from './letter-canvas.component';
 
 describe('ModularOverlayComponent', () => {
-  let component: ModularOverlayComponent;
-  let fixture: ComponentFixture<ModularOverlayComponent>;
+  let component: LetterCanvasComponent;
+  let fixture: ComponentFixture<LetterCanvasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModularOverlayComponent]
+      imports: [LetterCanvasComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(ModularOverlayComponent);
+
+    fixture = TestBed.createComponent(LetterCanvasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
