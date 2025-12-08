@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {KeyValuePipe, NgForOf, NgIf} from "@angular/common";
+import {Component, inject, OnInit} from '@angular/core';
+import {KeyValuePipe} from "@angular/common";
 import {DecodePipe} from "./decode.pipe";
 import {Letter, SPACE_LETTER} from "./Letter";
 import {FormsModule} from "@angular/forms";
@@ -8,22 +8,19 @@ import {ModularOverlayService} from "../modular-overlay/modular-overlay.service"
 @Component({
   selector: 'app-code-note',
   imports: [
-    NgForOf,
     DecodePipe,
     KeyValuePipe,
     FormsModule,
-    NgIf
   ],
   templateUrl: './code-note.component.html',
   standalone: true,
   styleUrl: './code-note.component.css'
 })
 export class CodeNoteComponent implements OnInit {
+  private modularOverlayService: ModularOverlayService = inject(ModularOverlayService);
+
   alphabet: Map<number, Letter> = new Map<number, Letter>();
   messages: number[][] = [];
-
-  constructor(private modularOverlayService: ModularOverlayService) {
-  }
 
   ngOnInit(): void {
     let storedAlphabet: string | null = localStorage.getItem('alphabet');
@@ -70,5 +67,9 @@ export class CodeNoteComponent implements OnInit {
   saveCurrentProgress() {
     localStorage.setItem('messages', JSON.stringify(this.messages));
     localStorage.setItem('alphabet', JSON.stringify(Array.from(this.alphabet.entries())));
+  }
+
+  protected deleteMessage(messageIndex: number) {
+    this.messages.splice(messageIndex, 1);
   }
 }

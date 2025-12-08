@@ -1,36 +1,62 @@
 <h2>Messages</h2>
-<div *ngFor="let message of messages" class="message-wrapper">
-  <div *ngFor="let result of message | decode: alphabet" class="letter-wrapper">
-    <p *ngIf="result.letter">{{result.letter}}</p>
-    <img *ngIf="result.URL && !result.letter" [src]="result.URL">
+
+@for (message of messages; track $index) {
+  <div class="message-wrapper">
+    @for (result of message | decode: alphabet; track $index) {
+      <div class="letter-wrapper">
+        @if (result.letter) {
+          <p>{{ result.letter }}</p>
+        }
+        @if (result.URL && !result.letter) {
+          <img [src]="result.URL">
+        }
+      </div>
+    }
+    <span class="delete-message">
+      <button (click)="deleteMessage($index)">X</button>
+    </span>
   </div>
-</div>
+}
+
 <!-- TODO add modular overlay button to add new messages -->
 
 <span class="letters-header-wrapper">
   <h2>Letters</h2>
   <button class="save-btn" (click)="saveCurrentProgress()">Save</button>
 </span>
-<!--p>also try <a href="https://quipqiup.com/">quipquip</a> if you are stuck ;)</p-->
+
 <table class="alphabet-table">
   <tr>
     <th>ID</th>
     <th>Image</th>
     <th>Letter</th>
   </tr>
-  <tr *ngFor="let letter of alphabet | keyvalue">
-    <td>{{ letter.key }}</td>
-    <td>
-      <button *ngIf="!letter.value.imageURL" (click)="openLetterModular(letter.key)">+</button>
-      <img class="letter-preview" *ngIf="letter.value.imageURL" [src]="letter.value.imageURL"
-           (click)="openLetterModular(letter.key)"></td>
-    <td><input class="letter-text-field" type="text" [value]="letter.value.romanLetter"
-               (change)="updateLetter(letter.key, $event)"></td>
-  </tr>
+
+  @for (letter of alphabet | keyvalue; track $index) {
+    <tr>
+      <td>{{ letter.key }}</td>
+      <td>
+        @if (!letter.value.imageURL) {
+          <button (click)="openLetterModular(letter.key)">+</button>
+        }
+        @if (letter.value.imageURL) {
+          <img class="letter-preview"
+               [src]="letter.value.imageURL"
+               (click)="openLetterModular(letter.key)">
+        }
+      </td>
+      <td>
+        <input class="letter-text-field"
+               type="text"
+               [value]="letter.value.romanLetter"
+               (change)="updateLetter(letter.key, $event)">
+      </td>
+    </tr>
+  }
+
   <tr>
     <td colspan="3">
       <button (click)="addLetter()">Add letter</button>
     </td>
   </tr>
 </table>
-
