@@ -51,7 +51,13 @@ export class CodeNoteComponent implements OnInit {
   }
 
   protected openMessageModular() {
-    this.modularOverlayService.openMessageInput(this.alphabet);
+    this.modularOverlayService.openMessageInput(this.alphabet).sendData.subscribe(result => {
+      console.log(result);
+      if (result) {
+        console.log(result)
+        this.messages.push(result);
+      }
+    });
   }
 
   saveCurrentProgress() {

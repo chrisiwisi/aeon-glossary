@@ -1,9 +1,7 @@
-import {Component, ElementRef, inject, Inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, Inject, OnDestroy, ViewChild} from '@angular/core';
 import {ModularOverlayRef} from "../modular-overlay-ref";
-import {LETTER_DATA} from "../modular-overlay.tokens";
-import {finalize, fromEvent, switchMap, takeUntil, tap} from "rxjs";
+import {finalize, fromEvent, Subject, Subscription, switchMap, takeUntil, tap} from "rxjs";
 import {Letter} from "../../code-note/Letter";
-import {OverlayRef} from "@angular/cdk/overlay";
 import {DIALOG_DATA} from "@angular/cdk/dialog";
 
 @Component({
@@ -13,16 +11,26 @@ import {DIALOG_DATA} from "@angular/cdk/dialog";
   standalone: true,
   styleUrl: './letter-canvas.component.css'
 })
-export class LetterCanvasComponent {
+export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
   canvasPosition: { x: number, y: number } = {x: 0, y: 0};
   ctx!: CanvasRenderingContext2D;
 
   private dialogRef: ModularOverlayRef = inject(ModularOverlayRef);
   private letter: Letter = inject(DIALOG_DATA);
+  private subscription: Subscription;
+  private saveLetter: boolean = true;
 
   constructor() {
-    this.dialogRef.onClose.subscribe(() => this.saveImageToLetter());
+    this.subscription = this.dialogRef.onClose.subscribe(() => {
+      if (this.saveLetter) {
+        this.saveImageToLetter()
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -103,7 +111,9 @@ export class LetterCanvasComponent {
   }
 
   undoCanvas() {
-    //TODO
+    this.letter.imageURL = undefined;
+    this.saveLetter = false;
+    this.close();
   }
 
   close() {

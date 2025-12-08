@@ -3,7 +3,6 @@ import {ComponentType, Overlay, OverlayConfig, OverlayRef} from "@angular/cdk/ov
 import {ModularOverlayRef} from "./modular-overlay-ref";
 import {ComponentPortal} from "@angular/cdk/portal";
 import {LetterCanvasComponent} from "./letter-canvas/letter-canvas.component";
-import {LETTER_DATA} from "./modular-overlay.tokens";
 import {Letter} from "../code-note/Letter";
 import {MessageInputComponent} from "./message-input/message-input.component";
 import {DIALOG_DATA} from "@angular/cdk/dialog";
