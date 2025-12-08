@@ -36,7 +36,7 @@ export class MessageInputComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe(); //TODO is this leaking?
   }
 
   emit(): void {
@@ -49,7 +49,8 @@ export class MessageInputComponent implements OnInit, OnDestroy {
       let result = value.map(this.getLetter);
       this.layout.push(result);
     });
-    // const allLayoutLetters = this.layoutPattern.flat();
+
+    this.addAllUnusedLettersToLayout();
   }
 
   private getLetter = (layoutKey: string): Letter | undefined => {
@@ -60,6 +61,32 @@ export class MessageInputComponent implements OnInit, OnDestroy {
     }
     return undefined;
   };
+
+  private addAllUnusedLettersToLayout(): void {
+    // TODO refactor this ai slop
+    const usedLetters = new Set<string>();
+    this.layout.forEach(row => {
+      row.forEach(letter => {
+        if (letter) {
+          usedLetters.add(letter.romanLetter);
+        }
+      });
+    });
+
+    // Find letters that are not in the layout
+    const remainingLetters: Letter[] = [];
+    for (let letter of this.alphabet.values()) {
+      if (!usedLetters.has(letter.romanLetter)) {
+        remainingLetters.push(letter);
+      }
+    }
+
+    // Append remaining letters as a new row if any
+    if (remainingLetters.length > 0) {
+      this.layout.push(remainingLetters);
+    }
+  }
+
 
   protected addLetterToMessage(letter: Letter | undefined) {
     if (!letter) {

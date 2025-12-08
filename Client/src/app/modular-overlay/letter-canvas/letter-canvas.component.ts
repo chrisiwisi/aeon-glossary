@@ -30,7 +30,7 @@ export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe(); //TODO is this leaking?
   }
 
   ngAfterViewInit() {
