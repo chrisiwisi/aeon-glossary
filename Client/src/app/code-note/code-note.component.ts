@@ -86,6 +86,11 @@ export class CodeNoteComponent implements OnInit {
     }
   }
 
+  reset() {
+    this.alphabet.clear();
+    this.messages = [];
+  }
+
   protected deleteMessage(messageIndex: number) {
     this.messages.splice(messageIndex, 1);
   }
