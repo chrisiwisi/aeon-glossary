@@ -31,9 +31,9 @@
   </span>
 </div>
 
-<div class="letter-container">
-  @for (letter of alphabet | keyvalue; track $index) {
-    <app-letter [letter]="letter.value"/>
+<div class="letter-container" cdkScrollable cdkDropList>
+  @for (letter of alphabet; track letter.id) {
+    <app-letter [letter]="letter" cdkDrag/>
   }
 </div>
 

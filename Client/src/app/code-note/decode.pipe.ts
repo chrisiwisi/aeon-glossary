@@ -8,8 +8,8 @@ import {INVALID_LETTER, Letter} from "./letter/Letter";
 })
 export class DecodePipe implements PipeTransform {
 
-  transform(messageKeys: number[], alphabet: Map<number, Letter>): { letter?: string, URL?: string }[] {
-    const letterArray: (Letter | undefined)[] = messageKeys.map((value) => alphabet.get(value));
+  transform(messageIds: number[], alphabet: Letter[]): { letter?: string, URL?: string }[] {
+    const letterArray: (Letter | undefined)[] = messageIds.map((id) => alphabet.find(i => i.id === id));
     return letterArray.map((letter: Letter | undefined) => {
       if (letter) {
         let result = {letter: '*'} as { letter?: string, URL?: string };

@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^20.0.3",
     "@angular/platform-browser-dynamic": "^20.0.3",
     "@angular/router": "^20.0.3",
+    "@ant-design/icons-angular": "^20.0.0",
     "marked": "^16.1.1",
     "minisearch": "^6.3.0",
     "ng-zorro-antd": "^20.4.4",

@@ -16,7 +16,7 @@ import {Subject, Subscription} from "rxjs";
   styleUrl: './message-input.component.css'
 })
 export class MessageInputComponent implements OnInit, OnDestroy {
-  protected alphabet: Map<number, Letter> = inject(DIALOG_DATA);
+  protected alphabet: Letter[] = inject(DIALOG_DATA);
   private dialogRef: ModularOverlayRef = inject(ModularOverlayRef);
   private subscription: Subscription;
   private layoutPattern: string[][] = [
@@ -54,9 +54,9 @@ export class MessageInputComponent implements OnInit, OnDestroy {
   }
 
   private getLetter = (layoutKey: string): Letter | undefined => {
-    for (let [key, value] of this.alphabet.entries()) {
-      if (value.romanLetter === layoutKey) {
-        return this.alphabet.get(key)!;
+    for (let letter of this.alphabet) {
+      if (letter.romanLetter === layoutKey) {
+        return letter;
       }
     }
     return undefined;

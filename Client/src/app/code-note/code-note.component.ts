@@ -1,20 +1,23 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {KeyValuePipe} from "@angular/common";
 import {DecodePipe} from "./decode.pipe";
-import {Letter, SPACE_LETTER} from "./letter/Letter";
+import {Letter} from "./letter/Letter";
 import {FormsModule} from "@angular/forms";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
 import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
+import {CdkScrollable} from "@angular/cdk/overlay";
+import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-code-note',
   imports: [
     DecodePipe,
-    KeyValuePipe,
     FormsModule,
     LetterComponent,
     NzButtonComponent,
+    CdkScrollable,
+    CdkDropList,
+    CdkDrag,
   ],
   templateUrl: './code-note.component.html',
   standalone: true,
@@ -23,36 +26,18 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 export class CodeNoteComponent implements OnInit {
   private modularOverlayService: ModularOverlayService = inject(ModularOverlayService);
 
-  alphabet: Map<number, Letter> = new Map<number, Letter>();
+  alphabet: Letter[] = [];
   messages: number[][] = [];
 
   ngOnInit(): void {
     this.reloadFromLocalStorage();
   }
 
-  updateLetter(letterKey: number, event: Event) {
-    const inputElement: HTMLInputElement = event.target as HTMLInputElement;
-    let newValue = inputElement.value;
-    let oldLetter: (Letter | undefined) = this.alphabet.get(letterKey);
-    if (oldLetter) {
-      //replace old letter
-      this.alphabet.set(letterKey, {...oldLetter, romanLetter: newValue});
-      return;
-    }
-    //create new letter
-    this.alphabet.set(letterKey, {id: letterKey, romanLetter: newValue} as Letter);
-  }
-
   addLetter() {
-    this.alphabet.set(this.alphabet.size, { id: this.alphabet.size, romanLetter: ''} as Letter);
+    const newId = this.alphabet.reduce((largest, current) => current.id > largest ? current.id : largest, 0);
+    this.alphabet.push({ id: newId + 1, romanLetter: ''} as Letter);
+    console.log(this.alphabet);
   }
-
-  // openLetterModular(letterID: number) {
-  //   const letter = this.alphabet.get(letterID);
-  //   if (letter) {
-  //     this.modularOverlayService.openLetterCanvas(letter);
-  //   }
-  // }
 
   protected openMessageModular() {
     this.modularOverlayService.openMessageInput(this.alphabet).sendData.subscribe(result => {
@@ -66,7 +51,7 @@ export class CodeNoteComponent implements OnInit {
 
   saveCurrentProgress() {
     localStorage.setItem('messages', JSON.stringify(this.messages));
-    localStorage.setItem('alphabet', JSON.stringify(Array.from(this.alphabet.entries())));
+    localStorage.setItem('alphabet', JSON.stringify(this.alphabet));
   }
 
   reloadFromLocalStorage(): void {
@@ -74,12 +59,7 @@ export class CodeNoteComponent implements OnInit {
     let storedMessages: string | null = localStorage.getItem('messages');
 
     if (storedAlphabet) {
-      this.alphabet = new Map(JSON.parse(storedAlphabet));
-    } else {
-      this.alphabet.set(0, SPACE_LETTER);
-      for (let i = 1; i < 18; i++) {
-        this.alphabet.set(i, {id: i, romanLetter: ''});
-      }
+      this.alphabet = JSON.parse(storedAlphabet);
     }
 
     if (storedMessages) {
@@ -88,7 +68,7 @@ export class CodeNoteComponent implements OnInit {
   }
 
   reset() {
-    this.alphabet.clear();
+    this.alphabet = [];
     this.messages = [];
   }
 

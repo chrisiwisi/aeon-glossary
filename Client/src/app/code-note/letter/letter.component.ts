@@ -6,6 +6,7 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
+import {PlusOutline} from "@ant-design/icons-angular/icons";
 
 @Component({
   selector: 'app-letter',
@@ -26,9 +27,5 @@ export class LetterComponent {
 
   protected openLetterModular() {
     this.modularOverlayService.openLetterCanvas(this.letter());
-  }
-
-  protected updateLetter($event: Event) {
-    //TODO
   }
 }

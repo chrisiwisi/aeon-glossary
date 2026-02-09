@@ -36,8 +36,8 @@ export class ModularOverlayService {
     return this.open(LetterCanvasComponent, { ...config, data: letter });
   }
 
-  openMessageInput(map: Map<number, Letter>, config: ModularOverlayDialogConfig = {}) {
-    return this.open(MessageInputComponent, { ...config, data: map });
+  openMessageInput(alphabet: Letter[], config: ModularOverlayDialogConfig = {}) {
+    return this.open(MessageInputComponent, { ...config, data: alphabet });
   }
 
   private open<T, D>(component: ComponentType<T>, config: ModularOverlayDialogConfig & { data: D }): ModularOverlayRef {
