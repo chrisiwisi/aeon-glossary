@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, inject, Inject, OnDestroy, ViewChild} from '@angular/core';
 import {ModularOverlayRef} from "../modular-overlay-ref";
 import {finalize, fromEvent, Subject, Subscription, switchMap, takeUntil, tap} from "rxjs";
-import {Letter} from "../../code-note/Letter";
+import {Letter} from "../../code-note/letter/Letter";
 import {DIALOG_DATA} from "@angular/cdk/dialog";
 
 @Component({

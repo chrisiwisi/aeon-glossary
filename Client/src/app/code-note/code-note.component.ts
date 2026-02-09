@@ -1,9 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {KeyValuePipe} from "@angular/common";
 import {DecodePipe} from "./decode.pipe";
-import {Letter, SPACE_LETTER} from "./Letter";
+import {Letter, SPACE_LETTER} from "./letter/Letter";
 import {FormsModule} from "@angular/forms";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
+import {LetterComponent} from "./letter/letter.component";
+import {NzButtonComponent} from "ng-zorro-antd/button";
 
 @Component({
   selector: 'app-code-note',
@@ -11,6 +13,8 @@ import {ModularOverlayService} from "../modular-overlay/modular-overlay.service"
     DecodePipe,
     KeyValuePipe,
     FormsModule,
+    LetterComponent,
+    NzButtonComponent,
   ],
   templateUrl: './code-note.component.html',
   standalone: true,
@@ -43,12 +47,12 @@ export class CodeNoteComponent implements OnInit {
     this.alphabet.set(this.alphabet.size, { id: this.alphabet.size, romanLetter: ''} as Letter);
   }
 
-  openLetterModular(letterID: number) {
-    const letter = this.alphabet.get(letterID);
-    if (letter) {
-      this.modularOverlayService.openLetterCanvas(letter);
-    }
-  }
+  // openLetterModular(letterID: number) {
+  //   const letter = this.alphabet.get(letterID);
+  //   if (letter) {
+  //     this.modularOverlayService.openLetterCanvas(letter);
+  //   }
+  // }
 
   protected openMessageModular() {
     this.modularOverlayService.openMessageInput(this.alphabet).sendData.subscribe(result => {
@@ -80,9 +84,6 @@ export class CodeNoteComponent implements OnInit {
 
     if (storedMessages) {
       this.messages = JSON.parse(storedMessages);
-    } else {
-      this.messages.push([1, 2, 3, 2, 4, 2, 0, 5, 6, 7, 7, 0, 8, 6, 9, 1, 0, 10, 11, 12]);
-      this.messages.push([10, 11, 12, 0, 3, 2, 13, 14, 0, 13, 6, 11, 7, 2, 15, 14, 1, 0, 15, 3, 14, 0, 7, 2, 5, 17, 0, 11, 8, 0, 15, 6, 16, 14]);
     }
   }
 

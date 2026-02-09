@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {INVALID_LETTER, Letter} from "./Letter";
+import {INVALID_LETTER, Letter} from "./letter/Letter";
 
 @Pipe({
   name: 'decode',

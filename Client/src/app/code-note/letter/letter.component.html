@@ -1,0 +1,25 @@
+<nz-card class="letter-card">
+  <div class="letter-preview-container" (click)="openLetterModular()">
+    @if (!letter().imageURL) {
+      <button nz-button nzType="primary" nzShape="circle">
+        <nz-icon nzType="plus" nzTheme="outline"></nz-icon>
+      </button>
+    } @else {
+      <img
+        class="letter-preview"
+        [src]="letter().imageURL"
+        [alt]="letter().romanLetter"
+      />
+    }
+  </div>
+
+  <input
+    nz-input
+    class="letter-input"
+    type="text"
+    placeholder="Enter letter/word"
+    [(ngModel)]="letter().romanLetter"
+    (change)="updateLetter($event)"
+  />
+</nz-card>
+

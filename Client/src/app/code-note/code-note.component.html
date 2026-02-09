@@ -8,12 +8,12 @@
           <p>{{ result.letter }}</p>
         }
         @if (result.URL && !result.letter) {
-          <img [src]="result.URL">
+          <img [src]="result.URL" alt="unknown letter">
         }
       </div>
     }
     <span class="delete-message">
-      <button (click)="deleteMessage($index)">X</button>
+      <button nz-button nzType="primary" (click)="deleteMessage($index)">X</button>
     </span>
   </div>
 }
@@ -22,47 +22,20 @@
   <button (click)="openMessageModular()">+</button>
 </div>
 
-<span class="letters-header-wrapper">
+<div class="letters-header-wrapper">
   <h2>Letters</h2>
   <span>
     <button class="save-btn" (click)="reloadFromLocalStorage()">Reload</button>
     <button class="save-btn" (click)="saveCurrentProgress()">Save</button>
     <button class="save-btn" (click)="reset()">Reset(pls save!)</button>
   </span>
-</span>
+</div>
 
-<table class="alphabet-table">
-  <tr>
-    <th>ID</th>
-    <th>Image</th>
-    <th>Letter</th>
-  </tr>
-
+<div class="letter-container">
   @for (letter of alphabet | keyvalue; track $index) {
-    <tr>
-      <td>{{ letter.key }}</td>
-      <td>
-        @if (!letter.value.imageURL) {
-          <button (click)="openLetterModular(letter.key)">+</button>
-        }
-        @if (letter.value.imageURL) {
-          <img class="letter-preview"
-               [src]="letter.value.imageURL"
-               (click)="openLetterModular(letter.key)">
-        }
-      </td>
-      <td>
-        <input class="letter-text-field"
-               type="text"
-               [value]="letter.value.romanLetter"
-               (change)="updateLetter(letter.key, $event)">
-      </td>
-    </tr>
+    <app-letter [letter]="letter.value"/>
   }
+</div>
 
-  <tr>
-    <td colspan="3">
-      <button (click)="addLetter()">Add letter</button>
-    </td>
-  </tr>
-</table>
+<button nz-button nzType="primary" (click)="addLetter()">Add letter</button>
+

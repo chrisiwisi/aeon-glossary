@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, inject, input, InputSignal, OnDestroy, OnInit} from '@angular/core';
-import {Letter} from "../../code-note/Letter";
+import {Letter} from "../../code-note/letter/Letter";
 import {DIALOG_DATA} from "@angular/cdk/dialog";
 import {NgClass} from "@angular/common";
 import {DecodePipe} from "../../code-note/decode.pipe";
