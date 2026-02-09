@@ -1,4 +1,4 @@
-import {Component, inject, input, InputSignal} from '@angular/core';
+import {Component, inject, input, InputSignal, output} from '@angular/core';
 import {NzCardComponent} from "ng-zorro-antd/card";
 import {Letter} from "./Letter";
 import {ModularOverlayService} from "../../modular-overlay/modular-overlay.service";
@@ -6,7 +6,6 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
-import {PlusOutline} from "@ant-design/icons-angular/icons";
 
 @Component({
   selector: 'app-letter',
@@ -23,9 +22,15 @@ import {PlusOutline} from "@ant-design/icons-angular/icons";
 export class LetterComponent {
   letter: InputSignal<Letter> = input.required<Letter>();
 
+  deleteThisLetter = output<Letter>();
+
   private modularOverlayService = inject(ModularOverlayService);
 
   protected openLetterModular() {
     this.modularOverlayService.openLetterCanvas(this.letter());
+  }
+
+  protected delete() {
+    this.deleteThisLetter.emit(this.letter());
   }
 }

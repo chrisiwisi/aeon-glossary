@@ -31,9 +31,9 @@
   </span>
 </div>
 
-<div class="letter-container" cdkScrollable cdkDropList>
+<div class="letter-container" cdkScrollable cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="mixed">
   @for (letter of alphabet; track letter.id) {
-    <app-letter [letter]="letter" cdkDrag/>
+    <app-letter (deleteThisLetter)="deleteLetter($event)" [letter]="letter" cdkDrag />
   }
 </div>
 

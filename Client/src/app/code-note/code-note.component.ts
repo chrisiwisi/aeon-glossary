@@ -6,7 +6,7 @@ import {ModularOverlayService} from "../modular-overlay/modular-overlay.service"
 import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {CdkScrollable} from "@angular/cdk/overlay";
-import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-code-note',
@@ -18,6 +18,7 @@ import {CdkDrag, CdkDropList} from "@angular/cdk/drag-drop";
     CdkScrollable,
     CdkDropList,
     CdkDrag,
+    CdkDragPlaceholder,
   ],
   templateUrl: './code-note.component.html',
   standalone: true,
@@ -74,5 +75,17 @@ export class CodeNoteComponent implements OnInit {
 
   protected deleteMessage(messageIndex: number) {
     this.messages.splice(messageIndex, 1);
+  }
+
+  protected drop(event: CdkDragDrop<Letter[]>) {
+    moveItemInArray(this.alphabet, event.previousIndex, event.currentIndex);
+  }
+
+  protected deleteLetter(event: Letter) {
+    const index = this.alphabet.findIndex(l => l.id === event.id);
+    if (index < 0) {
+      return;
+    }
+    this.alphabet.splice(index, 1);
   }
 }

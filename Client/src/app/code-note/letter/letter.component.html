@@ -2,7 +2,7 @@
   <div class="letter-preview-container" (click)="openLetterModular()">
     @if (!letter().imageURL) {
       <button nz-button nzType="primary" nzShape="circle">
-        <nz-icon nzType="plus" nzTheme="outline"></nz-icon>
+        <nz-icon nzType="plus" nzTheme="outline" />
       </button>
     } @else {
       <img
@@ -20,5 +20,7 @@
     placeholder="Enter letter/word"
     [(ngModel)]="letter().romanLetter"
   />
+  <button class="floaty-button" nz-button nzType="primary" nzSize="small" (click)="delete()" >
+    <nz-icon nzType="delete" nzTheme="outline" />
+  </button>
 </nz-card>
-
