@@ -6,6 +6,7 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
+import {CdkDragHandle} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-letter',
@@ -14,7 +15,8 @@ import {FormsModule} from "@angular/forms";
     NzButtonComponent,
     NzIconDirective,
     NzInputDirective,
-    FormsModule
+    FormsModule,
+    CdkDragHandle
   ],
   templateUrl: './letter.component.html',
   styleUrl: './letter.component.css'
