@@ -1,21 +1,7 @@
 <h2>Messages</h2>
 
 @for (message of messages; track $index) {
-  <div class="message-wrapper">
-    @for (result of message | decode: alphabet; track $index) {
-      <div class="letter-wrapper">
-        @if (result.letter) {
-          <p>{{ result.letter }}</p>
-        }
-        @if (result.URL && !result.letter) {
-          <img [src]="result.URL" alt="unknown letter">
-        }
-      </div>
-    }
-    <span class="delete-message">
-      <button nz-button nzType="primary" (click)="deleteMessage($index)">X</button>
-    </span>
-  </div>
+  <app-message [message]="message" [alphabet]="alphabet" (delete)="deleteMessage($index)"/>
 }
 
 <div>

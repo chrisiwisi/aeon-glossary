@@ -13,38 +13,6 @@
   max-width: 2rem;
 }
 
-.alphabet-table {
-  max-width: 300px;
-}
-
-.alphabet-table > tr > td {
-  text-align: center;
-}
-
-.message-wrapper {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-}
-
-.delete-message {
-  padding: 1rem 1rem;
-}
-
-.letter-wrapper {
-  width: 30px;
-  text-align: center;
-  font-size: 24px;
-}
-
-.letter-wrapper img {
-  max-width: 100%;
-  margin-top: 60%;
-}
-
 .save-btn {
   margin: 0.5rem 0.5rem;
   float: right;

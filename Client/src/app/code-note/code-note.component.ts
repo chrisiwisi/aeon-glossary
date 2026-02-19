@@ -7,6 +7,7 @@ import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList, moveItemInArray} from "@angular/cdk/drag-drop";
+import {MessageComponent} from "./message/message.component";
 
 @Component({
   selector: 'app-code-note',
@@ -19,6 +20,7 @@ import {CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList, moveItemInArray} 
     CdkDropList,
     CdkDrag,
     CdkDragPlaceholder,
+    MessageComponent,
   ],
   templateUrl: './code-note.component.html',
   standalone: true,
