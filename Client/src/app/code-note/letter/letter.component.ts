@@ -7,6 +7,7 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {CdkDragHandle} from "@angular/cdk/drag-drop";
+import {NzModalService} from "ng-zorro-antd/modal";
 
 @Component({
   selector: 'app-letter',
@@ -27,12 +28,22 @@ export class LetterComponent {
   deleteThisLetter = output<Letter>();
 
   private modularOverlayService = inject(ModularOverlayService);
+  private modal = inject(NzModalService);
 
   protected openLetterModular() {
     this.modularOverlayService.openLetterCanvas(this.letter());
   }
 
   protected delete() {
-    this.deleteThisLetter.emit(this.letter());
+    this.modal.confirm({
+      nzTitle: 'Delete letter?',
+      nzContent: 'This action cannot be undone.',
+      nzOkText: 'Delete',
+      nzOkDanger: true,
+      nzCancelText: 'Cancel',
+      nzOnOk: () => {
+        this.deleteThisLetter.emit(this.letter());
+      }
+    });
   }
 }
