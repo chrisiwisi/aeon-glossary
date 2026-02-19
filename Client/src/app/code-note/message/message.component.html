@@ -1,19 +1,24 @@
 <div class="message-wrapper">
   @for (result of message() | decode: alphabet(); track $index) {
     <div class="letter-wrapper">
-      @if (result.letter) {
+      @if (isDecoded && result.letter) {
         <span>{{ result.letter }}</span>
       }
-      @if (result.URL && !result.letter) {
+      @else if (result.URL) {
         <img [src]="result.URL" alt="unknown letter">
       }
     </div>
   }
-  <span class="delete-message">
+
+  <span class="message-button">
+    <nz-switch [(ngModel)]="isDecoded" />
+  </span>
+
+  <span class="message-button">
     <button nz-button nzType="primary" (click)="openDialog()">E</button>
   </span>
 
-  <span class="delete-message">
+  <span class="message-button">
     <button nz-button nzType="primary" (click)="deleteMessage()">X</button>
   </span>
 </div>
