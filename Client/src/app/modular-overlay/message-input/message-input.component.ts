@@ -1,16 +1,20 @@
-import {AfterViewInit, Component, inject, input, InputSignal, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {Letter} from "../../code-note/letter/Letter";
 import {DIALOG_DATA} from "@angular/cdk/dialog";
 import {NgClass} from "@angular/common";
 import {DecodePipe} from "../../code-note/decode.pipe";
 import {ModularOverlayRef} from "../modular-overlay-ref";
-import {Subject, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
 
 @Component({
   selector: 'app-message-input',
   imports: [
     NgClass,
-    DecodePipe
+    DecodePipe,
+    NzButtonComponent,
+    NzIconDirective
   ],
   templateUrl: './message-input.component.html',
   styleUrl: './message-input.component.css'
@@ -36,7 +40,8 @@ export class MessageInputComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe(); //TODO is this leaking?
+    this.emit();
+    this.subscription.unsubscribe();
   }
 
   emit(): void {
@@ -45,7 +50,7 @@ export class MessageInputComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.layoutPattern.forEach((value, index) => {
+    this.layoutPattern.forEach((value) => {
       let result = value.map(this.getLetter);
       this.layout.push(result);
     });
@@ -94,5 +99,9 @@ export class MessageInputComponent implements OnInit, OnDestroy {
     }
     this.message.push(letter.id); //TODO make sure that the map is handled differently
     //currently this causes an issue when map number, Letter has a mismatch between letter id and index
+  }
+
+  protected removeLastLetter() {
+    this.message.pop();
   }
 }

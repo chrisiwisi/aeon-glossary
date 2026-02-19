@@ -1,25 +1,22 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {DecodePipe} from "./decode.pipe";
 import {Letter} from "./letter/Letter";
 import {FormsModule} from "@angular/forms";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
 import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {CdkScrollable} from "@angular/cdk/overlay";
-import {CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList, moveItemInArray} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from "@angular/cdk/drag-drop";
 import {MessageComponent} from "./message/message.component";
 
 @Component({
   selector: 'app-code-note',
   imports: [
-    DecodePipe,
     FormsModule,
     LetterComponent,
     NzButtonComponent,
     CdkScrollable,
     CdkDropList,
     CdkDrag,
-    CdkDragPlaceholder,
     MessageComponent,
   ],
   templateUrl: './code-note.component.html',
