@@ -3,10 +3,15 @@ import {ModularOverlayRef} from "../modular-overlay-ref";
 import {finalize, fromEvent, Subject, Subscription, switchMap, takeUntil, tap} from "rxjs";
 import {Letter} from "../../code-note/letter/Letter";
 import {DIALOG_DATA} from "@angular/cdk/dialog";
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
 
 @Component({
   selector: 'app-letter-canvas',
-  imports: [],
+  imports: [
+    NzButtonComponent,
+    NzIconDirective
+  ],
   templateUrl: './letter-canvas.component.html',
   standalone: true,
   styleUrl: './letter-canvas.component.css'
@@ -20,6 +25,8 @@ export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
   private letter: Letter = inject(DIALOG_DATA);
   private subscription: Subscription;
   private saveLetter: boolean = true;
+  private history: ImageData[] = [];
+  private readonly MAX_HISTORY = 30;
 
   constructor() {
     this.subscription = this.dialogRef.onClose.subscribe(() => {
@@ -62,6 +69,7 @@ export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
         takeUntil(mouseUpStream),
         finalize(() => {
           this.ctx.closePath();
+          this.saveSnapshot();
         })
       ))
     ).subscribe();
@@ -87,30 +95,62 @@ export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
         takeUntil(touchEndStream),
         finalize(() => {
           this.ctx.closePath();
+          this.saveSnapshot();
         })
       ))
     ).subscribe();
 
     //load previous image
     if (this.letter.imageURL) {
-      let img = new Image();
-      let ctx = this.ctx;
+      const img = new Image();
+      const ctx = this.ctx;
+      const saveSnapshot = this.saveSnapshot;
       img.onload = function (){
         ctx.drawImage(img, 0, 0);
+        saveSnapshot();
       }
       img.src = this.letter.imageURL;
     }
+
+    this.saveSnapshot();
+  }
+
+  private saveSnapshot(): void {
+    const canvas = this.canvas.nativeElement;
+
+    const snapshot = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
+    this.history.push(snapshot);
+
+    if (this.history.length > this.MAX_HISTORY) {
+      this.history.shift();
+    }
+  }
+
+  private restoreSnapshot(snapshot: ImageData): void {
+    this.ctx.putImageData(snapshot, 0, 0);
+  }
+
+  undoCanvas(): void {
+    if (this.history.length <= 1) return;
+
+    this.history.pop();
+
+    const previous = this.history[this.history.length - 1];
+    this.restoreSnapshot(previous);
   }
 
   resetCanvas() {
-    this.ctx.reset();
+    const canvas = this.canvas.nativeElement;
+    this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.history = [];
+    this.saveSnapshot();
   }
 
   saveImageToLetter() {
     this.letter.imageURL = this.canvas.nativeElement.toDataURL("image/png",0.90);
   }
 
-  undoCanvas() {
+  deleteCanvas() {
     this.letter.imageURL = undefined;
     this.saveLetter = false;
     this.close();

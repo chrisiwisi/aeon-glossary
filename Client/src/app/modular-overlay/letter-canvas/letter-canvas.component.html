@@ -1,7 +1,17 @@
 <div class="overlay-content">
-  <div>
-    <button (click)="resetCanvas()">O</button>
-    <button (click)="undoCanvas()">X</button>
+  <div class="toolbar">
+    <button nz-button nzType="default" nzShape="circle" (click)="undoCanvas()">
+      <nz-icon nzType="undo" nzTheme="outline" />
+    </button>
+
+    <button nz-button nzType="default" nzShape="circle" (click)="resetCanvas()">
+      <nz-icon nzType="clear" nzTheme="outline" />
+    </button>
+
+    <button nz-button nzType="default" nzShape="circle" (click)="deleteCanvas()">
+      <nz-icon nzType="close" nzTheme="outline" />
+    </button>
   </div>
-  <canvas id="letter-drawing-canvas" width="300" height="400" #canvas ></canvas>
+
+  <canvas id="letter-drawing-canvas" width="300" height="400" #canvas></canvas>
 </div>
