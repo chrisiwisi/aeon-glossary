@@ -1,7 +1,7 @@
 <h2>Messages</h2>
 
 @for (message of messages; track $index) {
-  <app-message [message]="message" [alphabet]="alphabet" (delete)="deleteMessage($index)"/>
+  <app-message [message]="message" [alphabet]="alphabet" (delete)="deleteMessage($index)" (open)="openMessageModular(message)"/>
 }
 
 <div>

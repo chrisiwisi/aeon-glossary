@@ -17,8 +17,13 @@ export class MessageComponent {
   alphabet = input.required<Letter[]>();
 
   delete = output<void>();
+  open = output<void>();
 
   protected deleteMessage() {
     this.delete.emit();
+  }
+
+  protected openDialog(): void {
+    this.open.emit();
   }
 }

@@ -1,12 +1,11 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, inject, OnDestroy, OnInit} from '@angular/core';
 import {Letter} from "../../code-note/letter/Letter";
-import {DIALOG_DATA} from "@angular/cdk/dialog";
 import {NgClass} from "@angular/common";
 import {DecodePipe} from "../../code-note/decode.pipe";
 import {ModularOverlayRef} from "../modular-overlay-ref";
-import {Subscription} from "rxjs";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
+import {MESSAGE_INPUT_DATA} from "../modular-overlay.tokens";
 
 @Component({
   selector: 'app-message-input',
@@ -20,9 +19,9 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
   styleUrl: './message-input.component.css'
 })
 export class MessageInputComponent implements OnInit, OnDestroy {
-  protected alphabet: Letter[] = inject(DIALOG_DATA);
+  protected alphabet: Letter[] = [];
+  message: number[] = [];
   private dialogRef: ModularOverlayRef = inject(ModularOverlayRef);
-  private subscription: Subscription;
   private layoutPattern: string[][] = [
     ['q','w','e','r','t','z','u','i','o','p'],
     ['a','s','d','f','g','h','j','k','l'],
@@ -30,18 +29,14 @@ export class MessageInputComponent implements OnInit, OnDestroy {
     [' ']
   ];
   layout: (Letter | undefined)[][] = [];
-  message: number[] = [];
 
-  constructor() {
-    this.subscription = this.dialogRef.onClose.subscribe(() => {
-      console.log('dialog closed');
-      this.dialogRef.emit(this.message);
-    })
+  constructor(@Inject(MESSAGE_INPUT_DATA) data: { alphabet: Letter[]; message: number[] }) {
+    this.alphabet = data.alphabet;
+    this.message = data.message ?? [];
   }
 
   ngOnDestroy() {
     this.emit();
-    this.subscription.unsubscribe();
   }
 
   emit(): void {

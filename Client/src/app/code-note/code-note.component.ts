@@ -39,8 +39,8 @@ export class CodeNoteComponent implements OnInit {
     console.log(this.alphabet);
   }
 
-  protected openMessageModular() {
-    this.modularOverlayService.openMessageInput(this.alphabet).sendData.subscribe(result => {
+  protected openMessageModular(message: number[] = []) {
+    this.modularOverlayService.openMessageInput(this.alphabet, message).sendData.subscribe(result => {
       console.log(result);
       if (result) {
         console.log(result)
