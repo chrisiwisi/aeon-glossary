@@ -1,16 +1,5 @@
 <!-- Typing field -->
-<div class="message-wrapper">
-  @for (result of message | decode: alphabet; track $index) {
-    <div class="letter-wrapper">
-      @if (result.letter) {
-        <p>{{ result.letter }}</p>
-      }
-      @if (result.URL && !result.letter) {
-        <img [src]="result.URL" alt="unknown Letter">
-      }
-    </div>
-  }
-</div>
+<app-message [message]="message" [alphabet]="alphabet" [showEdit]="false" [showDelete]="false" />
 
 <!-- Action Row -->
 <div class="action-row">

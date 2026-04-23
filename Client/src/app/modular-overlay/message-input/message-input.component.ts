@@ -1,19 +1,19 @@
 import {Component, Inject, inject, OnDestroy, OnInit} from '@angular/core';
 import {Letter} from "../../code-note/letter/Letter";
 import {NgClass} from "@angular/common";
-import {DecodePipe} from "../../code-note/decode.pipe";
 import {ModularOverlayRef} from "../modular-overlay-ref";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {MESSAGE_INPUT_DATA} from "../modular-overlay.tokens";
+import {MessageComponent} from "../../code-note/message/message.component";
 
 @Component({
   selector: 'app-message-input',
   imports: [
     NgClass,
-    DecodePipe,
     NzButtonComponent,
-    NzIconDirective
+    NzIconDirective,
+    MessageComponent
   ],
   templateUrl: './message-input.component.html',
   styleUrl: './message-input.component.css'

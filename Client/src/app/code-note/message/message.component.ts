@@ -19,6 +19,8 @@ import {FormsModule} from "@angular/forms";
 export class MessageComponent {
   message = input.required<number[]>();
   alphabet = input.required<Letter[]>();
+  showEdit = input<boolean>(true);
+  showDelete = input<boolean>(true);
 
   delete = output<void>();
   open = output<void>();
