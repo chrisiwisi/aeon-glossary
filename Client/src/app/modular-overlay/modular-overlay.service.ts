@@ -6,13 +6,14 @@ import {LetterCanvasComponent} from "./letter-canvas/letter-canvas.component";
 import {Letter} from "../code-note/letter/Letter";
 import {MessageInputComponent} from "./message-input/message-input.component";
 import {DIALOG_DATA} from "@angular/cdk/dialog";
-import {MESSAGE_INPUT_DATA} from "./modular-overlay.tokens";
+import {LETTER_INPUT_DATA, MESSAGE_INPUT_DATA} from "./modular-overlay.tokens";
 
 interface ModularOverlayDialogConfig {
   panelClass?: string;
   hasBackdrop?: boolean;
   backdropClass?: string;
   injector?: InjectionToken<any>;
+  token?: InjectionToken<any>;
 }
 
 const DEFAULT_CONFIG: ModularOverlayDialogConfig = {
@@ -34,12 +35,12 @@ export class ModularOverlayService {
 
 
   openLetterCanvas(letter: Letter, config: ModularOverlayDialogConfig = {}) {
-    return this.open(LetterCanvasComponent, { ...config, data: letter });
+    return this.open(LetterCanvasComponent, { ...config, data: { letter }, token: LETTER_INPUT_DATA });
   }
 
   openMessageInput(alphabet: Letter[], message: number[] = [], config: ModularOverlayDialogConfig = {}) {
     const data = { alphabet, message };
-    return this.open(MessageInputComponent, { ...config, data });
+    return this.open(MessageInputComponent, { ...config, data, token: MESSAGE_INPUT_DATA });
   }
 
   private open<T, D>(component: ComponentType<T>, config: ModularOverlayDialogConfig & { data: D }): ModularOverlayRef {
@@ -78,7 +79,7 @@ export class ModularOverlayService {
       parent: this.injector,
       providers: [
         { provide: ModularOverlayRef, useValue: dialogRef },
-        { provide: MESSAGE_INPUT_DATA, useValue: config.data }
+        { provide: config.token ?? MESSAGE_INPUT_DATA, useValue: config.data }
       ]
     });
   }

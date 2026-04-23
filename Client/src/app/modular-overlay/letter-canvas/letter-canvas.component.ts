@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, ElementRef, inject, Inject, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, OnDestroy, ViewChild} from '@angular/core';
 import {ModularOverlayRef} from "../modular-overlay-ref";
-import {finalize, fromEvent, Subject, Subscription, switchMap, takeUntil, tap} from "rxjs";
+import {finalize, fromEvent, Subscription, switchMap, takeUntil, tap} from "rxjs";
 import {Letter} from "../../code-note/letter/Letter";
-import {DIALOG_DATA} from "@angular/cdk/dialog";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
+import {LETTER_INPUT_DATA} from "../modular-overlay.tokens";
 
 @Component({
   selector: 'app-letter-canvas',
@@ -22,7 +22,7 @@ export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
   ctx!: CanvasRenderingContext2D;
 
   private dialogRef: ModularOverlayRef = inject(ModularOverlayRef);
-  private letter: Letter = inject(DIALOG_DATA);
+  private letter: Letter = inject(LETTER_INPUT_DATA).letter;
   private subscription: Subscription;
   private saveLetter: boolean = true;
   private history: ImageData[] = [];
@@ -37,7 +37,7 @@ export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe(); //TODO is this leaking?
+    this.subscription.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -103,12 +103,10 @@ export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
     //load previous image
     if (this.letter.imageURL) {
       const img = new Image();
-      const ctx = this.ctx;
-      const saveSnapshot = this.saveSnapshot;
-      img.onload = function (){
-        ctx.drawImage(img, 0, 0);
-        saveSnapshot();
-      }
+      img.onload = () => {
+        this.ctx.drawImage(img, 0, 0);
+        this.saveSnapshot();
+      };
       img.src = this.letter.imageURL;
     }
 

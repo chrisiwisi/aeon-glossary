@@ -102,8 +102,8 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "https://Christian-Wieser.github.io/aeon-glossary/",
-            "repo": "https://github.com/Christian-Wieser/aeon-glossary.git"
+            "baseHref": "https://chrisiwisi.github.io/aeon-glossary/",
+            "repo": "git@github.com:chrisiwisi/aeon-glossary.git"
           }
         }
       }
