@@ -1,0 +1,31 @@
+<nz-card class="letter-card">
+  <div class="button-row">
+    <div cdkDragHandle class="drag">
+      <nz-icon nzType="drag" nzTheme="outline" />
+    </div>
+    <button nz-button nzType="primary" nzSize="small" (click)="delete()" >
+      <nz-icon nzType="delete" nzTheme="outline" />
+    </button>
+  </div>
+  <div class="letter-preview-container" (click)="openLetterModular()">
+    @if (!letter().imageURL) {
+      <button nz-button nzType="primary" nzShape="circle">
+        <nz-icon nzType="plus" nzTheme="outline" />
+      </button>
+    } @else {
+      <img
+        class="letter-preview"
+        [src]="letter().imageURL"
+        [alt]="letter().romanLetter"
+      />
+    }
+  </div>
+
+  <input
+    nz-input
+    class="letter-input"
+    type="text"
+    placeholder="Enter letter/word"
+    [(ngModel)]="letter().romanLetter"
+  />
+</nz-card>

@@ -1,0 +1,27 @@
+<h2>Messages</h2>
+
+@for (message of messages; track $index) {
+  <app-message [message]="message" [alphabet]="alphabet" (delete)="deleteMessage($index)" (open)="openMessageModular(message)"/>
+}
+
+<div>
+  <button (click)="openMessageModular()">+</button>
+</div>
+
+<div class="letters-header-wrapper">
+  <h2>Letters</h2>
+  <span>
+    <button class="save-btn" (click)="reloadFromLocalStorage()">Reload</button>
+    <button class="save-btn" (click)="saveCurrentProgress()">Save</button>
+    <button class="save-btn" (click)="reset()">Reset(pls save!)</button>
+  </span>
+</div>
+
+<div class="letter-container" cdkScrollable cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="mixed">
+  @for (letter of alphabet; track letter.id) {
+    <app-letter (deleteThisLetter)="deleteLetter($event)" [letter]="letter" cdkDrag />
+  }
+</div>
+
+<button nz-button nzType="primary" (click)="addLetter()">Add letter</button>
+

@@ -1,0 +1,40 @@
+:host {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.letter-preview {
+  max-width: 50px;
+  background-color: #9ca3af;
+}
+
+.letter-text-field {
+  max-width: 2rem;
+}
+
+.save-btn {
+  margin: 0.5rem 0.5rem;
+  float: right;
+}
+
+.letters-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 90vw;
+  button {
+    height: 2rem;
+    margin-top: 1rem;
+  }
+}
+
+.letter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.letter-placeholder {
+  border: dotted 3px #999;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

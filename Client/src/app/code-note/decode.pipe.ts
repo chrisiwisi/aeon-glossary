@@ -1,0 +1,25 @@
+import {Pipe, PipeTransform} from '@angular/core';
+import {INVALID_LETTER, Letter} from "./letter/Letter";
+
+@Pipe({
+  name: 'decode',
+  standalone: true,
+  pure: false
+})
+export class DecodePipe implements PipeTransform {
+
+  transform(messageIds: number[], alphabet: Letter[]): { letter?: string, URL?: string }[] {
+    const letterArray: (Letter | undefined)[] = messageIds.map((id) => alphabet.find(i => i.id === id));
+    return letterArray.map((letter: Letter | undefined) => {
+      if (letter) {
+        let result = {letter: '*'} as { letter?: string, URL?: string };
+        if (letter.imageURL) {result = {URL: letter.imageURL};}
+        if (letter.romanLetter) {result = {...result, letter: letter.romanLetter};}
+        return result;
+      } else {
+        return {letter: INVALID_LETTER.romanLetter};
+      }
+    });
+  }
+
+}

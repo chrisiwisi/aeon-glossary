@@ -1,0 +1,11 @@
+services:
+  aion-app:
+    build: .
+    container_name: Aion-Glossary
+    restart: unless-stopped
+    environment:
+      AION_GLOSSARY_OPEN_AI_API_KEY=${AION_GLOSSARY_OPEN_AI_API_KEY}
+      AION_GLOSSARY_OPEN_AI_THREAD_ID=${AION_GLOSSARY_OPEN_AI_THREAD_ID}
+      AION_GLOSSARY_OPEN_AI_ASSISTANT_ID={AION_GLOSSARY_OPEN_AI_ASSISTANT_ID}
+    ports:
+      - 8008: 8008

@@ -1,0 +1,49 @@
+import {Component, inject, input, InputSignal, output} from '@angular/core';
+import {NzCardComponent} from "ng-zorro-antd/card";
+import {Letter} from "./Letter";
+import {ModularOverlayService} from "../../modular-overlay/modular-overlay.service";
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzInputDirective} from "ng-zorro-antd/input";
+import {FormsModule} from "@angular/forms";
+import {CdkDragHandle} from "@angular/cdk/drag-drop";
+import {NzModalService} from "ng-zorro-antd/modal";
+
+@Component({
+  selector: 'app-letter',
+  imports: [
+    NzCardComponent,
+    NzButtonComponent,
+    NzIconDirective,
+    NzInputDirective,
+    FormsModule,
+    CdkDragHandle
+  ],
+  templateUrl: './letter.component.html',
+  styleUrl: './letter.component.css'
+})
+export class LetterComponent {
+  letter: InputSignal<Letter> = input.required<Letter>();
+
+  deleteThisLetter = output<Letter>();
+
+  private modularOverlayService = inject(ModularOverlayService);
+  private modal = inject(NzModalService);
+
+  protected openLetterModular() {
+    this.modularOverlayService.openLetterCanvas(this.letter());
+  }
+
+  protected delete() {
+    this.modal.confirm({
+      nzTitle: 'Delete letter?',
+      nzContent: 'This action cannot be undone.',
+      nzOkText: 'Delete',
+      nzOkDanger: true,
+      nzCancelText: 'Cancel',
+      nzOnOk: () => {
+        this.deleteThisLetter.emit(this.letter());
+      }
+    });
+  }
+}

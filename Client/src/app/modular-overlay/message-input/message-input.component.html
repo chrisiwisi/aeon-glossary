@@ -1,0 +1,42 @@
+<!-- Typing field -->
+<app-message [message]="message" [alphabet]="alphabet" [showEdit]="false" [showDelete]="false" />
+
+<!-- Action Row -->
+<div class="action-row">
+  <button
+    nz-button
+    nzType="default"
+    nzShape="round"
+    (click)="removeLastLetter()"
+  >
+    <nz-icon nzType="backward" nzTheme="outline" />
+    Backspace
+  </button>
+
+  <button
+    nz-button
+    nzType="primary"
+    nzShape="round"
+    (click)="emit()"
+  >
+    <nz-icon nzType="enter" nzTheme="outline" />
+    Enter
+  </button>
+</div>
+
+<!-- keyboard -->
+<div class="keyboard">
+  @for (row of layout; track $index) {
+    <div class="row">
+      @for (letter of row; track $index) {
+        <div class="key" [ngClass]="{'space': letter?.romanLetter === ' ', 'empty': !letter}" (click)="addLetterToMessage(letter)">
+          @if (letter === undefined) {
+            <p>&nbsp;</p>
+          } @else {
+            <img [src]="letter.imageURL" [alt]="letter.romanLetter" class="letter-img">
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

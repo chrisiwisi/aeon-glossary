@@ -1,0 +1,85 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  :nth-child(1).row {
+    padding-left: 1rem;
+  }
+  :nth-child(2).row {
+    padding-left: 2rem;
+  }
+  :nth-child(3).row {
+    padding-left: 3rem;
+  }
+  :nth-child(4).row {
+    padding-left: 6rem;
+  }
+
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.key {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  user-select: none;
+}
+
+.key.space {
+  width: 30rem;
+}
+
+.extra-letters {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.letter-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.message-wrapper {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  min-height: 1rem;
+}
+
+.message-button {
+  padding: 1rem 1rem;
+}
+
+.letter-wrapper {
+  width: 30px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.letter-wrapper img {
+  max-width: 100%;
+  margin-top: 60%;
+}
+
+.action-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 16px 0;
+}
