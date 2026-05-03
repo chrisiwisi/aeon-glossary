@@ -1,4 +1,4 @@
-import {Component, Inject, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, inject, OnDestroy, OnInit} from '@angular/core';
 import {Letter} from "../../code-note/letter/Letter";
 import {NgClass} from "@angular/common";
 import {ModularOverlayRef} from "../modular-overlay-ref";
@@ -87,6 +87,21 @@ export class MessageInputComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Backspace') {
+      this.removeLastLetter();
+      return;
+    }
+    if (event.key === ' ') {
+      this.addLetterToMessage(this.getLetter(' '));
+      return;
+    }
+    if (event.key.length === 1) {
+      this.addLetterToMessage(this.getLetter(event.key.toLowerCase()));
+    }
+  }
 
   protected addLetterToMessage(letter: Letter | undefined) {
     if (!letter) {
