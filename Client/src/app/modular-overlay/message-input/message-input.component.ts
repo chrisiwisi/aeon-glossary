@@ -99,4 +99,8 @@ export class MessageInputComponent implements OnInit, OnDestroy {
   protected removeLastLetter() {
     this.message.pop();
   }
+
+  close() {
+    this.dialogRef.close();
+  }
 }
