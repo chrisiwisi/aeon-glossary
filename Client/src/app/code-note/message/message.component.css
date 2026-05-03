@@ -1,22 +1,72 @@
 .message-wrapper {
-  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  margin-bottom: 2rem;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.message-button {
-  padding: 0.25rem 1rem;
+.message-wrapper:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Letter tiles */
+.letters-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  flex: 1;
+  min-height: 40px;
+  align-items: center;
+  padding-right: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .letter-wrapper {
-  text-align: center;
-  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0;
 }
 
 .letter-wrapper img {
-  max-width: 25px;
+  max-height: 36px;
+  max-width: 36px;
+  object-fit: contain;
+}
+
+.decoded-letter {
+  font-size: 22px;
+  color: #e8eaf6;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* Controls strip */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding-left: 4px;
+}
+
+.controls button {
+  color: #9e9ea8 !important;
+}
+
+.controls button:hover {
+  color: #e8eaf6 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.delete-btn:hover {
+  color: #ff7875 !important;
+  background: rgba(255, 120, 117, 0.12) !important;
 }

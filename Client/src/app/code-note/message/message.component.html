@@ -1,28 +1,51 @@
 <div class="message-wrapper">
-  @for (result of message() | decode: alphabet(); track $index) {
-    <div class="letter-wrapper">
-      @if (isDecoded && result.letter) {
-        <span>{{ result.letter }}</span>
-      }
-      @else if (result.URL) {
-        <img [src]="result.URL" alt="unknown letter">
-      }
-    </div>
-  }
+  <!-- Letter tiles -->
+  <div class="letters-area">
+    @for (result of message() | decode: alphabet(); track $index) {
+      <div class="letter-wrapper">
+        @if (isDecoded && result.letter) {
+          <span class="decoded-letter">{{ result.letter }}</span>
+        } @else if (result.URL) {
+          <img [src]="result.URL" alt="unknown letter">
+        }
+      </div>
+    }
+  </div>
 
-  <span class="message-button">
-    <nz-switch [(ngModel)]="isDecoded" />
-  </span>
+  <!-- Controls -->
+  <div class="controls">
+    <nz-switch
+      [(ngModel)]="isDecoded"
+      nzSize="small"
+      nz-tooltip
+      nzTooltipTitle="Toggle decode"
+    />
 
-  @if (showEdit()) {
-    <span class="message-button">
-      <button nz-button nzType="primary" (click)="openDialog()">E</button>
-    </span>
-  }
+    @if (showEdit()) {
+      <button
+        nz-button
+        nzType="text"
+        nzShape="circle"
+        nz-tooltip
+        nzTooltipTitle="Edit message"
+        (click)="openDialog()"
+      >
+        <nz-icon nzType="edit" nzTheme="outline" />
+      </button>
+    }
 
-  @if (showDelete()) {
-    <span class="message-button">
-      <button nz-button nzType="primary" (click)="deleteMessage()">X</button>
-    </span>
-  }
+    @if (showDelete()) {
+      <button
+        nz-button
+        nzType="text"
+        nzShape="circle"
+        nz-tooltip
+        nzTooltipTitle="Delete message"
+        class="delete-btn"
+        (click)="deleteMessage()"
+      >
+        <nz-icon nzType="delete" nzTheme="outline" />
+      </button>
+    }
+  </div>
 </div>
