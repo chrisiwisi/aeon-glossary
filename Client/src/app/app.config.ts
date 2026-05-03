@@ -8,15 +8,24 @@ import {
   ClearOutline,
   CloseOutline,
   DeleteOutline,
-  DragOutline, EnterOutline,
+  DragOutline,
+  EditOutline,
+  EnterOutline,
   PlusOutline,
-  UndoOutline
+  ReloadOutline,
+  SaveOutline,
+  UndoOutline,
+  UploadOutline,
 } from '@ant-design/icons-angular/icons';
 import {provideNzIcons} from "ng-zorro-antd/icon";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {NzModalModule} from "ng-zorro-antd/modal";
 
-const icons: IconDefinition[] = [PlusOutline, DeleteOutline, DragOutline, ClearOutline, UndoOutline, CloseOutline, BackwardOutline, EnterOutline];
+const icons: IconDefinition[] = [
+  PlusOutline, DeleteOutline, DragOutline, ClearOutline, UndoOutline,
+  CloseOutline, BackwardOutline, EnterOutline, EditOutline, ReloadOutline,
+  SaveOutline, UploadOutline,
+];
 
 export const appConfig: ApplicationConfig = {
   providers: [

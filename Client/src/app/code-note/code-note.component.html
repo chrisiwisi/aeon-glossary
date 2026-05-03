@@ -1,27 +1,51 @@
-<h2>Messages</h2>
+<div class="two-col-layout">
 
-@for (message of messages; track $index) {
-  <app-message [message]="message" [alphabet]="alphabet" (delete)="deleteMessage($index)" (open)="openMessageModular(message)"/>
-}
+  <!-- Messages Column -->
+  <div class="col">
+    <div class="section-header">
+      <h2 class="section-title">Messages</h2>
+      <button nz-button nzType="primary" nzShape="round" (click)="openMessageModular()">
+        <nz-icon nzType="plus" nzTheme="outline" />
+        New Message
+      </button>
+    </div>
 
-<div>
-  <button (click)="openMessageModular()">+</button>
+    <div class="messages-list">
+      @for (message of messages; track $index) {
+        <app-message [message]="message" [alphabet]="alphabet" (delete)="deleteMessage($index)" (open)="openMessageModular(message)"/>
+      }
+      @if (messages.length === 0) {
+        <p class="empty-hint">No messages yet. Click "New Message" to get started.</p>
+      }
+    </div>
+  </div>
+
+  <!-- Letters Column -->
+  <div class="col">
+    <div class="section-header">
+      <h2 class="section-title">Letters</h2>
+      <div class="header-actions">
+        <button nz-button nzType="text" nzShape="circle" (click)="reloadFromLocalStorage()" nz-tooltip nzTooltipTitle="Reload from saved">
+          <nz-icon nzType="reload" nzTheme="outline" />
+        </button>
+        <button nz-button nzType="primary" nzShape="circle" (click)="saveCurrentProgress()" nz-tooltip nzTooltipTitle="Save">
+          <nz-icon nzType="save" nzTheme="outline" />
+        </button>
+      </div>
+    </div>
+
+    <div class="letter-container" cdkScrollable cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="mixed">
+      @for (letter of alphabet; track letter.id) {
+        <app-letter (deleteThisLetter)="deleteLetter($event)" [letter]="letter" cdkDrag />
+      }
+    </div>
+
+    <div class="add-letter-row">
+      <button nz-button nzType="dashed" nzShape="round" (click)="addLetter()">
+        <nz-icon nzType="plus" nzTheme="outline" />
+        Add Letter
+      </button>
+    </div>
+  </div>
+
 </div>
-
-<div class="letters-header-wrapper">
-  <h2>Letters</h2>
-  <span>
-    <button class="save-btn" (click)="reloadFromLocalStorage()">Reload</button>
-    <button class="save-btn" (click)="saveCurrentProgress()">Save</button>
-    <button class="save-btn" (click)="reset()">Reset(pls save!)</button>
-  </span>
-</div>
-
-<div class="letter-container" cdkScrollable cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="mixed">
-  @for (letter of alphabet; track letter.id) {
-    <app-letter (deleteThisLetter)="deleteLetter($event)" [letter]="letter" cdkDrag />
-  }
-</div>
-
-<button nz-button nzType="primary" (click)="addLetter()">Add letter</button>
-

@@ -4,6 +4,8 @@ import {FormsModule} from "@angular/forms";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
 import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from "@angular/cdk/drag-drop";
 import {MessageComponent} from "./message/message.component";
@@ -14,6 +16,8 @@ import {MessageComponent} from "./message/message.component";
     FormsModule,
     LetterComponent,
     NzButtonComponent,
+    NzIconDirective,
+    NzTooltipDirective,
     CdkScrollable,
     CdkDropList,
     CdkDrag,
