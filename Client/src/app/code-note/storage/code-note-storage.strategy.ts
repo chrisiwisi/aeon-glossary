@@ -1,4 +1,5 @@
-import {Letter} from './letter/Letter';
+import {Letter} from "../letter/Letter";
+
 
 export interface CodeNoteData {
   alphabet: Letter[];

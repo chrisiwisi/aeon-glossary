@@ -9,8 +9,8 @@ import {CdkScrollable} from "@angular/cdk/overlay";
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 import {MessageComponent} from "./message/message.component";
 import {CodeNoteService} from "./code-note.service";
-import {CodeNoteStorageStrategy} from "./code-note-storage.strategy";
-import {LocalStorageStrategy} from "./local-storage.strategy";
+import {CodeNoteStorageStrategy} from "./storage/code-note-storage.strategy";
+import {FirebaseRtdbStrategy} from "./storage/firebase-rtdb.strategy";
 import {Letter} from "./letter/Letter";
 
 @Component({
@@ -31,7 +31,7 @@ import {Letter} from "./letter/Letter";
   styleUrl: './code-note.component.css',
   providers: [
     CodeNoteService,
-    {provide: CodeNoteStorageStrategy, useClass: LocalStorageStrategy},
+    {provide: CodeNoteStorageStrategy, useClass: FirebaseRtdbStrategy},
   ],
 })
 export class CodeNoteComponent implements OnInit {

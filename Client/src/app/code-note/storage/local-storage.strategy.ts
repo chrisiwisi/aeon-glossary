@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CodeNoteData, CodeNoteStorageStrategy} from './code-note-storage.strategy';
 
+
 const ALPHABET_KEY = 'alphabet';
 const MESSAGES_KEY = 'messages';
 

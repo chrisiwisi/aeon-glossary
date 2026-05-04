@@ -1,6 +1,6 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {Letter} from './letter/Letter';
-import {CodeNoteStorageStrategy} from './code-note-storage.strategy';
+import {CodeNoteStorageStrategy} from './storage/code-note-storage.strategy';
 
 @Injectable()
 export class CodeNoteService {
