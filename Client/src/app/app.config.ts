@@ -22,6 +22,7 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 import {NzModalModule} from "ng-zorro-antd/modal";
 import {provideFirebaseApp, initializeApp} from "@angular/fire/app";
 import {environment} from "../environments/environment";
+import {connectDatabaseEmulator, getDatabase, provideDatabase} from "@angular/fire/database";
 
 const icons: IconDefinition[] = [
   PlusOutline, DeleteOutline, DragOutline, ClearOutline, UndoOutline,
@@ -36,6 +37,13 @@ export const appConfig: ApplicationConfig = {
     provideNzIcons(icons),
     provideAnimations(),
     importProvidersFrom(NzModalModule),
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => {
+      const db = getDatabase();
+      if (!environment.production) {
+        connectDatabaseEmulator(db, 'localhost', 9000);
+      }
+      return db;
+    }),
   ]
 };

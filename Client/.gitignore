@@ -46,3 +46,4 @@ Thumbs.db
 /src/assets/rules.json
 /docs/
 /.angular/
+/src/environments/environment.local.ts
