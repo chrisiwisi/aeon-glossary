@@ -13,6 +13,8 @@ import {
   DragOutline,
   EditOutline,
   EnterOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline,
   PlusOutline,
   ReloadOutline,
   SaveOutline,
@@ -31,6 +33,7 @@ const icons: IconDefinition[] = [
   PlusOutline, DeleteOutline, DragOutline, ClearOutline, UndoOutline,
   CloseOutline, BackwardOutline, EnterOutline, EditOutline, ReloadOutline,
   SaveOutline, UploadOutline, ShareAltOutline, CheckOutline, DownloadOutline,
+  MenuFoldOutline, MenuUnfoldOutline,
 ];
 
 export const appConfig: ApplicationConfig = {

@@ -1,1 +1,40 @@
-<router-outlet />
+<nz-layout class="app-shell">
+  <nz-sider
+    nzTheme="dark"
+    nzCollapsible
+    [(nzCollapsed)]="isSidebarCollapsed"
+    [nzTrigger]="null"
+    [nzZeroTrigger]="null"
+    [nzWidth]="240"
+    [nzCollapsedWidth]="0"
+    class="mobile-sidebar"
+  >
+    <div class="sidebar-title">Aeon Glossary</div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item [nzSelected]="!isCodeRoute()"><a routerLink="/">Glossary</a></li>
+      <li nz-menu-item [nzSelected]="isCodeRoute()"><a routerLink="/code">Code Note</a></li>
+    </ul>
+  </nz-sider>
+
+  @if (!isSidebarCollapsed) {
+    <div class="sidebar-backdrop" (click)="closeSidebar()" aria-hidden="true"></div>
+  }
+
+  <nz-layout class="main-layout">
+    <nz-header class="app-header">
+      <button
+        nz-button
+        nzType="text"
+        class="burger-button"
+        aria-label="Toggle sidebar"
+        (click)="toggleSidebar()"
+      >
+        <nz-icon [nzType]="isSidebarCollapsed ? 'menu-unfold' : 'menu-fold'" nzTheme="outline"/>
+      </button>
+    </nz-header>
+
+    <nz-content class="app-content">
+      <router-outlet/>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
