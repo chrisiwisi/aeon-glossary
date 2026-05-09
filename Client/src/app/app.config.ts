@@ -5,6 +5,7 @@ import {routes} from './app.routes';
 import {provideHttpClient, withFetch} from "@angular/common/http";
 import {
   BackwardOutline,
+  CheckOutline,
   ClearOutline,
   CloseOutline,
   DeleteOutline,
@@ -14,6 +15,7 @@ import {
   PlusOutline,
   ReloadOutline,
   SaveOutline,
+  ShareAltOutline,
   UndoOutline,
   UploadOutline,
 } from '@ant-design/icons-angular/icons';
@@ -27,7 +29,7 @@ import {connectDatabaseEmulator, getDatabase, provideDatabase} from "@angular/fi
 const icons: IconDefinition[] = [
   PlusOutline, DeleteOutline, DragOutline, ClearOutline, UndoOutline,
   CloseOutline, BackwardOutline, EnterOutline, EditOutline, ReloadOutline,
-  SaveOutline, UploadOutline,
+  SaveOutline, UploadOutline, ShareAltOutline, CheckOutline,
 ];
 
 export const appConfig: ApplicationConfig = {

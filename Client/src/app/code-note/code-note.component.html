@@ -1,3 +1,13 @@
+<p class="lobby-code">
+  Code:
+  <nz-tag nzColor="blue">
+    {{ lobbyCode() }}
+    <button nz-button nzType="text" nzSize="small" class="share-btn" (click)="shareOrCopy()">
+      <nz-icon [nzType]="copyLabel() === 'Copied!' ? 'check' : 'share-alt'" nzTheme="outline" />
+    </button>
+  </nz-tag>
+</p>
+
 <div class="two-col-layout">
 
   <!-- Messages Column -->

@@ -1,10 +1,11 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
 import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzTagComponent} from "ng-zorro-antd/tag";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 import {MessageComponent} from "./message/message.component";
@@ -23,6 +24,7 @@ const ROOT_CODE_NOTE_PATH = 'code-note';
     LetterComponent,
     NzButtonComponent,
     NzIconDirective,
+    NzTagComponent,
     CdkScrollable,
     CdkDropList,
     CdkDrag,
@@ -46,8 +48,12 @@ export class CodeNoteComponent {
   get alphabet() { return this.codeNoteService.alphabet(); }
   get messages() { return this.codeNoteService.messages(); }
 
+  readonly lobbyCode = signal<string>('');
+  readonly copyLabel = signal<string>('Share');
+
   constructor() {
     const lobbyCode = this.resolveLobbyCode();
+    this.lobbyCode.set(lobbyCode);
     this.codeNoteService.connect(`${ROOT_CODE_NOTE_PATH}/${lobbyCode}`);
   }
 
@@ -80,6 +86,17 @@ export class CodeNoteComponent {
 
   private triggerAutoSave(): void {
     void this.codeNoteService.save();
+  }
+
+  async shareOrCopy(): Promise<void> {
+    const url = window.location.href;
+    if (navigator.share) {
+      await navigator.share({ title: 'Code Note', url });
+    } else {
+      await navigator.clipboard.writeText(url);
+      this.copyLabel.set('Copied!');
+      setTimeout(() => this.copyLabel.set('Share'), 2000);
+    }
   }
 
   addLetter(): void {
