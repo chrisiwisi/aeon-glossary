@@ -4,7 +4,10 @@ const LOBBY_ADJECTIVES = [
   'archaic', 'relentless', 'growing', 'cursed', 'cretan', 'delving', 'dreamy', 'elysian',
   'heraclean', 'heroic', 'homeric', 'ancient', 'forlorn', 'minoan', 'golden', 'olympian',
   'odyssean', 'orphaned', 'maddening', 'persean', 'pious', 'sacred', 'spartan', 'stoic',
-  'forgotten', 'titanic', 'bleeding', 'trojan', 'indebted', 'old',
+  'forgotten', 'titanic', 'bleeding', 'trojan', 'indebted', 'old', 'trespassed', 'towering',
+  'primordial', 'immortal', 'doomed', 'greek', 'merciless', 'sinful', 'haunted', 'abandoned',
+  'abyssal', 'labyrinthine', 'mysterious', 'desperate', 'fated', 'dangerous', 'exhausted',
+  'fractured', 'isolated'
 ];
 
 const LOBBY_NOUNS = [
@@ -12,7 +15,8 @@ const LOBBY_NOUNS = [
   'elysium', 'hermes', 'harpy', 'herakles', 'hydra', 'ithaca', 'labyrinth', 'medusa',
   'midas', 'minos', 'odyssey', 'olympus', 'pegasus', 'perseus', 'sun', 'sparta',
   'styx', 'cyclops', 'nietschean', 'crete', 'ship', 'adversary', 'priest', 'horse',
-  'titan', 'voyage'
+  'titan', 'voyage', 'triskelion', 'muse', 'nymph', 'helios', 'trespass', 'ambrosia',
+  'tower', 'hekaton', 'satyr', 'debt'
 ];
 
 @Injectable({
