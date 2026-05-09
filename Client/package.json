@@ -6,7 +6,9 @@
     "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "emulators": "firebase emulators:start --only database,ui",
+    "emulators:sh": "./start-emulators.sh"
   },
   "private": true,
   "dependencies": {
