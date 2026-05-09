@@ -1,5 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {FormsModule} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
 import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
@@ -11,6 +12,9 @@ import {CodeNoteService} from "./code-note.service";
 import {CodeNoteStorageStrategy} from "./storage/code-note-storage.strategy";
 import {FirebaseRtdbStrategy} from "./storage/firebase-rtdb.strategy";
 import {Letter} from "./letter/Letter";
+import {NameGeneratorService} from "./name-generator.service";
+
+const ROOT_CODE_NOTE_PATH = 'code-note';
 
 @Component({
   selector: 'app-code-note',
@@ -34,13 +38,44 @@ import {Letter} from "./letter/Letter";
 })
 export class CodeNoteComponent {
   private modularOverlayService = inject(ModularOverlayService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private nameGeneratorService = inject(NameGeneratorService);
   protected codeNoteService = inject(CodeNoteService);
 
   get alphabet() { return this.codeNoteService.alphabet(); }
   get messages() { return this.codeNoteService.messages(); }
 
   constructor() {
-    this.codeNoteService.connect('code-note');
+    const lobbyCode = this.resolveLobbyCode();
+    this.codeNoteService.connect(`${ROOT_CODE_NOTE_PATH}/${lobbyCode}`);
+  }
+
+  private resolveLobbyCode(): string {
+    const routeParam = this.route.snapshot.paramMap.get('lobbyCode');
+    const normalized = this.normalizeLobbyCode(routeParam);
+
+    if (normalized) {
+      return normalized;
+    }
+
+    const generated = this.nameGeneratorService.generateLobbyCode().toLowerCase();
+    void this.router.navigate(['/code', generated], {replaceUrl: true});
+    return generated;
+  }
+
+  private normalizeLobbyCode(raw: string | null | undefined): string | null {
+    if (!raw) {
+      return null;
+    }
+
+    const normalized = raw.trim().toLowerCase();
+    // Restrict to Firebase-safe path segment chars.
+    if (!/^[a-z0-9-]{3,80}$/.test(normalized)) {
+      return null;
+    }
+
+    return normalized;
   }
 
   private triggerAutoSave(): void {
