@@ -17,6 +17,7 @@ import {Letter} from "./letter/Letter";
 import {NameGeneratorService} from "./name-generator.service";
 import {CodeNoteData} from "./storage/code-note-storage.strategy";
 import {BackupRestoreComponent} from "./backup-restore/backup-restore.component";
+import {CodeNoteLobbiesService} from "./code-note-lobbies.service";
 
 const ROOT_CODE_NOTE_PATH = 'code-note';
 
@@ -48,6 +49,7 @@ export class CodeNoteComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private nameGeneratorService = inject(NameGeneratorService);
+  private lobbyStorage = inject(CodeNoteLobbiesService);
   protected codeNoteService = inject(CodeNoteService);
 
   get alphabet() { return this.codeNoteService.alphabet(); }
@@ -60,6 +62,7 @@ export class CodeNoteComponent {
     const lobbyCode = this.resolveLobbyCode();
     this.lobbyCode.set(lobbyCode);
     this.codeNoteService.connect(`${ROOT_CODE_NOTE_PATH}/${lobbyCode}`);
+    this.lobbyStorage.addLobbyCode(lobbyCode);
   }
 
   private resolveLobbyCode(): string {

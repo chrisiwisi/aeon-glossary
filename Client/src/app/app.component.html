@@ -5,14 +5,33 @@
     [(nzCollapsed)]="isSidebarCollapsed"
     [nzTrigger]="null"
     [nzZeroTrigger]="null"
-    [nzWidth]="240"
+    [nzWidth]="330"
     [nzCollapsedWidth]="0"
     class="mobile-sidebar"
   >
     <div class="sidebar-title">Aeon Glossary</div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
       <li nz-menu-item [nzSelected]="!isCodeRoute()"><a routerLink="/">Glossary</a></li>
-      <li nz-menu-item [nzSelected]="isCodeRoute()"><a routerLink="/code">Code Note</a></li>
+      <li nz-submenu nzTitle="Code Note" nzOpen>
+        <ul>
+          <li nz-menu-item><a routerLink="/code">New Code Note</a></li>
+          @for (lobbyId of lobbyStorage.lobbyCodes(); track lobbyId) {
+            <li nz-menu-item class="sidebar-code-id">
+              <a class="sidebar-code-link" [routerLink]="['/code', lobbyId]">{{ lobbyId }}</a>
+              <button
+                nz-button
+                nzType="text"
+                nzSize="small"
+                class="sidebar-code-remove"
+                aria-label="Remove code"
+                (click)="$event.preventDefault(); $event.stopPropagation(); lobbyStorage.removeLobbyCode(lobbyId)"
+              >
+                <nz-icon nzType="delete" nzTheme="outline" />
+              </button>
+            </li>
+          }
+        </ul>
+      </li>
     </ul>
   </nz-sider>
 

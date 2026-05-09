@@ -27,6 +27,30 @@
   white-space: nowrap;
 }
 
+.sidebar-code-id .ant-menu-title-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sidebar-code-link {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-code-remove {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sidebar-code-remove:hover,
+.sidebar-code-remove:focus {
+  color: #fff;
+}
+
 .app-header {
   display: flex;
   align-items: center;

@@ -4,6 +4,7 @@ import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzLayoutModule} from "ng-zorro-antd/layout";
 import {NzMenuModule} from "ng-zorro-antd/menu";
+import {CodeNoteLobbiesService} from "./code-note/code-note-lobbies.service";
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import {NzMenuModule} from "ng-zorro-antd/menu";
 })
 export class AppComponent {
   private readonly router = inject(Router);
+  protected readonly lobbyStorage = inject(CodeNoteLobbiesService)
 
   isSidebarCollapsed = true;
 
