@@ -27,11 +27,13 @@
   white-space: nowrap;
 }
 
-.sidebar-code-id .ant-menu-title-content {
+/* NG-ZORRO renders this wrapper inside its own component, so we need a deep selector. */
+:host ::ng-deep .sidebar-code-id .ant-menu-title-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  width: 100%;
 }
 
 .sidebar-code-link {

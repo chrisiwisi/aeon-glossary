@@ -1,7 +1,6 @@
 import {Component, inject, output, ViewChild, ElementRef} from '@angular/core';
 import {NzButtonComponent} from 'ng-zorro-antd/button';
 import {NzIconDirective} from 'ng-zorro-antd/icon';
-import {NzTooltipDirective} from 'ng-zorro-antd/tooltip';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {CodeNoteData} from '../storage/code-note-storage.strategy';
 import {NzDropdownDirective, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
@@ -9,7 +8,7 @@ import {NzMenuDirective, NzMenuItemComponent} from "ng-zorro-antd/menu";
 
 @Component({
   selector: 'app-backup-restore',
-  imports: [NzButtonComponent, NzIconDirective, NzTooltipDirective, NzDropdownMenuComponent, NzMenuDirective, NzMenuItemComponent, NzDropdownDirective],
+  imports: [NzButtonComponent, NzIconDirective, NzDropdownMenuComponent, NzMenuDirective, NzMenuItemComponent, NzDropdownDirective],
   templateUrl: './backup-restore.component.html',
 })
 export class BackupRestoreComponent {

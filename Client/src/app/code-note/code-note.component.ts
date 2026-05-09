@@ -1,4 +1,5 @@
 import {Component, inject, signal} from '@angular/core';
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormsModule} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
@@ -18,6 +19,7 @@ import {NameGeneratorService} from "./name-generator.service";
 import {CodeNoteData} from "./storage/code-note-storage.strategy";
 import {BackupRestoreComponent} from "./backup-restore/backup-restore.component";
 import {CodeNoteLobbiesService} from "./code-note-lobbies.service";
+import {distinctUntilChanged, map} from "rxjs";
 
 const ROOT_CODE_NOTE_PATH = 'code-note';
 
@@ -59,14 +61,20 @@ export class CodeNoteComponent {
   readonly copyLabel = signal<string>('Share');
 
   constructor() {
-    const lobbyCode = this.resolveLobbyCode();
-    this.lobbyCode.set(lobbyCode);
-    this.codeNoteService.connect(`${ROOT_CODE_NOTE_PATH}/${lobbyCode}`);
-    this.lobbyStorage.addLobbyCode(lobbyCode);
+    this.route.paramMap
+      .pipe(
+        map(params => this.resolveLobbyCodeFromParam(params.get('lobbyCode'))),
+        distinctUntilChanged(),
+        takeUntilDestroyed(),
+      )
+      .subscribe(lobbyCode => {
+        this.lobbyCode.set(lobbyCode);
+        this.codeNoteService.connect(`${ROOT_CODE_NOTE_PATH}/${lobbyCode}`);
+        this.lobbyStorage.addLobbyCode(lobbyCode);
+      });
   }
 
-  private resolveLobbyCode(): string {
-    const routeParam = this.route.snapshot.paramMap.get('lobbyCode');
+  private resolveLobbyCodeFromParam(routeParam: string | null): string {
     const normalized = this.normalizeLobbyCode(routeParam);
 
     if (normalized) {
