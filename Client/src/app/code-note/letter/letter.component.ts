@@ -26,12 +26,18 @@ export class LetterComponent {
   letter: InputSignal<Letter> = input.required<Letter>();
 
   deleteThisLetter = output<Letter>();
+  letterChanged = output<void>();
 
   private modularOverlayService = inject(ModularOverlayService);
   private modal = inject(NzModalService);
 
   protected openLetterModular() {
-    this.modularOverlayService.openLetterCanvas(this.letter());
+    const dialogRef = this.modularOverlayService.openLetterCanvas(this.letter());
+    dialogRef.onClose.subscribe(() => this.letterChanged.emit());
+  }
+
+  protected onRomanLetterChange(): void {
+    this.letterChanged.emit();
   }
 
   protected delete() {

@@ -1,6 +1,5 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import {EventEmitter, NgModule} from "@angular/core";
-import {Subject} from "rxjs";
 
 @NgModule({})
 export class ModularOverlayRef {
@@ -21,7 +20,7 @@ export class ModularOverlayRef {
   }
 
   close(): void {
-    this.overlayRef.dispose();
     this.onClose.emit();
+    this.overlayRef.dispose();
   }
 }

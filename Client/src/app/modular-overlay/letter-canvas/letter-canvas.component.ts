@@ -1,16 +1,20 @@
-import {AfterViewInit, Component, ElementRef, inject, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, inject, OnDestroy, ViewChild} from '@angular/core';
 import {ModularOverlayRef} from "../modular-overlay-ref";
 import {finalize, fromEvent, Subscription, switchMap, takeUntil, tap} from "rxjs";
 import {Letter} from "../../code-note/letter/Letter";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {LETTER_INPUT_DATA} from "../modular-overlay.tokens";
+import {FormsModule} from "@angular/forms";
+import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 
 @Component({
   selector: 'app-letter-canvas',
   imports: [
     NzButtonComponent,
-    NzIconDirective
+    NzIconDirective,
+    FormsModule,
+    NzTooltipDirective
   ],
   templateUrl: './letter-canvas.component.html',
   standalone: true,
@@ -20,6 +24,12 @@ export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
   canvasPosition: { x: number, y: number } = {x: 0, y: 0};
   ctx!: CanvasRenderingContext2D;
+
+  threshold: number = 100;
+  showThresholdSlider: boolean = false;
+
+  /** Snapshot taken just before the last import, used by applyThreshold() */
+  private _importedRaw: ImageData | null = null;
 
   private dialogRef: ModularOverlayRef = inject(ModularOverlayRef);
   private letter: Letter = inject(LETTER_INPUT_DATA).letter;
@@ -153,6 +163,77 @@ export class LetterCanvasComponent implements AfterViewInit, OnDestroy {
     this.saveLetter = false;
     this.close();
   }
+
+  // ── Image import ────────────────────────────────────────────────────────────
+
+  onFileSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) this.importImage(file);
+    // reset so the same file can be re-selected
+    (event.target as HTMLInputElement).value = '';
+  }
+
+  @HostListener('document:paste', ['$event'])
+  onPaste(event: ClipboardEvent): void {
+    const item = Array.from(event.clipboardData?.items ?? [])
+      .find(i => i.type.startsWith('image/'));
+    if (item) {
+      const file = item.getAsFile();
+      if (file) this.importImage(file);
+    }
+  }
+
+  private importImage(file: File): void {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = this.canvas.nativeElement;
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        // Store raw pixel data so the slider can re-apply without quality loss
+        this._importedRaw = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        this._applyThresholdToRaw(this._importedRaw);
+        this.showThresholdSlider = true;
+      };
+      img.src = e.target!.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /** Re-apply current threshold to the stored raw import — called by the "Apply" button. */
+  applyThreshold(): void {
+    if (!this._importedRaw) return;
+    this._applyThresholdToRaw(this._importedRaw);
+  }
+
+  private _applyThresholdToRaw(source: ImageData): void {
+    const canvas = this.canvas.nativeElement;
+    // Work on a copy so the raw data is never mutated
+    const filtered = new ImageData(
+      new Uint8ClampedArray(source.data),
+      source.width,
+      source.height
+    );
+    const d = filtered.data;
+
+    for (let i = 0; i < d.length; i += 4) {
+      // Perceptual luminance (ITU-R BT.601)
+      const brightness = d[i] * 0.299 + d[i + 1] * 0.587 + d[i + 2] * 0.114;
+      if (brightness < this.threshold) {
+        d[i] = 0; d[i + 1] = 0; d[i + 2] = 0; d[i + 3] = 255; // opaque black
+      } else {
+        d[i + 3] = 0; // fully transparent
+      }
+    }
+
+    this.ctx.putImageData(filtered, 0, 0);
+    this.saveSnapshot();
+  }
+
+  // ── Close ────────────────────────────────────────────────────────────────────
 
   close() {
     this.dialogRef.close();

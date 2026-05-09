@@ -27,5 +27,6 @@
     type="text"
     placeholder="Enter letter/word"
     [(ngModel)]="letter().romanLetter"
+    (ngModelChange)="onRomanLetterChange()"
   />
 </nz-card>

@@ -1,42 +1,56 @@
-<!-- Typing field -->
-<app-message [message]="message" [alphabet]="alphabet" [showEdit]="false" [showDelete]="false" />
+<div class="dialog-container">
+  <!-- Header -->
+  <div class="dialog-header">
+    <span class="dialog-title">New Message</span>
+    <button nz-button nzType="text" nzShape="circle" class="close-btn" (click)="close()">
+      <nz-icon nzType="close" nzTheme="outline" />
+    </button>
+  </div>
 
-<!-- Action Row -->
-<div class="action-row">
-  <button
-    nz-button
-    nzType="default"
-    nzShape="round"
-    (click)="removeLastLetter()"
-  >
-    <nz-icon nzType="backward" nzTheme="outline" />
-    Backspace
-  </button>
+  <!-- Preview -->
+  <div class="preview-section">
+    <app-message [message]="message" [alphabet]="alphabet" [showEdit]="false" [showDelete]="false" />
+  </div>
 
-  <button
-    nz-button
-    nzType="primary"
-    nzShape="round"
-    (click)="emit()"
-  >
-    <nz-icon nzType="enter" nzTheme="outline" />
-    Enter
-  </button>
-</div>
+  <!-- Action Row -->
+  <div class="action-row">
+    <button
+      nz-button
+      nzType="default"
+      nzShape="round"
+      (click)="removeLastLetter()"
+    >
+      <nz-icon nzType="backward" nzTheme="outline" />
+      Backspace
+    </button>
 
-<!-- keyboard -->
-<div class="keyboard">
-  @for (row of layout; track $index) {
-    <div class="row">
-      @for (letter of row; track $index) {
-        <div class="key" [ngClass]="{'space': letter?.romanLetter === ' ', 'empty': !letter}" (click)="addLetterToMessage(letter)">
-          @if (letter === undefined) {
-            <p>&nbsp;</p>
-          } @else {
-            <img [src]="letter.imageURL" [alt]="letter.romanLetter" class="letter-img">
-          }
-        </div>
-      }
-    </div>
-  }
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="round"
+      (click)="emit()"
+    >
+      <nz-icon nzType="enter" nzTheme="outline" />
+      Send
+    </button>
+  </div>
+
+  <!-- Keyboard -->
+  <div class="keyboard">
+    @for (row of layout; track $index) {
+      <div class="row">
+        @for (letter of row; track $index) {
+          <div class="key" [ngClass]="{'space': letter?.romanLetter === ' ', 'empty': !letter}" (click)="addLetterToMessage(letter)">
+            @if (letter === undefined) {
+              <p>&nbsp;</p>
+            } @else if (letter.imageURL) {
+              <img [src]="letter.imageURL" [alt]="letter.romanLetter" class="letter-img">
+            } @else {
+              <span class="letter-label">{{ letter.romanLetter }}</span>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
 </div>

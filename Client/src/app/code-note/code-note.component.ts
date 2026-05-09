@@ -1,12 +1,27 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {Letter} from "./letter/Letter";
+import {Component, inject, signal} from '@angular/core';
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormsModule} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
 import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzTagComponent} from "ng-zorro-antd/tag";
+import {NzModalService} from "ng-zorro-antd/modal";
 import {CdkScrollable} from "@angular/cdk/overlay";
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 import {MessageComponent} from "./message/message.component";
+import {CodeNoteService} from "./code-note.service";
+import {CodeNoteStorageStrategy} from "./storage/code-note-storage.strategy";
+import {FirebaseRtdbStrategy} from "./storage/firebase-rtdb.strategy";
+import {Letter} from "./letter/Letter";
+import {NameGeneratorService} from "./name-generator.service";
+import {CodeNoteData} from "./storage/code-note-storage.strategy";
+import {BackupRestoreComponent} from "./backup-restore/backup-restore.component";
+import {CodeNoteLobbiesService} from "./code-note-lobbies.service";
+import {distinctUntilChanged, map} from "rxjs";
+
+const ROOT_CODE_NOTE_PATH = 'code-note';
 
 @Component({
   selector: 'app-code-note',
@@ -14,77 +29,148 @@ import {MessageComponent} from "./message/message.component";
     FormsModule,
     LetterComponent,
     NzButtonComponent,
+    NzIconDirective,
+    NzTagComponent,
     CdkScrollable,
     CdkDropList,
     CdkDrag,
     MessageComponent,
+    BackupRestoreComponent,
   ],
   templateUrl: './code-note.component.html',
   standalone: true,
-  styleUrl: './code-note.component.css'
+  styleUrl: './code-note.component.css',
+  providers: [
+    CodeNoteService,
+    {provide: CodeNoteStorageStrategy, useClass: FirebaseRtdbStrategy},
+  ],
 })
-export class CodeNoteComponent implements OnInit {
-  private modularOverlayService: ModularOverlayService = inject(ModularOverlayService);
+export class CodeNoteComponent {
+  private modularOverlayService = inject(ModularOverlayService);
+  private modal = inject(NzModalService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private nameGeneratorService = inject(NameGeneratorService);
+  private lobbyStorage = inject(CodeNoteLobbiesService);
+  protected codeNoteService = inject(CodeNoteService);
 
-  alphabet: Letter[] = [];
-  messages: number[][] = [];
+  get alphabet() { return this.codeNoteService.alphabet(); }
+  get messages() { return this.codeNoteService.messages(); }
 
-  ngOnInit(): void {
-    this.reloadFromLocalStorage();
+  readonly lobbyCode = signal<string>('');
+  readonly copyLabel = signal<string>('Share');
+
+  constructor() {
+    this.route.paramMap
+      .pipe(
+        map(params => this.resolveLobbyCodeFromParam(params.get('lobbyCode'))),
+        distinctUntilChanged(),
+        takeUntilDestroyed(),
+      )
+      .subscribe(lobbyCode => {
+        this.lobbyCode.set(lobbyCode);
+        this.codeNoteService.connect(`${ROOT_CODE_NOTE_PATH}/${lobbyCode}`);
+        this.lobbyStorage.addLobbyCode(lobbyCode);
+      });
   }
 
-  addLetter() {
-    const newId = this.alphabet.reduce((largest, current) => current.id > largest ? current.id : largest, 0);
-    this.alphabet.push({ id: newId + 1, romanLetter: ''} as Letter);
-    console.log(this.alphabet);
+  private resolveLobbyCodeFromParam(routeParam: string | null): string {
+    const normalized = this.normalizeLobbyCode(routeParam);
+
+    if (normalized) {
+      return normalized;
+    }
+
+    const generated = this.nameGeneratorService.generateLobbyCode().toLowerCase();
+    void this.router.navigate(['/code', generated], {replaceUrl: true});
+    return generated;
   }
 
-  protected openMessageModular(message: number[] = []) {
-    this.modularOverlayService.openMessageInput(this.alphabet, message).sendData.subscribe(result => {
-      console.log(result);
-      if (result) {
-        console.log(result)
-        this.messages.push(result);
-      }
+  private normalizeLobbyCode(raw: string | null | undefined): string | null {
+    if (!raw) {
+      return null;
+    }
+
+    const normalized = raw.trim().toLowerCase();
+    // Restrict to Firebase-safe path segment chars.
+    if (!/^[a-z0-9-]{3,80}$/.test(normalized)) {
+      return null;
+    }
+
+    return normalized;
+  }
+
+  private triggerAutoSave(): void {
+    void this.codeNoteService.save();
+  }
+
+  async shareOrCopy(): Promise<void> {
+    const url = window.location.href;
+    if (navigator.share) {
+      await navigator.share({ title: 'Code Note', url });
+    } else {
+      await navigator.clipboard.writeText(url);
+      this.copyLabel.set('Copied!');
+      setTimeout(() => this.copyLabel.set('Share'), 2000);
+    }
+  }
+
+  backup(): void {
+    this.codeNoteService.backup(this.lobbyCode());
+  }
+
+  onImport(data: CodeNoteData): void {
+    this.modal.confirm({
+      nzTitle: 'Import backup?',
+      nzContent: 'This will replace all current letters and messages. This cannot be undone.',
+      nzOkText: 'Import',
+      nzOkDanger: true,
+      nzCancelText: 'Cancel',
+      nzOnOk: () => this.codeNoteService.restore(data),
     });
   }
 
-  saveCurrentProgress() {
-    localStorage.setItem('messages', JSON.stringify(this.messages));
-    localStorage.setItem('alphabet', JSON.stringify(this.alphabet));
+  addLetter(): void {    this.codeNoteService.addLetter();
+    this.triggerAutoSave();
   }
 
-  reloadFromLocalStorage(): void {
-    let storedAlphabet: string | null = localStorage.getItem('alphabet');
-    let storedMessages: string | null = localStorage.getItem('messages');
+  protected openMessageModular(message: number[] = [], messageIndex: number | null = null): void {
+    this.modularOverlayService.openMessageInput(this.alphabet, message).sendData.subscribe(result => {
+      if (!Array.isArray(result) || result.length === 0) {
+        return;
+      }
 
-    if (storedAlphabet) {
-      this.alphabet = JSON.parse(storedAlphabet);
-    }
+      if (messageIndex !== null) {
+        this.codeNoteService.updateMessage(messageIndex, result);
+      } else {
+        this.codeNoteService.addMessage(result);
+      }
 
-    if (storedMessages) {
-      this.messages = JSON.parse(storedMessages);
-    }
+      this.triggerAutoSave();
+    });
   }
 
-  reset() {
-    this.alphabet = [];
-    this.messages = [];
+  reset(): void {
+    this.codeNoteService.reset();
+    this.triggerAutoSave();
   }
 
-  protected deleteMessage(messageIndex: number) {
-    this.messages.splice(messageIndex, 1);
+  protected deleteMessage(messageIndex: number): void {
+    this.codeNoteService.deleteMessage(messageIndex);
+    this.triggerAutoSave();
   }
 
-  protected drop(event: CdkDragDrop<Letter[]>) {
-    moveItemInArray(this.alphabet, event.previousIndex, event.currentIndex);
+  protected drop(event: CdkDragDrop<Letter[]>): void {
+    this.codeNoteService.moveLetters(event.previousIndex, event.currentIndex);
+    this.triggerAutoSave();
   }
 
-  protected deleteLetter(event: Letter) {
-    const index = this.alphabet.findIndex(l => l.id === event.id);
-    if (index < 0) {
-      return;
-    }
-    this.alphabet.splice(index, 1);
+  protected deleteLetter(letter: Letter): void {
+    this.codeNoteService.deleteLetter(letter);
+    this.triggerAutoSave();
+  }
+
+  protected onLetterChanged(): void {
+    this.triggerAutoSave();
   }
 }

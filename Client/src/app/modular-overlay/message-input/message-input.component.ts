@@ -1,4 +1,4 @@
-import {Component, Inject, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, inject, OnInit} from '@angular/core';
 import {Letter} from "../../code-note/letter/Letter";
 import {NgClass} from "@angular/common";
 import {ModularOverlayRef} from "../modular-overlay-ref";
@@ -18,7 +18,7 @@ import {MessageComponent} from "../../code-note/message/message.component";
   templateUrl: './message-input.component.html',
   styleUrl: './message-input.component.css'
 })
-export class MessageInputComponent implements OnInit, OnDestroy {
+export class MessageInputComponent implements OnInit {
   protected alphabet: Letter[] = [];
   message: number[] = [];
   private dialogRef: ModularOverlayRef = inject(ModularOverlayRef);
@@ -32,16 +32,17 @@ export class MessageInputComponent implements OnInit, OnDestroy {
 
   constructor(@Inject(MESSAGE_INPUT_DATA) data: { alphabet: Letter[]; message: number[] }) {
     this.alphabet = data.alphabet;
-    this.message = data.message ?? [];
-  }
-
-  ngOnDestroy() {
-    this.emit();
+    // Clone so editing in the dialog does not mutate the source message until submit.
+    this.message = [...(data.message ?? [])];
   }
 
   emit(): void {
-    this.dialogRef.emit(this.message);
-    this.message = [];
+    if (this.message.length === 0) {
+      return;
+    }
+
+    this.dialogRef.emit([...this.message]);
+    this.close();
   }
 
   ngOnInit(): void {
@@ -88,6 +89,21 @@ export class MessageInputComponent implements OnInit, OnDestroy {
   }
 
 
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Backspace') {
+      this.removeLastLetter();
+      return;
+    }
+    if (event.key === ' ') {
+      this.addLetterToMessage(this.getLetter(' '));
+      return;
+    }
+    if (event.key.length === 1) {
+      this.addLetterToMessage(this.getLetter(event.key.toLowerCase()));
+    }
+  }
+
   protected addLetterToMessage(letter: Letter | undefined) {
     if (!letter) {
       return;
@@ -98,5 +114,9 @@ export class MessageInputComponent implements OnInit, OnDestroy {
 
   protected removeLastLetter() {
     this.message.pop();
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

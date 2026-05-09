@@ -1,37 +1,107 @@
 :host {
-  padding: 10px;
+  padding: 24px;
+  display: block;
+}
+
+/* ── Lobby code bar ────────────────────────────────────────── */
+.top-bar {
   display: flex;
-  flex-direction: column;
-}
-
-.letter-preview {
-  max-width: 50px;
-  background-color: #9ca3af;
-}
-
-.letter-text-field {
-  max-width: 2rem;
-}
-
-.save-btn {
-  margin: 0.5rem 0.5rem;
-  float: right;
-}
-
-.letters-header-wrapper {
-  display: flex;
+  align-items: center;
   justify-content: space-between;
-  width: 90vw;
-  button {
-    height: 2rem;
-    margin-top: 1rem;
+  margin-bottom: 20px;
+}
+
+.top-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.lobby-code {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.share-btn {
+  height: 18px;
+  width: 18px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+/* ── Two-column responsive layout ─────────────────────────── */
+.two-col-layout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.col {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .two-col-layout {
+    flex-direction: column;
+  }
+  .col {
+    width: 100%;
   }
 }
 
+/* ── Section headers ───────────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e8eaf6;
+  letter-spacing: 0.4px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* ── Messages list ─────────────────────────────────────────── */
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.empty-hint {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 14px;
+  font-style: italic;
+  margin: 4px 0 0 2px;
+}
+
+/* ── Letters grid ──────────────────────────────────────────── */
 .letter-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  margin-bottom: 16px;
 }
 
 .letter-placeholder {

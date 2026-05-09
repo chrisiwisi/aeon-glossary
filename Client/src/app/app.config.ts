@@ -5,18 +5,36 @@ import {routes} from './app.routes';
 import {provideHttpClient, withFetch} from "@angular/common/http";
 import {
   BackwardOutline,
+  CheckOutline,
   ClearOutline,
   CloseOutline,
   DeleteOutline,
-  DragOutline, EnterOutline,
+  DownloadOutline,
+  DragOutline,
+  EditOutline,
+  EnterOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline,
   PlusOutline,
-  UndoOutline
+  ReloadOutline,
+  SaveOutline,
+  ShareAltOutline,
+  UndoOutline,
+  UploadOutline,
 } from '@ant-design/icons-angular/icons';
 import {provideNzIcons} from "ng-zorro-antd/icon";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {NzModalModule} from "ng-zorro-antd/modal";
+import {provideFirebaseApp, initializeApp} from "@angular/fire/app";
+import {environment} from "../environments/environment";
+import {connectDatabaseEmulator, getDatabase, provideDatabase} from "@angular/fire/database";
 
-const icons: IconDefinition[] = [PlusOutline, DeleteOutline, DragOutline, ClearOutline, UndoOutline, CloseOutline, BackwardOutline, EnterOutline];
+const icons: IconDefinition[] = [
+  PlusOutline, DeleteOutline, DragOutline, ClearOutline, UndoOutline,
+  CloseOutline, BackwardOutline, EnterOutline, EditOutline, ReloadOutline,
+  SaveOutline, UploadOutline, ShareAltOutline, CheckOutline, DownloadOutline,
+  MenuFoldOutline, MenuUnfoldOutline,
+];
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +42,14 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideNzIcons(icons),
     provideAnimations(),
-    importProvidersFrom(NzModalModule)
+    importProvidersFrom(NzModalModule),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => {
+      const db = getDatabase();
+      if (!environment.production) {
+        connectDatabaseEmulator(db, 'localhost', 9000);
+      }
+      return db;
+    }),
   ]
 };

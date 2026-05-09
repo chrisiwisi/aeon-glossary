@@ -1,0 +1,94 @@
+:host {
+  display: block;
+  height: 100lvh;
+  margin: 0;
+  font-family: Arial, serif;
+}
+
+.app-shell {
+  min-height: 100vh;
+  position: relative;
+}
+
+.main-layout {
+  min-height: 100vh;
+  background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%) fixed;
+  background-size: cover;
+}
+
+.sidebar-title {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* NG-ZORRO renders this wrapper inside its own component, so we need a deep selector. */
+:host ::ng-deep .sidebar-code-id .ant-menu-title-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.sidebar-code-link {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-code-remove {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sidebar-code-remove:hover,
+.sidebar-code-remove:focus {
+  color: #fff;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: transparent;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.burger-button {
+  font-size: 18px;
+  color: #fff;
+}
+
+.burger-button .anticon {
+  color: inherit;
+}
+
+.app-content {
+  min-height: 0;
+  padding: 16px;
+  overflow: auto;
+}
+
+@media (max-width: 768px) {
+  .mobile-sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1100;
+    height: 100vh;
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    background: rgba(0, 0, 0, 0.35);
+  }
+}
+

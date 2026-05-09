@@ -3,6 +3,8 @@ import {DecodePipe} from "../decode.pipe";
 import {Letter} from "../letter/Letter";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzSwitchComponent} from "ng-zorro-antd/switch";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {FormsModule} from "@angular/forms";
 
 @Component({
@@ -11,6 +13,8 @@ import {FormsModule} from "@angular/forms";
     DecodePipe,
     NzButtonComponent,
     NzSwitchComponent,
+    NzIconDirective,
+    NzTooltipDirective,
     FormsModule
   ],
   templateUrl: './message.component.html',
@@ -27,9 +31,6 @@ export class MessageComponent {
 
   isDecoded: boolean = true;
 
-  protected toggleDecode(value: boolean) {
-    this.isDecoded = value;
-  }
 
   protected deleteMessage() {
     this.delete.emit();
