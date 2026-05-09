@@ -4,7 +4,6 @@ import {ModularOverlayService} from "../modular-overlay/modular-overlay.service"
 import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
-import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 import {MessageComponent} from "./message/message.component";
@@ -20,7 +19,6 @@ import {Letter} from "./letter/Letter";
     LetterComponent,
     NzButtonComponent,
     NzIconDirective,
-    NzTooltipDirective,
     CdkScrollable,
     CdkDropList,
     CdkDrag,
@@ -45,35 +43,52 @@ export class CodeNoteComponent implements OnInit {
     await this.codeNoteService.load();
   }
 
+  private triggerAutoSave(): void {
+    void this.codeNoteService.save();
+  }
+
   addLetter(): void {
     this.codeNoteService.addLetter();
+    this.triggerAutoSave();
   }
 
-  protected openMessageModular(message: number[] = []): void {
+  protected openMessageModular(message: number[] = [], messageIndex: number | null = null): void {
     this.modularOverlayService.openMessageInput(this.alphabet, message).sendData.subscribe(result => {
-      if (result) {
+      if (!Array.isArray(result) || result.length === 0) {
+        return;
+      }
+
+      if (messageIndex !== null) {
+        this.codeNoteService.updateMessage(messageIndex, result);
+      } else {
         this.codeNoteService.addMessage(result);
       }
-    });
-  }
 
-  async saveCurrentProgress(): Promise<void> {
-    await this.codeNoteService.save();
+      this.triggerAutoSave();
+    });
   }
 
   reset(): void {
     this.codeNoteService.reset();
+    this.triggerAutoSave();
   }
 
   protected deleteMessage(messageIndex: number): void {
     this.codeNoteService.deleteMessage(messageIndex);
+    this.triggerAutoSave();
   }
 
   protected drop(event: CdkDragDrop<Letter[]>): void {
     this.codeNoteService.moveLetters(event.previousIndex, event.currentIndex);
+    this.triggerAutoSave();
   }
 
   protected deleteLetter(letter: Letter): void {
     this.codeNoteService.deleteLetter(letter);
+    this.triggerAutoSave();
+  }
+
+  protected onLetterChanged(): void {
+    this.triggerAutoSave();
   }
 }

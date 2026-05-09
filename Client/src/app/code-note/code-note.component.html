@@ -12,7 +12,7 @@
 
     <div class="messages-list">
       @for (message of messages; track $index) {
-        <app-message [message]="message" [alphabet]="alphabet" (delete)="deleteMessage($index)" (open)="openMessageModular(message)"/>
+        <app-message [message]="message" [alphabet]="alphabet" (delete)="deleteMessage($index)" (open)="openMessageModular(message, $index)"/>
       }
       @if (messages.length === 0) {
         <p class="empty-hint">No messages yet. Click "New Message" to get started.</p>
@@ -25,23 +25,17 @@
     <div class="section-header">
       <h2 class="section-title">Letters</h2>
       <div class="header-actions">
-        <button nz-button nzType="primary" nzShape="circle" (click)="saveCurrentProgress()" nz-tooltip nzTooltipTitle="Save">
-          <nz-icon nzType="save" nzTheme="outline" />
+        <button nz-button nzType="dashed" nzShape="round" (click)="addLetter()">
+          <nz-icon nzType="plus" nzTheme="outline" />
+          Add Letter
         </button>
       </div>
     </div>
 
     <div class="letter-container" cdkScrollable cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="mixed">
       @for (letter of alphabet; track letter.id) {
-        <app-letter (deleteThisLetter)="deleteLetter($event)" [letter]="letter" cdkDrag />
+        <app-letter (deleteThisLetter)="deleteLetter($event)" (letterChanged)="onLetterChanged()" [letter]="letter" cdkDrag />
       }
-    </div>
-
-    <div class="add-letter-row">
-      <button nz-button nzType="dashed" nzShape="round" (click)="addLetter()">
-        <nz-icon nzType="plus" nzTheme="outline" />
-        Add Letter
-      </button>
     </div>
   </div>
 

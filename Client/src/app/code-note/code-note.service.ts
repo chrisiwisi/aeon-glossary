@@ -43,6 +43,10 @@ export class CodeNoteService {
     this.messages.update(list => [...list, message]);
   }
 
+  updateMessage(index: number, message: number[]): void {
+    this.messages.update(list => list.map((existing, i) => (i === index ? message : existing)));
+  }
+
   deleteMessage(index: number): void {
     this.messages.update(list => list.filter((_, i) => i !== index));
   }
@@ -52,4 +56,3 @@ export class CodeNoteService {
     this.messages.set([]);
   }
 }
-

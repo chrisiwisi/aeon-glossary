@@ -1,4 +1,4 @@
-import {Component, HostListener, Inject, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, inject, OnInit} from '@angular/core';
 import {Letter} from "../../code-note/letter/Letter";
 import {NgClass} from "@angular/common";
 import {ModularOverlayRef} from "../modular-overlay-ref";
@@ -18,7 +18,7 @@ import {MessageComponent} from "../../code-note/message/message.component";
   templateUrl: './message-input.component.html',
   styleUrl: './message-input.component.css'
 })
-export class MessageInputComponent implements OnInit, OnDestroy {
+export class MessageInputComponent implements OnInit {
   protected alphabet: Letter[] = [];
   message: number[] = [];
   private dialogRef: ModularOverlayRef = inject(ModularOverlayRef);
@@ -32,16 +32,17 @@ export class MessageInputComponent implements OnInit, OnDestroy {
 
   constructor(@Inject(MESSAGE_INPUT_DATA) data: { alphabet: Letter[]; message: number[] }) {
     this.alphabet = data.alphabet;
-    this.message = data.message ?? [];
-  }
-
-  ngOnDestroy() {
-    this.emit();
+    // Clone so editing in the dialog does not mutate the source message until submit.
+    this.message = [...(data.message ?? [])];
   }
 
   emit(): void {
-    this.dialogRef.emit(this.message);
-    this.message = [];
+    if (this.message.length === 0) {
+      return;
+    }
+
+    this.dialogRef.emit([...this.message]);
+    this.close();
   }
 
   ngOnInit(): void {

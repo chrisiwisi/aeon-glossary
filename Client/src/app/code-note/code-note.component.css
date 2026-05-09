@@ -70,10 +70,6 @@
   margin-bottom: 16px;
 }
 
-.add-letter-row {
-  margin-top: 4px;
-}
-
 .letter-placeholder {
   border: dotted 3px #999;
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
