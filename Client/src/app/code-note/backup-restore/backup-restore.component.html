@@ -1,14 +1,13 @@
-<button nz-button nzType="default" nzShape="circle"
-        nz-tooltip nzTooltipTitle="Backup to file"
-        (click)="triggerExport()">
-  <nz-icon nzType="download" nzTheme="outline" />
+<button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">
+  Backup
+  <nz-icon nzType="down" />
 </button>
-
-<button nz-button nzType="default" nzShape="circle"
-        nz-tooltip nzTooltipTitle="Import from file"
-        (click)="triggerImport()">
-  <nz-icon nzType="upload" nzTheme="outline" />
-</button>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu nzSelectable>
+    <li nz-menu-item (click)="triggerExport()"><nz-icon nzType="download" nzTheme="outline" /> Export</li>
+    <li nz-menu-item (click)="triggerImport()"><nz-icon nzType="upload" nzTheme="outline" /> Import</li>
+  </ul>
+</nz-dropdown-menu>
 
 <input #fileInput type="file" accept=".json" hidden (change)="onFileSelected($event)" />
 
