@@ -1,12 +1,18 @@
-<p class="lobby-code">
-  Code:
-  <nz-tag nzColor="blue">
-    {{ lobbyCode() }}
-    <button nz-button nzType="text" nzSize="small" class="share-btn" (click)="shareOrCopy()">
-      <nz-icon [nzType]="copyLabel() === 'Copied!' ? 'check' : 'share-alt'" nzTheme="outline" />
-    </button>
-  </nz-tag>
-</p>
+<div class="top-bar">
+  <p class="lobby-code">
+    Code:
+    <nz-tag nzColor="blue">
+      {{ lobbyCode() }}
+      <button nz-button nzType="text" nzSize="small" class="share-btn" (click)="shareOrCopy()">
+        <nz-icon [nzType]="copyLabel() === 'Copied!' ? 'check' : 'share-alt'" nzTheme="outline" />
+      </button>
+    </nz-tag>
+  </p>
+
+  <div class="top-actions">
+    <app-backup-restore (exported)="backup()" (imported)="onImport($event)" />
+  </div>
+</div>
 
 <div class="two-col-layout">
 
@@ -35,9 +41,9 @@
     <div class="section-header">
       <h2 class="section-title">Letters</h2>
       <div class="header-actions">
-        <button nz-button nzType="dashed" nzShape="round" (click)="addLetter()">
+        <button nz-button nzType="primary" nzShape="round" (click)="addLetter()">
           <nz-icon nzType="plus" nzTheme="outline" />
-          Add Letter
+          New Letter
         </button>
       </div>
     </div>
@@ -45,6 +51,9 @@
     <div class="letter-container" cdkScrollable cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="mixed">
       @for (letter of alphabet; track letter.id) {
         <app-letter (deleteThisLetter)="deleteLetter($event)" (letterChanged)="onLetterChanged()" [letter]="letter" cdkDrag />
+      }
+      @if (alphabet.length === 0) {
+        <p class="empty-hint">No letters yet. Click "New Letter" to get started.</p>
       }
     </div>
   </div>

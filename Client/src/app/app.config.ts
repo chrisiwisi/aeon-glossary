@@ -9,6 +9,7 @@ import {
   ClearOutline,
   CloseOutline,
   DeleteOutline,
+  DownloadOutline,
   DragOutline,
   EditOutline,
   EnterOutline,
@@ -29,7 +30,7 @@ import {connectDatabaseEmulator, getDatabase, provideDatabase} from "@angular/fi
 const icons: IconDefinition[] = [
   PlusOutline, DeleteOutline, DragOutline, ClearOutline, UndoOutline,
   CloseOutline, BackwardOutline, EnterOutline, EditOutline, ReloadOutline,
-  SaveOutline, UploadOutline, ShareAltOutline, CheckOutline,
+  SaveOutline, UploadOutline, ShareAltOutline, CheckOutline, DownloadOutline,
 ];
 
 export const appConfig: ApplicationConfig = {

@@ -1,0 +1,14 @@
+<button nz-button nzType="default" nzShape="circle"
+        nz-tooltip nzTooltipTitle="Backup to file"
+        (click)="triggerExport()">
+  <nz-icon nzType="download" nzTheme="outline" />
+</button>
+
+<button nz-button nzType="default" nzShape="circle"
+        nz-tooltip nzTooltipTitle="Import from file"
+        (click)="triggerImport()">
+  <nz-icon nzType="upload" nzTheme="outline" />
+</button>
+
+<input #fileInput type="file" accept=".json" hidden (change)="onFileSelected($event)" />
+

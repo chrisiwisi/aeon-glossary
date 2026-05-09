@@ -4,11 +4,24 @@
 }
 
 /* ── Lobby code bar ────────────────────────────────────────── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.top-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
 .lobby-code {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 0 0 20px 0;
+  margin: 0;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
 }

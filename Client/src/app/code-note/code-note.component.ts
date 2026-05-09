@@ -6,6 +6,7 @@ import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTagComponent} from "ng-zorro-antd/tag";
+import {NzModalService} from "ng-zorro-antd/modal";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 import {MessageComponent} from "./message/message.component";
@@ -14,6 +15,8 @@ import {CodeNoteStorageStrategy} from "./storage/code-note-storage.strategy";
 import {FirebaseRtdbStrategy} from "./storage/firebase-rtdb.strategy";
 import {Letter} from "./letter/Letter";
 import {NameGeneratorService} from "./name-generator.service";
+import {CodeNoteData} from "./storage/code-note-storage.strategy";
+import {BackupRestoreComponent} from "./backup-restore/backup-restore.component";
 
 const ROOT_CODE_NOTE_PATH = 'code-note';
 
@@ -29,6 +32,7 @@ const ROOT_CODE_NOTE_PATH = 'code-note';
     CdkDropList,
     CdkDrag,
     MessageComponent,
+    BackupRestoreComponent,
   ],
   templateUrl: './code-note.component.html',
   standalone: true,
@@ -40,6 +44,7 @@ const ROOT_CODE_NOTE_PATH = 'code-note';
 })
 export class CodeNoteComponent {
   private modularOverlayService = inject(ModularOverlayService);
+  private modal = inject(NzModalService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private nameGeneratorService = inject(NameGeneratorService);
@@ -99,8 +104,22 @@ export class CodeNoteComponent {
     }
   }
 
-  addLetter(): void {
-    this.codeNoteService.addLetter();
+  backup(): void {
+    this.codeNoteService.backup(this.lobbyCode());
+  }
+
+  onImport(data: CodeNoteData): void {
+    this.modal.confirm({
+      nzTitle: 'Import backup?',
+      nzContent: 'This will replace all current letters and messages. This cannot be undone.',
+      nzOkText: 'Import',
+      nzOkDanger: true,
+      nzCancelText: 'Cancel',
+      nzOnOk: () => this.codeNoteService.restore(data),
+    });
+  }
+
+  addLetter(): void {    this.codeNoteService.addLetter();
     this.triggerAutoSave();
   }
 

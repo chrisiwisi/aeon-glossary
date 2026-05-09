@@ -1,6 +1,6 @@
 import {inject, Injectable, OnDestroy, signal} from '@angular/core';
 import {Letter} from './letter/Letter';
-import {CodeNoteStorageStrategy, DisconnectFn} from './storage/code-note-storage.strategy';
+import {CodeNoteData, CodeNoteStorageStrategy, DisconnectFn} from './storage/code-note-storage.strategy';
 
 @Injectable()
 export class CodeNoteService implements OnDestroy {
@@ -56,6 +56,23 @@ export class CodeNoteService implements OnDestroy {
   reset(): void {
     this.alphabet.set([]);
     this.messages.set([]);
+  }
+
+  backup(lobbyCode: string): void {
+    const data: CodeNoteData = {alphabet: this.alphabet(), messages: this.messages()};
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${lobbyCode}-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  restore(data: CodeNoteData): void {
+    this.alphabet.set(data.alphabet ?? []);
+    this.messages.set(data.messages ?? []);
+    void this.save();
   }
 
   ngOnDestroy(): void {
