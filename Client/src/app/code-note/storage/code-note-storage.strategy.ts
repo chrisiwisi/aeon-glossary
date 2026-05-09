@@ -1,3 +1,4 @@
+import {WritableSignal} from '@angular/core';
 import {Letter} from "../letter/Letter";
 
 
@@ -6,8 +7,15 @@ export interface CodeNoteData {
   messages: number[][];
 }
 
-export abstract class CodeNoteStorageStrategy {
-  abstract load(): Promise<CodeNoteData>;
-  abstract save(data: CodeNoteData): Promise<void>;
-}
+export type DisconnectFn = () => void;
 
+export abstract class CodeNoteStorageStrategy {
+  /** Load data and write into provided signals */
+  abstract connect(
+    path: string,
+    alphabet: WritableSignal<Letter[]>,
+    messages: WritableSignal<number[][]>
+  ): DisconnectFn;
+
+  abstract save(path: string, data: CodeNoteData): Promise<void>;
+}

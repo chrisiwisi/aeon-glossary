@@ -47,3 +47,5 @@ Thumbs.db
 /docs/
 /.angular/
 /src/environments/environment.local.ts
+/database-debug.log
+/firebase-debug.log

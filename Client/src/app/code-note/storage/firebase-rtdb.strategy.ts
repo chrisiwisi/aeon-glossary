@@ -1,16 +1,33 @@
 import {inject, Injectable} from '@angular/core';
-import {Database, get, ref, set} from '@angular/fire/database';
+import {Database, DataSnapshot, onValue, ref, set} from '@angular/fire/database';
+import {WritableSignal} from '@angular/core';
 import {CodeNoteData, CodeNoteStorageStrategy} from './code-note-storage.strategy';
-
-const DB_PATH = 'code-note';
+import {Letter} from '../letter/Letter';
 
 @Injectable()
 export class FirebaseRtdbStrategy extends CodeNoteStorageStrategy {
   private db = inject(Database);
 
-  async load(): Promise<CodeNoteData> {
-    const snapshot = await get(ref(this.db, DB_PATH));
+  connect(
+    path: string,
+    alphabet: WritableSignal<Letter[]>,
+    messages: WritableSignal<number[][]>
+  ): () => void {
+    return onValue(ref(this.db, path), snapshot => {
+      const data = this.toCodeNoteData(snapshot);
+      alphabet.set(data.alphabet);
+      messages.set(data.messages);
+    });
+  }
 
+  async save(path: string, data: CodeNoteData): Promise<void> {
+    await set(ref(this.db, path), {
+      alphabet: data.alphabet,
+      messages: data.messages,
+    });
+  }
+
+  private toCodeNoteData(snapshot: DataSnapshot): CodeNoteData {
     if (!snapshot.exists()) {
       return {alphabet: [], messages: []};
     }
@@ -20,13 +37,6 @@ export class FirebaseRtdbStrategy extends CodeNoteStorageStrategy {
       alphabet: value.alphabet ? this.toArray(value.alphabet) : [],
       messages: value.messages ? this.toArray(value.messages) : [],
     };
-  }
-
-  async save(data: CodeNoteData): Promise<void> {
-    await set(ref(this.db, DB_PATH), {
-      alphabet: data.alphabet,
-      messages: data.messages,
-    });
   }
 
   /** Safely converts a Firebase value to an ordered array regardless of whether
@@ -40,4 +50,3 @@ export class FirebaseRtdbStrategy extends CodeNoteStorageStrategy {
       .map(k => (value as Record<string, T>)[k]);
   }
 }
-

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
 import {LetterComponent} from "./letter/letter.component";
@@ -32,15 +32,15 @@ import {Letter} from "./letter/Letter";
     {provide: CodeNoteStorageStrategy, useClass: FirebaseRtdbStrategy},
   ],
 })
-export class CodeNoteComponent implements OnInit {
+export class CodeNoteComponent {
   private modularOverlayService = inject(ModularOverlayService);
   protected codeNoteService = inject(CodeNoteService);
 
   get alphabet() { return this.codeNoteService.alphabet(); }
   get messages() { return this.codeNoteService.messages(); }
 
-  async ngOnInit(): Promise<void> {
-    await this.codeNoteService.load();
+  constructor() {
+    this.codeNoteService.connect('code-note');
   }
 
   private triggerAutoSave(): void {

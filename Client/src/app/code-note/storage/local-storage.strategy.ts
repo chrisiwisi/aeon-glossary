@@ -1,26 +1,25 @@
-import {Injectable} from '@angular/core';
+import {Injectable, WritableSignal} from '@angular/core';
 import {CodeNoteData, CodeNoteStorageStrategy} from './code-note-storage.strategy';
+import {Letter} from '../letter/Letter';
 
-
-const ALPHABET_KEY = 'alphabet';
-const MESSAGES_KEY = 'messages';
 
 @Injectable()
 export class LocalStorageStrategy extends CodeNoteStorageStrategy {
-  load(): Promise<CodeNoteData> {
-    const rawAlphabet = localStorage.getItem(ALPHABET_KEY);
-    const rawMessages = localStorage.getItem(MESSAGES_KEY);
-
-    return Promise.resolve({
-      alphabet: rawAlphabet ? JSON.parse(rawAlphabet) : [],
-      messages: rawMessages ? JSON.parse(rawMessages) : [],
-    });
+  connect(
+    path: string,
+    alphabet: WritableSignal<Letter[]>,
+    messages: WritableSignal<number[][]>
+  ): () => void {
+    const rawAlphabet = localStorage.getItem(`${path}/alphabet`);
+    const rawMessages = localStorage.getItem(`${path}/messages`);
+    alphabet.set(rawAlphabet ? JSON.parse(rawAlphabet) : []);
+    messages.set(rawMessages ? JSON.parse(rawMessages) : []);
+    return () => undefined;
   }
 
-  save(data: CodeNoteData): Promise<void> {
-    localStorage.setItem(ALPHABET_KEY, JSON.stringify(data.alphabet));
-    localStorage.setItem(MESSAGES_KEY, JSON.stringify(data.messages));
+  save(path: string, data: CodeNoteData): Promise<void> {
+    localStorage.setItem(`${path}/alphabet`, JSON.stringify(data.alphabet));
+    localStorage.setItem(`${path}/messages`, JSON.stringify(data.messages));
     return Promise.resolve();
   }
 }
-
