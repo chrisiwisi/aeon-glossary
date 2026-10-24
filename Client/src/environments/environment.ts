@@ -9,6 +9,9 @@ export const environment = {
     storageBucket: "aeon-glossary-cb44f.firebasestorage.app",
     messagingSenderId: "334933580496",
     appId: "1:334933580496:web:1d91e2f5774c04b9c01cd5",
-    databaseURL: "https://aeon-glossary-cb44f.firebaseio.com",
+    databaseURL: "https://aeon-glossary-cb44f-default-rtdb.europe-west1.firebasedatabase.app",
   }
 };
+
+
+//TODO move webmanifest and icons to assets. include in html and build. replace icons with actual icons
