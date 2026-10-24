@@ -1,0 +1,12 @@
+@for (part of content().abilityText; track $index) {
+  @switch (part.type) {
+    @case ('newline') {<br />}
+    @case ('icon') {<span class="icon" [attr.aria-label]="iconLabel(part.value)">{{ iconLabel(part.value) }}</span>}
+    @case ('bold') {<strong>{{ part.value }}</strong>}
+    @case ('italics') {<em>{{ part.value }}</em>}
+    @case ('timing') {<em class="timing">{{ part.value }}</em>}
+    @case ('keyword') {<strong class="keyword">{{ part.value }}</strong>}
+    @case ('cardRef') {<span class="card-reference" [title]="part.refID ?? ''">{{ part.value }}</span>}
+    @default {<span>{{ part.value }}</span>}
+  }
+}

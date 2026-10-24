@@ -20,10 +20,8 @@ import {environment} from "../../environments/environment";
     styleUrl: './glossary-page.component.css'
 })
 export class GlossaryPageComponent {
-  title = 'Aeon Glossary';
   searchTerm: string = '';
   rules: Rule[] = [];
-  theLawUrl = environment.theLawUrl;
 
   http: HttpClient = inject(HttpClient);
   searchService: SearchService = inject(SearchService);

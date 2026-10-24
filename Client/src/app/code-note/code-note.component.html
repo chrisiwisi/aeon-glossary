@@ -1,14 +1,9 @@
-<div class="top-bar">
-  <div class="top-actions">
-    <app-backup-restore (exported)="backup()" (imported)="onImport($event)" />
-  </div>
-</div>
-
 <app-session-dialog
   title="Code Note session"
   [visible]="dialogVisible()"
   [loading]="dialogLoading()"
   [error]="dialogError()"
+  [canCancel]="!!lobbyCode()"
   (create)="createSession()"
   (join)="joinSession($event)"
   (cancel)="closeDialog()"

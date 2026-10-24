@@ -1,0 +1,7 @@
+<button class="card" [class.combat]="technology().techType === 'Combat'" [class.researched]="status() === 'researched'" [class.locked]="status() === 'locked'"
+  [attr.aria-label]="technology().name + ', ' + status()" (click)="selected.emit(technology())">
+  <span class="branch"><span class="branch-icon">{{ technology().techType === 'Structural' ? '⬡' : '✦' }}</span>{{ technology().techType }}</span>
+  <strong>{{ technology().name }}</strong>
+  <span class="description">{{ flavour() }}</span>
+  <span class="status">@if (status() === 'researched') {✓ Researched} @else if (status() === 'locked') {◇ Requires {{ technology().prerequisiteIds.length }}} @else {View technology →}</span>
+</button>

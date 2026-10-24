@@ -12,7 +12,7 @@
 
 .main-layout {
   min-height: 100lvh;
-  background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
+  background: linear-gradient(112deg, #081722 10%, #102a40 58%, #1b4550 100%);
 }
 
 .sidebar-title {
@@ -55,26 +55,39 @@
 .app-header {
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  background: transparent;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  gap: 16px;
+  height: auto;
+  min-height: 80px;
+  padding: 12px clamp(20px, 5vw, 72px);
+  line-height: normal;
+  background: #102a40;
+  border-bottom: 1px solid #2a465b;
 }
 
 .burger-button {
   font-size: 18px;
   color: #fff;
+  flex: none;
 }
 
 .burger-button .anticon {
   color: inherit;
 }
 
+.title-lockup { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.title-mark { display: grid; place-items: center; flex: none; width: 42px; height: 42px; color: #d9b982; border: 1px solid #ad925f; border-radius: 50%; font-size: 30px; }
+.title-lockup .eyebrow { display: block; margin: 0 0 2px; color: #b8c7cd; font-size: 9px; font-weight: 700; letter-spacing: .16em; text-decoration: none; }
+.title-lockup .credits-link:hover, .title-lockup .credits-link:focus-visible { color: #fff4e1; text-decoration: underline; }
+.title-lockup h1 { margin: 0; color: #fff4e1; font: 25px/1.1 Georgia, 'Times New Roman', serif; white-space: nowrap; }
+.header-actions { display: flex; align-items: center; gap: 14px; min-width: 0; margin-left: auto; }
+.session-button { flex: none; color: #d9e3e5; background: transparent; border-color: #587486; }
+
 .header-session-code {
   display: flex;
   align-items: center;
   gap: 6px;
   min-width: 0;
-  margin: 0 0 0 auto;
+  margin: 0;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
 }
@@ -110,6 +123,15 @@
 }
 
 @media (max-width: 768px) {
+  .app-header { flex-wrap: wrap; gap: 8px; min-height: 64px; padding: 10px 16px; }
+  .title-lockup { gap: 9px; }
+  .title-mark { width: 35px; height: 35px; font-size: 24px; }
+  .title-lockup .eyebrow { font-size: 8px; }
+  .title-lockup h1 { font-size: 19px; }
+  .header-actions { width: 100%; justify-content: flex-end; }
+  .header-session-code { font-size: 11px; }
+  .session-button { padding: 2px 8px; height: auto; font-size: 10px; }
+
   .mobile-sidebar {
     position: fixed;
     inset: 0 auto 0 0;

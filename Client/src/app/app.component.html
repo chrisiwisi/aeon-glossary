@@ -12,7 +12,7 @@
     <div class="sidebar-title">Aeon Glossary</div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
       <li nz-menu-item [nzSelected]="isGlossaryRoute()"><a routerLink="/">Glossary</a></li>
-      <li nz-menu-item [nzSelected]="isTechTreeRoute()"><a routerLink="/tech-tree">Technology Tree</a></li>
+      <li nz-menu-item [nzSelected]="isTechnologyAtlasRoute()"><a routerLink="/technology-atlas">Technology Atlas</a></li>
       <li nz-submenu nzTitle="Code Note" nzOpen>
         <ul>
           <li nz-menu-item><a routerLink="/code">New Code Note</a></li>
@@ -51,21 +51,41 @@
       >
         <nz-icon [nzType]="isSidebarCollapsed ? 'menu-unfold' : 'menu-fold'" nzTheme="outline"/>
       </button>
-      @if (sessionCode(); as code) {
-        <p class="header-session-code">
-          Code:
-          <nz-tag nzColor="blue">
-            <span class="session-code-text">{{ code }}</span>
-            <button nz-button nzType="text" nzSize="small" class="share-btn" aria-label="Share session link" (click)="shareOrCopy()">
-              <nz-icon [nzType]="copyLabel() === 'Copied!' ? 'check' : 'share-alt'" nzTheme="outline" />
-            </button>
-          </nz-tag>
-        </p>
+      <div class="title-lockup">
+        <span class="title-mark" aria-hidden="true">✧</span>
+        <div>
+          @if (isGlossaryRoute()) {
+            <a class="eyebrow credits-link" [href]="theLawUrl">Powered by THE LAW OF AT:O</a>
+          } @else {
+            <p class="eyebrow">THE GREAT AGE</p>
+          }
+          <h1>{{ isTechnologyAtlasRoute() ? 'Technology Atlas' : isCodeRoute() ? 'Code Note' : 'Aeon Glossary' }}</h1>
+        </div>
+      </div>
+      @if (!isGlossaryRoute()) {
+        <div class="header-actions">
+          @if (sessionCode(); as code) {
+            <p class="header-session-code">
+              Code:
+              <nz-tag nzColor="blue">
+                <span class="session-code-text">{{ code }}</span>
+                <button nz-button nzType="text" nzSize="small" class="share-btn" aria-label="Share session link" (click)="shareOrCopy()">
+                  <nz-icon [nzType]="copyLabel() === 'Copied!' ? 'check' : 'share-alt'" nzTheme="outline" />
+                </button>
+              </nz-tag>
+            </p>
+          }
+          @if (isCodeRoute()) {
+            <app-backup-restore (exported)="backupCodeNote()" (imported)="importCodeNote($event)"/>
+          } @else {
+            <button nz-button type="button" class="session-button" (click)="openSessionDialog()">{{ sessionCode() ? 'Change session' : 'Start session' }}</button>
+          }
+        </div>
       }
     </nz-header>
 
     <nz-content class="app-content">
-      <router-outlet/>
+      <router-outlet (activate)="activePage = $event" (deactivate)="activePage = null"/>
     </nz-content>
   </nz-layout>
 </nz-layout>

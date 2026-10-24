@@ -1,0 +1,4 @@
+:host { display: inline; color: inherit; }
+.icon { display: inline-block; padding: 0 4px; border: 1px solid #658d95; border-radius: 3px; color: #bce2d9; background: #244858; font-size: .85em; line-height: 1.4; white-space: nowrap; }
+.timing, .keyword { color: #e3c18d; }
+.card-reference { color: #a9d7df; text-decoration: underline; text-decoration-style: dotted; }

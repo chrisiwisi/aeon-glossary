@@ -16,7 +16,6 @@ import {FirebaseRtdbStrategy} from "./storage/firebase-rtdb.strategy";
 import {Letter} from "./letter/Letter";
 import {NameGeneratorService} from "./name-generator.service";
 import {CodeNoteData} from "./storage/code-note-storage.strategy";
-import {BackupRestoreComponent} from "./backup-restore/backup-restore.component";
 import {CodeNoteLobbiesService} from "./code-note-lobbies.service";
 import {SessionDialogComponent} from '../session-dialog/session-dialog.component';
 import {distinctUntilChanged, map} from "rxjs";
@@ -34,7 +33,6 @@ const LOBBY_CODE_PATTERN = /^[a-z0-9-]{3,80}$/;
     CdkDropList,
     CdkDrag,
     MessageComponent,
-    BackupRestoreComponent,
     SessionDialogComponent,
   ],
   templateUrl: './code-note.component.html',
@@ -91,11 +89,16 @@ export class CodeNoteComponent {
   }
 
   private openDialog(): void {
+    this.dialogError.set('');
     this.dialogVisible.set(true);
   }
 
   closeDialog(): void {
-    void this.router.navigate(['/']);
+    if (this.lobbyCode()) {
+      this.dialogVisible.set(false);
+    } else {
+      void this.router.navigate(['/']);
+    }
   }
 
   private normalizeLobbyCode(raw: string | null | undefined): string | null {

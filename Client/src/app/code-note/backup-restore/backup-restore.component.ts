@@ -10,6 +10,13 @@ import {NzMenuDirective, NzMenuItemComponent} from "ng-zorro-antd/menu";
   selector: 'app-backup-restore',
   imports: [NzButtonComponent, NzIconDirective, NzDropdownMenuComponent, NzMenuDirective, NzMenuItemComponent, NzDropdownDirective],
   templateUrl: './backup-restore.component.html',
+  styles: [`
+    :host { display: inline-flex; flex: none; }
+    .backup-button { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px; color: #d9e3e5; background: transparent; border: 1px solid #587486; border-radius: 4px; font-weight: 600; }
+    .backup-button:hover, .backup-button:focus-visible { color: #fff4e1; border-color: #9bbdbf; background: #1b3b50; }
+    .chevron { margin-left: 2px; font-size: 16px; line-height: 1; transform: translateY(-3px); }
+    @media (max-width: 768px) { .backup-button { height: 30px; padding: 0 9px; font-size: 11px; } }
+  `],
 })
 export class BackupRestoreComponent {
   private modal = inject(NzModalService);
@@ -52,4 +59,3 @@ export class BackupRestoreComponent {
     reader.readAsText(file);
   }
 }
-

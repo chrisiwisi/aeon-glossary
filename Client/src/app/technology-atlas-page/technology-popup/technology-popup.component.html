@@ -1,0 +1,46 @@
+<div class="backdrop" (click)="closed.emit()"></div>
+<section class="popup" role="dialog" aria-modal="true" [attr.aria-label]="technology().name">
+  <button type="button" class="close" aria-label="Close details" (click)="closed.emit()">×</button>
+  <div class="symbol" [class.combat]="technology().techType === 'Combat'">{{ technology().techType === 'Structural' ? '⬡' : '✦' }}</div>
+  <p class="eyebrow">{{ technology().techType }} technology</p>
+  <h2>{{ technology().name }}</h2>
+  <p class="description">{{ flavour() }}</p>
+  <div class="detail"><span>Prerequisites</span>
+    @if (prerequisites().length) {
+      <ul>@for (prerequisite of prerequisites(); track prerequisite.refID) {
+        <li><span [class.done]="researchedIds().has(prerequisite.refID)">{{ researchedIds().has(prerequisite.refID) ? '✓' : '◇' }}</span> {{ prerequisite.name }}</li>
+      }</ul>
+    } @else {<strong>None — starting technology</strong>}
+  </div>
+  <div class="detail"><span>Abilities</span>
+    @for (ability of technology().abilities ?? []; track $index) {
+      <div class="ability">
+        <div class="ability-heading"><strong>{{ ability.name || 'Ability' }}</strong>@if (ability.type) {<small>{{ ability.type }}</small>}</div>
+        @for (effect of ability.effects; track $index) {
+          <p class="rich-text"><app-technology-rich-text [content]="effect" /></p>
+        }
+      </div>
+    } @empty {<p class="empty">No abilities listed.</p>}
+  </div>
+  @if (errataEntries().length) {
+    <div class="detail"><span>Errata</span>
+      @for (entry of errataEntries(); track entry.version) {
+        <div class="entry"><strong>{{ entry.version }}</strong>
+          @for (block of entry.blocks; track $index) {
+            <p class="rich-text"><app-technology-rich-text [content]="block" /></p>
+          }
+        </div>
+      }
+    </div>
+  }
+  @if (technology().faq?.length) {
+    <div class="detail"><span>FAQ</span>
+      @for (answer of technology().faq ?? []; track $index) {
+        <p class="rich-text"><app-technology-rich-text [content]="answer" /></p>
+      }
+    </div>
+  }
+  <button type="button" class="research" [disabled]="status() !== 'available'" (click)="researched.emit(technology().refID)">
+    @if (status() === 'researched') {Researched} @else if (status() === 'locked') {Complete prerequisites first} @else {Research technology}
+  </button>
+</section>
