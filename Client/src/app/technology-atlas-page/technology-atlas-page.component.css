@@ -1,11 +1,37 @@
-:host { display: block; margin: -16px; color: #e9edf0; font-family: Arial, sans-serif; }
-.technology-atlas-page { display: flex; flex-direction: column; min-height: calc(100dvh - 80px); }
-.technology-atlas-page app-technology-tree { flex: 1; min-height: 0; }
-.filters { padding: 27px clamp(20px, 5vw, 72px) 20px; }
-@media (min-width: 769px) {
-  .technology-atlas-page { height: calc(100dvh - 80px); }
+:host {
+  display: block;
+  margin: -16px;
+  color: #e9edf0;
+  font-family: Arial, sans-serif;
 }
+
+.technology-atlas-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - 80px);
+}
+
+.technology-atlas-page app-technology-tree {
+  flex: 1;
+  min-height: 0;
+}
+
+.filters {
+  padding: 27px clamp(20px, 5vw, 72px) 20px;
+}
+
+@media (min-width: 769px) {
+  .technology-atlas-page {
+    height: calc(100dvh - 80px);
+  }
+}
+
 @media (max-width: 700px) {
-  .technology-atlas-page { display: block; }
-  .filters { padding: 18px 16px 16px; }
+  .technology-atlas-page {
+    display: block;
+  }
+
+  .filters {
+    padding: 18px 16px 16px;
+  }
 }

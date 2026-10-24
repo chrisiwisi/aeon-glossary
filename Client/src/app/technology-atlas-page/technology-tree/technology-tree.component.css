@@ -1,33 +1,216 @@
-:host { display: flex; min-height: 0; }
-.desktop-atlas { position: relative; display: flex; flex: 1; flex-direction: column; min-width: 0; min-height: 0; border: 1px solid #254253; background: radial-gradient(circle at 46% 15%, #123447 0, #091f2d 48%, #081a28 100%); overflow: hidden; }
-.desktop-atlas::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .15; background-image: linear-gradient(#577180 1px, transparent 1px), linear-gradient(90deg, #577180 1px, transparent 1px); background-size: 28px 28px; }
-.scroll-area { position: relative; flex: 1; min-width: 0; min-height: 0; overflow: auto; cursor: grab; scrollbar-width: thin; scrollbar-color: #587583 transparent; }
-.scroll-area.panning { cursor: grabbing; user-select: none; }
-.scroll-area:focus-visible { outline: 2px solid #9acfc4; outline-offset: -2px; }
-.scroll-area::-webkit-scrollbar { width: 6px; height: 6px; }
-.scroll-area::-webkit-scrollbar-track, .scroll-area::-webkit-scrollbar-corner { background: transparent; }
-.scroll-area::-webkit-scrollbar-thumb { background: #587583; border-radius: 6px; }
-.scroll-area::-webkit-scrollbar-thumb:hover { background: #8baeb2; }
-.canvas { position: relative; min-width: 100%; }
-.branch-legend { position: absolute; top: 28px; left: 80px; z-index: 1; display: flex; gap: 24px; color: #91a7b2; font: 700 11px Arial, sans-serif; letter-spacing: .15em; text-transform: uppercase; }
-.connections { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
-path { fill: none; stroke: #597b88; stroke-width: 2; opacity: .67; }
-path.complete { stroke: #91c6b7; stroke-width: 3; opacity: .98; filter: drop-shadow(0 0 6px #91c6b74d); }
-.placed-card { position: absolute; z-index: 1; }
-.placed-card.faded { opacity: .13; pointer-events: none; }
-.placed-card { transition: opacity .2s; }
-.hint { position: absolute; bottom: 0; right: 0; margin: 0; padding: 9px 17px; color: #b3c2c6; background: #0b2532df; font: 11px Arial, sans-serif; pointer-events: none; }
-.mobile-atlas { display: none; }
+:host {
+  display: flex;
+  min-height: 0;
+}
+
+.desktop-atlas {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid #254253;
+  background: radial-gradient(circle at 46% 15%, #123447 0, #091f2d 48%, #081a28 100%);
+  overflow: hidden;
+}
+
+.desktop-atlas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .15;
+  background-image: linear-gradient(#577180 1px, transparent 1px), linear-gradient(90deg, #577180 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.scroll-area {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: #587583 transparent;
+}
+
+.scroll-area.panning {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.scroll-area:focus-visible {
+  outline: 2px solid #9acfc4;
+  outline-offset: -2px;
+}
+
+.scroll-area::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scroll-area::-webkit-scrollbar-track,
+.scroll-area::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: #587583;
+  border-radius: 6px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb:hover {
+  background: #8baeb2;
+}
+
+.canvas {
+  position: relative;
+  min-width: 100%;
+}
+
+.branch-legend {
+  position: absolute;
+  top: 28px;
+  left: 80px;
+  z-index: 1;
+  display: flex;
+  gap: 24px;
+  color: #91a7b2;
+  font: 700 11px Arial, sans-serif;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.connections {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+path {
+  fill: none;
+  stroke: #597b88;
+  stroke-width: 2;
+  opacity: .67;
+}
+
+path.complete {
+  stroke: #91c6b7;
+  stroke-width: 3;
+  opacity: .98;
+  filter: drop-shadow(0 0 6px #91c6b74d);
+}
+
+.placed-card {
+  position: absolute;
+  z-index: 1;
+}
+
+.placed-card.faded {
+  opacity: .13;
+  pointer-events: none;
+}
+
+.placed-card {
+  transition: opacity .2s;
+}
+
+.hint {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 9px 17px;
+  color: #b3c2c6;
+  background: #0b2532df;
+  font: 11px Arial, sans-serif;
+  pointer-events: none;
+}
+
+.mobile-atlas {
+  display: none;
+}
+
 @media (max-width: 700px) {
-  :host { display: block; }
-  .desktop-atlas { display: none; } .mobile-atlas { display: block; padding: 15px 16px 34px; background: #081d2b; }
-  .mobile-branch + .mobile-branch { margin-top: 28px; }
-  .mobile-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 13px; padding-bottom: 12px; border-bottom: 1px solid #294653; }
-  .heading-icon { display: grid; place-items: center; width: 36px; height: 36px; color: #9acfc4; background: #1b4550; border: 1px solid #427980; border-radius: 50%; font-size: 22px; }
-  .mobile-branch:nth-child(2) .heading-icon { color: #dfb981; background: #493b31; border-color: #866b51; }
-  .mobile-heading small { display: block; color: #8ca5b1; font: 700 9px Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
-  .mobile-heading strong { display: block; margin-top: 2px; color: #f3e9da; font: 20px Georgia, serif; }
-  .count { margin-left: auto; color: #91acb7; font: 11px Arial, sans-serif; }
-  .mobile-list { display: grid; gap: 8px; padding-left: 10px; border-left: 1px solid #406574; }
-  .empty-filter { margin: 8px 0 12px; color: #91aebb; font: 12px Arial, sans-serif; }
+  :host {
+    display: block;
+  }
+
+  .desktop-atlas {
+    display: none;
+  }
+
+  .mobile-atlas {
+    display: block;
+    padding: 15px 16px 34px;
+    background: #081d2b;
+  }
+
+  .mobile-branch+.mobile-branch {
+    margin-top: 28px;
+  }
+
+  .mobile-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 13px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #294653;
+  }
+
+  .heading-icon {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    color: #9acfc4;
+    background: #1b4550;
+    border: 1px solid #427980;
+    border-radius: 50%;
+    font-size: 22px;
+  }
+
+  .mobile-branch:nth-child(2) .heading-icon {
+    color: #dfb981;
+    background: #493b31;
+    border-color: #866b51;
+  }
+
+  .mobile-heading small {
+    display: block;
+    color: #8ca5b1;
+    font: 700 9px Arial, sans-serif;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .mobile-heading strong {
+    display: block;
+    margin-top: 2px;
+    color: #f3e9da;
+    font: 20px Georgia, serif;
+  }
+
+  .count {
+    margin-left: auto;
+    color: #91acb7;
+    font: 11px Arial, sans-serif;
+  }
+
+  .mobile-list {
+    display: grid;
+    gap: 8px;
+    padding-left: 10px;
+    border-left: 1px solid #406574;
+  }
+
+  .empty-filter {
+    margin: 8px 0 12px;
+    color: #91aebb;
+    font: 12px Arial, sans-serif;
+  }
 }

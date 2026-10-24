@@ -1,8 +1,71 @@
-.filter-groups { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.group-label { color: #8da9b5; font: 700 10px Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
-button { min-height: 35px; padding: 0 16px; border: 1px solid #38566a; border-radius: 999px; color: #aabcc8; background: #0d2332; cursor: pointer; font: 700 11px Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
-button:hover, button:focus-visible { color: #fff; border-color: #83aea9; outline: none; }
-button.active { color: #fffdf6; background: #183d56; border-color: #6e9ca8; }
-button span { margin-right: 5px; font-size: 14px; }
-@media (max-width: 700px) { .filter-groups { gap: 12px; } nav { gap: 6px; } .group-label { width: 100%; } button { min-height: 32px; padding: 0 12px; font-size: 10px; } }
+.filter-groups {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.group-label {
+    color: #8da9b5;
+    font: 700 10px Arial, sans-serif;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+button {
+    min-height: 35px;
+    padding: 0 16px;
+    border: 1px solid #38566a;
+    border-radius: 999px;
+    color: #aabcc8;
+    background: #0d2332;
+    cursor: pointer;
+    font: 700 11px Arial, sans-serif;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+button:hover,
+button:focus-visible {
+    color: #fff;
+    border-color: #83aea9;
+    outline: none;
+}
+
+button.active {
+    color: #fffdf6;
+    background: #183d56;
+    border-color: #6e9ca8;
+}
+
+button span {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+@media (max-width: 700px) {
+    .filter-groups {
+        gap: 12px;
+    }
+
+    nav {
+        gap: 6px;
+    }
+
+    .group-label {
+        width: 100%;
+    }
+
+    button {
+        min-height: 32px;
+        padding: 0 12px;
+        font-size: 10px;
+    }
+}
