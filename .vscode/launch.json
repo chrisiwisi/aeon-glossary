@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Angular: Serve on local network",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run start",
+      "cwd": "${workspaceFolder}/Client"
+    },
+    {
+      "name": "Firebase: Database emulator + UI",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run emulators",
+      "cwd": "${workspaceFolder}/Client"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Angular + Firebase emulators",
+      "configurations": [
+        "Angular: Serve on local network",
+        "Firebase: Database emulator + UI"
+      ],
+      "stopAll": true
+    }
+  ]
+}
