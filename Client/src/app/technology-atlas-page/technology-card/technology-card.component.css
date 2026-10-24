@@ -3,8 +3,17 @@
 .card:hover, .card:focus-visible { transform: translateY(-3px); border-color: #acd8ca; box-shadow: 0 12px 28px #020e17bd; outline: none; }
 .card.combat { border-left-color: #d5a86b; }
 .card.combat:hover, .card.combat:focus-visible { border-color: #e4be86; }
-.card.researched { background: #122633; border-color: #345368; }
+.card.researched {
+  background: linear-gradient(180deg, #0f3035 0%, #122633 70%);
+  border-color: #5ea89c;
+  box-shadow: 0 10px 28px #020e17b5, 0 0 0 2px #2b6b64, 0 0 18px #3aa59b55;
+}
 .card.locked { opacity: .7; }
+.card.locked.teased {
+  opacity: .4;
+  border-color: #4f7380;
+  box-shadow: 0 10px 26px #020e17b0, 0 0 0 1px #2e5563;
+}
 .branch { display: flex; gap: 6px; align-items: center; color: #8fc5bc; font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 .combat .branch { color: #deb982; }
 .branch-icon { font-size: 16px; line-height: 1; }

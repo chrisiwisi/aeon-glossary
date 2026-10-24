@@ -9,22 +9,23 @@
         <defs>
           <mask id="technology-card-cutouts" maskUnits="userSpaceOnUse" x="0" y="0" [attr.width]="canvasWidth()" [attr.height]="canvasHeight()">
             <rect x="0" y="0" [attr.width]="canvasWidth()" [attr.height]="canvasHeight()" fill="white"/>
-            @for (node of graph().nodes; track node.refID) {
+            @for (node of visibleNodes(); track node.refID) {
               <rect [attr.x]="node.x - 1" [attr.y]="node.y - 1" width="222" [attr.height]="cardHeight(node) + 2" fill="black"/>
             }
           </mask>
         </defs>
         <g mask="url(#technology-card-cutouts)">
-          @for (edge of graph().edges; track edge.fromId + edge.toId) {
+          @for (edge of visibleEdges(); track edge.fromId + edge.toId) {
             <path [attr.d]="edgePath(edge.fromId, edge.toId)" [class.complete]="researchedIds().has(edge.fromId)"/>
           }
         </g>
       </svg>
-      @for (node of graph().nodes; track node.refID) {
+      @for (node of visibleNodes(); track node.refID) {
         <div class="placed-card" #placedCard [attr.data-technology-id]="node.refID" [style.left.px]="node.x" [style.top.px]="node.y"
           [class.faded]="isDimmed(node)"
+          [class.teased-locked]="isTeasedLocked(node)"
           [attr.inert]="isDimmed(node) ? '' : null">
-          <app-technology-card [technology]="node" [status]="status(node)" (selected)="selected.emit($event)"/>
+          <app-technology-card [technology]="node" [status]="status(node)" [teased]="isTeasedLocked(node)" (selected)="selected.emit($event)"/>
         </div>
       }
     </div>

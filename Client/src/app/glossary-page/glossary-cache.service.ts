@@ -26,10 +26,13 @@ export class GlossaryCacheService {
   private isRule(candidate: unknown): candidate is Rule {
     if (!candidate || typeof candidate !== 'object') return false;
     const record = candidate as Record<string, unknown>;
-    return typeof record.id === 'string' && !!record.id &&
-      typeof record.name === 'string' && !!record.name &&
-      typeof record.rule === 'string' &&
-      Array.isArray(record.keywords) && record.keywords.every(keyword => typeof keyword === 'string');
+    const id = record['id'];
+    const name = record['name'];
+    const rule = record['rule'];
+    const keywords = record['keywords'];
+    return typeof id === 'string' && !!id &&
+      typeof name === 'string' && !!name &&
+      typeof rule === 'string' &&
+      Array.isArray(keywords) && keywords.every(keyword => typeof keyword === 'string');
   }
 }
-

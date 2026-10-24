@@ -1,7 +1,7 @@
 import { Component, computed, effect, ElementRef, input, output, signal, viewChild, viewChildren } from '@angular/core';
 import { TechnologyCardComponent } from '../technology-card/technology-card.component';
 import { TechnologyFilter, TechnologyStatusFilter } from '../technology-filters/technology-filters.component';
-import { TechnologyGraph, TechnologyNode, technologyStatus } from '../technology.model';
+import { TechnologyEdge, TechnologyGraph, TechnologyNode, technologyStatus } from '../technology.model';
 
 @Component({
   selector: 'app-technology-tree',
@@ -21,6 +21,50 @@ export class TechnologyTreeComponent {
   readonly researchedIds = input.required<ReadonlySet<string>>();
   readonly selected = output<TechnologyNode>();
   readonly branches = ['Structural', 'Combat'] as const;
+  readonly lockedPreviewIds = computed(() => {
+    const currentFilter = this.statusFilter();
+    if (currentFilter === 'locked' || currentFilter === 'researched') {
+      return new Set<string>();
+    }
+
+    const byId = new Map(this.graph().nodes.map(node => [node.refID, node] as const));
+    const preview = new Set<string>();
+    for (const node of this.graph().nodes) {
+      if (this.status(node) !== 'available') continue;
+      for (const dependentId of node.dependentIds) {
+        const dependent = byId.get(dependentId);
+        if (dependent && this.status(dependent) === 'locked') {
+          preview.add(dependentId);
+        }
+      }
+    }
+    return preview;
+  });
+
+  readonly visibleNodes = computed(() => {
+    const currentFilter = this.statusFilter();
+    const preview = this.lockedPreviewIds();
+    return this.graph().nodes.filter(node => {
+      const status = this.status(node);
+      if (currentFilter === 'All') {
+        return status !== 'locked' || preview.has(node.refID);
+      }
+      if (currentFilter === 'available') {
+        return status === 'available' || preview.has(node.refID);
+      }
+      if (currentFilter === 'researched') {
+        return status === 'researched';
+      }
+      // "Locked" acts as a visibility toggle: show everything, including locked.
+      return true;
+    });
+  });
+
+  readonly visibleEdges = computed<TechnologyEdge[]>(() => {
+    const visible = new Set(this.visibleNodes().map(node => node.refID));
+    return this.graph().edges.filter(edge => visible.has(edge.fromId) && visible.has(edge.toId));
+  });
+
   readonly canvasWidth = computed(() => Math.max(1100, ...this.graph().nodes.map(node => node.x + 300)));
   readonly canvasHeight = computed(() => Math.max(750, ...this.graph().nodes.map(node => node.y + 200)));
 
@@ -83,11 +127,39 @@ export class TechnologyTreeComponent {
   }
 
   status(node: TechnologyNode) { return technologyStatus(node, this.researchedIds()); }
-  matchesStatus(node: TechnologyNode) { return this.statusFilter() === 'All' || this.status(node) === this.statusFilter(); }
-  isDimmed(node: TechnologyNode) { return (this.filter() !== 'All' && this.filter() !== node.techType) || !this.matchesStatus(node); }
-  branchNodes(branch: 'Structural' | 'Combat') { return this.graph().nodes.filter(node => node.techType === branch).sort((a, b) => a.depth - b.depth); }
-  visibleBranchNodes(branch: 'Structural' | 'Combat') { return this.branchNodes(branch).filter(node => this.matchesStatus(node)); }
-  researchedCount(branch: 'Structural' | 'Combat') { return this.branchNodes(branch).filter(node => this.researchedIds().has(node.refID)).length; }
+
+  isTeasedLocked(node: TechnologyNode): boolean {
+    return this.status(node) === 'locked'
+      && this.statusFilter() !== 'locked'
+      && this.lockedPreviewIds().has(node.refID);
+  }
+
+  isDimmed(node: TechnologyNode) {
+    if (this.filter() !== 'All' && this.filter() !== node.techType) return true;
+
+    const currentFilter = this.statusFilter();
+    const status = this.status(node);
+
+    // "Locked" mode shows everything, so don't dim by status.
+    if (currentFilter === 'locked') return false;
+
+    if (status === 'locked') return !this.isTeasedLocked(node);
+
+    return currentFilter !== 'All' && status !== currentFilter;
+  }
+
+  branchNodes(branch: 'Structural' | 'Combat') {
+    return this.visibleNodes().filter(node => node.techType === branch).sort((a, b) => a.depth - b.depth);
+  }
+
+  researchedCount(branch: 'Structural' | 'Combat') {
+    return this.branchNodes(branch).filter(node => this.researchedIds().has(node.refID)).length;
+  }
+
+  visibleBranchNodes(branch: 'Structural' | 'Combat') {
+    return this.branchNodes(branch);
+  }
+
   cardHeight(node: TechnologyNode): number { return this.cardHeights().get(node.refID) ?? 150; }
   edgePath(fromId: string, toId: string): string {
     const from = this.graph().nodes.find(node => node.refID === fromId)!;

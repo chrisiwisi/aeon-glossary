@@ -12,7 +12,7 @@
 .branch-legend { position: absolute; top: 28px; left: 80px; z-index: 1; display: flex; gap: 24px; color: #91a7b2; font: 700 11px Arial, sans-serif; letter-spacing: .15em; text-transform: uppercase; }
 .connections { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
 path { fill: none; stroke: #597b88; stroke-width: 2; opacity: .67; }
-path.complete { stroke: #91c6b7; opacity: .95; }
+path.complete { stroke: #91c6b7; stroke-width: 3; opacity: .98; filter: drop-shadow(0 0 6px #91c6b74d); }
 .placed-card { position: absolute; z-index: 1; }
 .placed-card.faded { opacity: .13; pointer-events: none; }
 .placed-card { transition: opacity .2s; }

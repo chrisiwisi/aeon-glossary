@@ -9,6 +9,7 @@ import {TechnologyNode, TechnologyStatus, technologyFlavour} from '../technology
 export class TechnologyCardComponent {
   readonly technology = input.required<TechnologyNode>();
   readonly status = input.required<TechnologyStatus>();
+  readonly teased = input(false);
   readonly selected = output<TechnologyNode>();
 
   flavour(): string { return technologyFlavour(this.technology(), this.status()); }
