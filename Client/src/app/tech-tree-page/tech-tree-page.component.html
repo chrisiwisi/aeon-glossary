@@ -1,3 +1,23 @@
 <section class="tech-tree-page">
-  <h1>Technology Tree</h1>
+  <div class="page-heading">
+    <h1>Technology Tree</h1>
+    @if (sessionCode()) {
+      <button nz-button type="button" (click)="openDialog()">Change session</button>
+    }
+  </div>
+  @if (error() && sessionCode()) {
+    <p role="alert">{{ error() }}</p>
+  }
 </section>
+
+<app-session-dialog
+  title="Technology Tree session"
+  [visible]="dialogVisible()"
+  [loading]="loading()"
+  [error]="error()"
+  [canCancel]="!!sessionCode()"
+  (create)="createSession()"
+  (join)="joinSession($event)"
+  (cancel)="closeDialog()"
+  (clearError)="error.set('')"
+/>

@@ -1,0 +1,15 @@
+form label,
+form input {
+  display: block;
+  width: 100%;
+}
+
+form input {
+  margin: 0.5rem 0 1rem;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

@@ -5,6 +5,7 @@ import {TechTreePageComponent} from "./tech-tree-page/tech-tree-page.component";
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', component: GlossaryPageComponent},
+  {path: 'tech-tree/:sessionCode', component: TechTreePageComponent},
   {path: 'tech-tree', component: TechTreePageComponent},
   {path: 'code/:lobbyCode', component: CodeNoteComponent},
   {path: 'code', component: CodeNoteComponent},

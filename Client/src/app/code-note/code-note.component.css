@@ -7,7 +7,7 @@
 .top-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 20px;
 }
 
@@ -17,25 +17,6 @@
   align-items: center;
 }
 
-.lobby-code {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.share-btn {
-  height: 18px;
-  width: 18px;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  margin-left: 4px;
-}
 
 /* ── Two-column responsive layout ─────────────────────────── */
 .two-col-layout {

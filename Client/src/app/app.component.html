@@ -51,6 +51,17 @@
       >
         <nz-icon [nzType]="isSidebarCollapsed ? 'menu-unfold' : 'menu-fold'" nzTheme="outline"/>
       </button>
+      @if (sessionCode(); as code) {
+        <p class="header-session-code">
+          Code:
+          <nz-tag nzColor="blue">
+            <span class="session-code-text">{{ code }}</span>
+            <button nz-button nzType="text" nzSize="small" class="share-btn" aria-label="Share session link" (click)="shareOrCopy()">
+              <nz-icon [nzType]="copyLabel() === 'Copied!' ? 'check' : 'share-alt'" nzTheme="outline" />
+            </button>
+          </nz-tag>
+        </p>
+      }
     </nz-header>
 
     <nz-content class="app-content">

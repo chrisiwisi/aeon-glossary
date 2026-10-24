@@ -1,18 +1,19 @@
 <div class="top-bar">
-  <p class="lobby-code">
-    Code:
-    <nz-tag nzColor="blue">
-      {{ lobbyCode() }}
-      <button nz-button nzType="text" nzSize="small" class="share-btn" (click)="shareOrCopy()">
-        <nz-icon [nzType]="copyLabel() === 'Copied!' ? 'check' : 'share-alt'" nzTheme="outline" />
-      </button>
-    </nz-tag>
-  </p>
-
   <div class="top-actions">
     <app-backup-restore (exported)="backup()" (imported)="onImport($event)" />
   </div>
 </div>
+
+<app-session-dialog
+  title="Code Note session"
+  [visible]="dialogVisible()"
+  [loading]="dialogLoading()"
+  [error]="dialogError()"
+  (create)="createSession()"
+  (join)="joinSession($event)"
+  (cancel)="closeDialog()"
+  (clearError)="dialogError.set('')"
+/>
 
 <div class="two-col-layout">
 

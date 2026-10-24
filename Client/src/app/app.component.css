@@ -69,6 +69,40 @@
   color: inherit;
 }
 
+.header-session-code {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin: 0 0 0 auto;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.header-session-code nz-tag {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.session-code-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.share-btn {
+  height: 18px;
+  width: 18px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  margin-left: 4px;
+  flex: none;
+}
+
 .app-content {
   min-height: 0;
   padding: 16px;
@@ -90,4 +124,3 @@
     background: rgba(0, 0, 0, 0.35);
   }
 }
-

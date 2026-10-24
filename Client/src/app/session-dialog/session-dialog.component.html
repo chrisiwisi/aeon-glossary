@@ -1,0 +1,34 @@
+<nz-modal
+  [nzVisible]="visible"
+  [nzTitle]="title"
+  [nzFooter]="null"
+  [nzClosable]="false"
+  [nzMaskClosable]="!loading"
+  [nzKeyboard]="false"
+  nzWidth="400px"
+  (nzOnCancel)="cancel.emit()"
+>
+  <ng-container *nzModalContent>
+    @if (joining) {
+      <form (ngSubmit)="join.emit(joinCode)">
+        <label for="session-join-code">Session code</label>
+        <input nz-input id="session-join-code" name="joinCode" [(ngModel)]="joinCode" autocomplete="off" required />
+        <div class="dialog-actions">
+          <button nz-button type="button" (click)="showChoices()" [disabled]="loading">Back</button>
+          <button nz-button nzType="primary" type="submit" [nzLoading]="loading">Join session</button>
+        </div>
+      </form>
+    } @else {
+      <div class="dialog-actions">
+        <button nz-button nzType="primary" type="button" (click)="create.emit()" [nzLoading]="loading">Create new session</button>
+        <button nz-button type="button" (click)="showJoin()" [disabled]="loading">Join session</button>
+        @if (canCancel) {
+          <button nz-button type="button" (click)="cancel.emit()" [disabled]="loading">Cancel</button>
+        }
+      </div>
+    }
+    @if (error) {
+      <p role="alert">{{ error }}</p>
+    }
+  </ng-container>
+</nz-modal>

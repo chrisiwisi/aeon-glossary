@@ -1,12 +1,11 @@
 import {Component, inject, signal} from '@angular/core';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {FormsModule} from "@angular/forms";
+import {Database, get, ref, runTransaction} from '@angular/fire/database';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ModularOverlayService} from "../modular-overlay/modular-overlay.service";
 import {LetterComponent} from "./letter/letter.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
-import {NzTagComponent} from "ng-zorro-antd/tag";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
@@ -19,23 +18,24 @@ import {NameGeneratorService} from "./name-generator.service";
 import {CodeNoteData} from "./storage/code-note-storage.strategy";
 import {BackupRestoreComponent} from "./backup-restore/backup-restore.component";
 import {CodeNoteLobbiesService} from "./code-note-lobbies.service";
+import {SessionDialogComponent} from '../session-dialog/session-dialog.component';
 import {distinctUntilChanged, map} from "rxjs";
 
 const ROOT_CODE_NOTE_PATH = 'code-note';
+const LOBBY_CODE_PATTERN = /^[a-z0-9-]{3,80}$/;
 
 @Component({
   selector: 'app-code-note',
   imports: [
-    FormsModule,
     LetterComponent,
     NzButtonComponent,
     NzIconDirective,
-    NzTagComponent,
     CdkScrollable,
     CdkDropList,
     CdkDrag,
     MessageComponent,
     BackupRestoreComponent,
+    SessionDialogComponent,
   ],
   templateUrl: './code-note.component.html',
   standalone: true,
@@ -46,6 +46,7 @@ const ROOT_CODE_NOTE_PATH = 'code-note';
   ],
 })
 export class CodeNoteComponent {
+  private db = inject(Database);
   private modularOverlayService = inject(ModularOverlayService);
   private modal = inject(NzModalService);
   private route = inject(ActivatedRoute);
@@ -58,32 +59,43 @@ export class CodeNoteComponent {
   get messages() { return this.codeNoteService.messages(); }
 
   readonly lobbyCode = signal<string>('');
-  readonly copyLabel = signal<string>('Share');
+  readonly dialogError = signal('');
+  readonly dialogLoading = signal(false);
+  readonly dialogVisible = signal(false);
 
   constructor() {
     this.route.paramMap
       .pipe(
-        map(params => this.resolveLobbyCodeFromParam(params.get('lobbyCode'))),
+        map(params => params.get('lobbyCode')),
         distinctUntilChanged(),
         takeUntilDestroyed(),
       )
-      .subscribe(lobbyCode => {
+      .subscribe(rawCode => {
+        const lobbyCode = this.normalizeLobbyCode(rawCode);
+        if (rawCode && !lobbyCode) {
+          void this.router.navigate(['/code'], {replaceUrl: true});
+          return;
+        }
+
+        if (!lobbyCode) {
+          this.lobbyCode.set('');
+          this.openDialog();
+          return;
+        }
+
         this.lobbyCode.set(lobbyCode);
+        this.dialogVisible.set(false);
         this.codeNoteService.connect(`${ROOT_CODE_NOTE_PATH}/${lobbyCode}`);
         this.lobbyStorage.addLobbyCode(lobbyCode);
       });
   }
 
-  private resolveLobbyCodeFromParam(routeParam: string | null): string {
-    const normalized = this.normalizeLobbyCode(routeParam);
+  private openDialog(): void {
+    this.dialogVisible.set(true);
+  }
 
-    if (normalized) {
-      return normalized;
-    }
-
-    const generated = this.nameGeneratorService.generateLobbyCode().toLowerCase();
-    void this.router.navigate(['/code', generated], {replaceUrl: true});
-    return generated;
+  closeDialog(): void {
+    void this.router.navigate(['/']);
   }
 
   private normalizeLobbyCode(raw: string | null | undefined): string | null {
@@ -93,26 +105,60 @@ export class CodeNoteComponent {
 
     const normalized = raw.trim().toLowerCase();
     // Restrict to Firebase-safe path segment chars.
-    if (!/^[a-z0-9-]{3,80}$/.test(normalized)) {
+    if (!LOBBY_CODE_PATTERN.test(normalized)) {
       return null;
     }
 
     return normalized;
   }
 
-  private triggerAutoSave(): void {
-    void this.codeNoteService.save();
+  async createSession(): Promise<void> {
+    this.dialogError.set('');
+    this.dialogLoading.set(true);
+    try {
+      for (let attempt = 0; attempt < 5; attempt++) {
+        const code = this.nameGeneratorService.generateLobbyCode().toLowerCase();
+        const result = await runTransaction(ref(this.db, `${ROOT_CODE_NOTE_PATH}/${code}`), current =>
+          current === null ? {createdAt: new Date().toISOString()} : undefined
+        );
+        if (result.committed) {
+          await this.router.navigate(['/code', code]);
+          return;
+        }
+      }
+      this.dialogError.set('Could not find an unused session code. Please try again.');
+    } catch {
+      this.dialogError.set('Could not create the code note session.');
+    } finally {
+      this.dialogLoading.set(false);
+    }
   }
 
-  async shareOrCopy(): Promise<void> {
-    const url = window.location.href;
-    if (navigator.share) {
-      await navigator.share({ title: 'Code Note', url });
-    } else {
-      await navigator.clipboard.writeText(url);
-      this.copyLabel.set('Copied!');
-      setTimeout(() => this.copyLabel.set('Share'), 2000);
+  async joinSession(rawCode: string): Promise<void> {
+    const code = this.normalizeLobbyCode(rawCode);
+    if (!code) {
+      this.dialogError.set('Enter a valid session code (3–80 letters, numbers, or hyphens).');
+      return;
     }
+
+    this.dialogError.set('');
+    this.dialogLoading.set(true);
+    try {
+      const snapshot = await get(ref(this.db, `${ROOT_CODE_NOTE_PATH}/${code}`));
+      if (!snapshot.exists()) {
+        this.dialogError.set('No code note session was found with that code.');
+        return;
+      }
+      await this.router.navigate(['/code', code]);
+    } catch {
+      this.dialogError.set('Could not join the code note session.');
+    } finally {
+      this.dialogLoading.set(false);
+    }
+  }
+
+  private triggerAutoSave(): void {
+    void this.codeNoteService.save();
   }
 
   backup(): void {

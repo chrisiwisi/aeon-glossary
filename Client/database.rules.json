@@ -9,6 +9,12 @@
     "technologyCache": {
       ".read": true,
       ".write": false
+    },
+    "technologySessions": {
+      "$sessionCode": {
+        ".read": true,
+        ".write": true
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {Database, DataSnapshot, onValue, ref, set} from '@angular/fire/database';
+import {Database, DataSnapshot, onValue, ref, update} from '@angular/fire/database';
 import {WritableSignal} from '@angular/core';
 import {CodeNoteData, CodeNoteStorageStrategy} from './code-note-storage.strategy';
 import {Letter} from '../letter/Letter';
@@ -21,9 +21,9 @@ export class FirebaseRtdbStrategy extends CodeNoteStorageStrategy {
   }
 
   async save(path: string, data: CodeNoteData): Promise<void> {
-    await set(ref(this.db, path), {
-      alphabet: data.alphabet,
-      messages: data.messages,
+    await update(ref(this.db, path), {
+      alphabet: data.alphabet.length ? data.alphabet : null,
+      messages: data.messages.length ? data.messages : null,
     });
   }
 
