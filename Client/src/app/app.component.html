@@ -80,6 +80,22 @@
           } @else {
             <button nz-button type="button" class="session-button" (click)="openSessionDialog()">{{ sessionCode() ? 'Change session' : 'Start session' }}</button>
           }
+          @if (isTechnologyAtlasRoute()) {
+            <details class="cycle-switcher" #cycleMenu (keydown.escape)="cycleMenu.open = false">
+              <summary aria-label="Select technology cycle">{{ technologyCycles.selectedCycle() }} <span class="cycle-chevron" aria-hidden="true"></span></summary>
+              <div class="cycle-menu" role="group" aria-label="Technology cycles">
+                @for (cycle of cycleOptions; track cycle; let index = $index) {
+                  <button type="button" [class.active]="technologyCycles.selectedCycle() === cycle"
+                    [attr.aria-current]="technologyCycles.selectedCycle() === cycle ? 'true' : null"
+                    (click)="technologyCycles.selectCycle(cycle); cycleMenu.open = false">
+                    <span class="cycle-index">{{ (index + 1).toString().padStart(2, '0') }}</span>
+                    {{ cycle }}
+                    @if (technologyCycles.selectedCycle() === cycle) {<span class="cycle-check" aria-hidden="true">✓</span>}
+                  </button>
+                }
+              </div>
+            </details>
+          }
         </div>
       }
     </nz-header>

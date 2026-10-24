@@ -8,6 +8,7 @@ import {SessionDialogComponent} from '../session-dialog/session-dialog.component
 import {TechnologyFiltersComponent, TechnologyFilter, TechnologyStatusFilter} from './technology-filters/technology-filters.component';
 import {TechnologyPopupComponent} from './technology-popup/technology-popup.component';
 import {TechnologyTreeComponent} from './technology-tree/technology-tree.component';
+import {TechnologyCycleService} from './technology-cycle.service';
 import {buildTechnologyGraph, TechnologyNode, TechnologyStatus, technologyStatus} from './technology.model';
 import {MOCK_TECHNOLOGIES} from './technology.mock';
 
@@ -27,6 +28,7 @@ export class TechnologyAtlasPageComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly nameGenerator = inject(NameGeneratorService);
+  private readonly cycles = inject(TechnologyCycleService);
   private disconnect: () => void = () => undefined;
 
   readonly sessionCode = signal('');
@@ -34,14 +36,14 @@ export class TechnologyAtlasPageComponent {
   readonly error = signal('');
   readonly loading = signal(false);
   readonly dialogVisible = signal(false);
-  readonly graph = buildTechnologyGraph(MOCK_TECHNOLOGIES);
+  readonly graph = computed(() => buildTechnologyGraph(MOCK_TECHNOLOGIES.filter(card => card.cycle === this.cycles.selectedCycle())));
   readonly filter = signal<TechnologyFilter>('All');
   readonly statusFilter = signal<TechnologyStatusFilter>('All');
   readonly researchedIds = signal<ReadonlySet<string>>(new Set(['o.1.structural.4']));
   readonly selectedTechnology = signal<TechnologyNode | null>(null);
   readonly selectedPrerequisites = computed(() => {
     const node = this.selectedTechnology();
-    return node ? node.prerequisiteIds.map(id => this.graph.nodes.find(candidate => candidate.refID === id)!) : [];
+    return node ? node.prerequisiteIds.map(id => this.graph().nodes.find(candidate => candidate.refID === id)!) : [];
   });
   readonly selectedStatus = computed<TechnologyStatus>(() => {
     const node = this.selectedTechnology();
@@ -106,7 +108,7 @@ export class TechnologyAtlasPageComponent {
   }
 
   researchTechnology(id: string): void {
-    const node = this.graph.nodes.find(candidate => candidate.refID === id);
+    const node = this.graph().nodes.find(candidate => candidate.refID === id);
     if (!node || technologyStatus(node, this.researchedIds()) !== 'available') return;
     this.researchedIds.update(current => new Set([...current, id]));
     this.selectedTechnology.set(null);

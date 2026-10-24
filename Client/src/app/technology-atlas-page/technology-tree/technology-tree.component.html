@@ -1,5 +1,5 @@
 <section class="desktop-atlas" aria-label="Technology atlas">
-  <div class="scroll-area" [class.panning]="isPanning" role="region" aria-label="Technology tree canvas" tabindex="0"
+  <div class="scroll-area" #viewport [class.panning]="isPanning" role="region" aria-label="Technology tree canvas" tabindex="0"
     (pointerdown)="startPan($event)" (pointermove)="movePan($event)" (pointerup)="endPan($event)"
     (pointercancel)="endPan($event)" (lostpointercapture)="endPan($event)" (auxclick)="preventMiddleClick($event)">
     <div class="canvas" [style.width.px]="canvasWidth()" [style.height.px]="canvasHeight()">

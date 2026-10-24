@@ -1,7 +1,7 @@
 <section class="technology-atlas-page">
   <div class="filters"><app-technology-filters [filter]="filter()" (filterChange)="filter.set($event)"
     [statusFilter]="statusFilter()" (statusFilterChange)="statusFilter.set($event)"/></div>
-  <app-technology-tree [graph]="graph" [filter]="filter()" [statusFilter]="statusFilter()" [researchedIds]="researchedIds()" (selected)="selectedTechnology.set($event)"/>
+  <app-technology-tree [graph]="graph()" [filter]="filter()" [statusFilter]="statusFilter()" [researchedIds]="researchedIds()" (selected)="selectedTechnology.set($event)"/>
   @if (error() && sessionCode()) {
     <p role="alert">{{ error() }}</p>
   }

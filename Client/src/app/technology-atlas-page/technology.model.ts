@@ -1,3 +1,5 @@
+import type {TechnologyCycle} from './technology-cycle.service';
+
 export type TechnologyBranch = 'Structural' | 'Combat';
 export type TechnologyStatus = 'researched' | 'available' | 'locked';
 
@@ -20,6 +22,7 @@ export interface TechnologyAbility {
 // These are the API fields used by the atlas. requirements may contain comma-separated names.
 export interface TechnologyCardDto {
   refID: string;
+  cycle: TechnologyCycle;
   name: string;
   techType: TechnologyBranch;
   flavorProject: string;

@@ -1,10 +1,11 @@
 import {TechnologyCardDto} from './technology.model';
 import {MOCK_ABILITIES} from './technology-abilities.mock';
+import {MOCK_OTHER_CYCLE_TECHNOLOGIES} from './technology-cycles.mock';
 
 // Adapted from the Odyssey Cycle I API cards. The two combat roots use the
 // displayed Excursion Propylon II card as their prerequisite for this mock atlas.
 // Combat facility cards lack flavorTech in the API, so theirs is mock copy.
-const MOCK_CARDS: TechnologyCardDto[] = [
+const MOCK_CARDS: Omit<TechnologyCardDto, 'cycle'>[] = [
   {refID: 'o.1.structural.4', name: 'Argo Works', techType: 'Structural', flavorProject: 'Set up a production hub aboard the Argo and restore its dormant systems.', flavorTech: 'Smiths and priests develop new gear and engineering solutions aboard the Argo.', requirements: ['—']},
   {refID: 'o.1.structural.6', name: 'Trading Solutions', techType: 'Structural', flavorProject: 'Strengthen our connection to the people of Crete.', flavorTech: 'A small dock welcomes traders and strengthens ties across the island.', requirements: ['Argo Works']},
   {refID: 'o.1.structural.8', name: 'Shallows Navigation', techType: 'Structural', flavorProject: 'Restore the Argo’s shallow water navigation systems.', flavorTech: 'The Argo rises above the waterline and glides across shallow rivers.', requirements: ['Trading Solutions']},
@@ -18,7 +19,10 @@ const MOCK_CARDS: TechnologyCardDto[] = [
   {refID: 'o.1.facility.7', name: 'Advanced Trireme Weapons', techType: 'Combat', flavorProject: 'Strike harder and faster with Poseidon’s bounty.', flavorTech: 'Trireme bone carvers refine heavier weapons for the Titans.', requirements: ['Siren Armor']},
 ];
 
-export const MOCK_TECHNOLOGIES: TechnologyCardDto[] = MOCK_CARDS.map(card => ({
+const CYCLE_ONE_TECHNOLOGIES: TechnologyCardDto[] = MOCK_CARDS.map(card => ({
   ...card,
+  cycle: 'Cycle I',
   abilities: MOCK_ABILITIES[card.refID] ?? [],
 }));
+
+export const MOCK_TECHNOLOGIES: TechnologyCardDto[] = [...CYCLE_ONE_TECHNOLOGIES, ...MOCK_OTHER_CYCLE_TECHNOLOGIES];

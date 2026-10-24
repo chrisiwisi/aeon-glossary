@@ -11,6 +11,7 @@ import {TechnologyAtlasPageComponent} from './technology-atlas-page/technology-a
 import {environment} from '../environments/environment';
 import {BackupRestoreComponent} from './code-note/backup-restore/backup-restore.component';
 import {CodeNoteData} from './code-note/storage/code-note-storage.strategy';
+import {TECHNOLOGY_CYCLES, TechnologyCycleService} from './technology-atlas-page/technology-cycle.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,8 @@ import {CodeNoteData} from './code-note/storage/code-note-storage.strategy';
 })
 export class AppComponent {
   private readonly router = inject(Router);
+  protected readonly technologyCycles = inject(TechnologyCycleService);
+  protected readonly cycleOptions = TECHNOLOGY_CYCLES;
   protected readonly lobbyStorage = inject(CodeNoteLobbiesService)
   protected readonly copyLabel = signal('Share');
   protected readonly theLawUrl = environment.theLawUrl;

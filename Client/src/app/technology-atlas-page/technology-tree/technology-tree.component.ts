@@ -1,4 +1,4 @@
-import {Component, computed, input, output} from '@angular/core';
+import {Component, computed, effect, ElementRef, input, output, viewChild} from '@angular/core';
 import {TechnologyCardComponent} from '../technology-card/technology-card.component';
 import {TechnologyFilter, TechnologyStatusFilter} from '../technology-filters/technology-filters.component';
 import {TechnologyGraph, TechnologyNode, technologyStatus} from '../technology.model';
@@ -11,6 +11,7 @@ import {TechnologyGraph, TechnologyNode, technologyStatus} from '../technology.m
 })
 export class TechnologyTreeComponent {
   private pan: {pointerId: number; x: number; y: number; left: number; top: number; viewport: HTMLElement} | null = null;
+  private readonly viewport = viewChild<ElementRef<HTMLElement>>('viewport');
   isPanning = false;
   readonly graph = input.required<TechnologyGraph>();
   readonly filter = input.required<TechnologyFilter>();
@@ -20,6 +21,17 @@ export class TechnologyTreeComponent {
   readonly branches = ['Structural', 'Combat'] as const;
   readonly canvasWidth = computed(() => Math.max(1100, ...this.graph().nodes.map(node => node.x + 300)));
   readonly canvasHeight = computed(() => Math.max(750, ...this.graph().nodes.map(node => node.y + 200)));
+
+  constructor() {
+    effect(() => {
+      this.graph();
+      const viewport = this.viewport();
+      if (viewport) {
+        viewport.nativeElement.scrollLeft = 0;
+        viewport.nativeElement.scrollTop = 0;
+      }
+    });
+  }
 
   startPan(event: PointerEvent): void {
     if (event.pointerType !== 'mouse' || (event.button !== 0 && event.button !== 1)) return;
