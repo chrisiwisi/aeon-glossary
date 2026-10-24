@@ -6,9 +6,19 @@
       <div class="branch-legend" aria-label="Technology types"><span>⬡ &nbsp; Structural</span><span>✦ &nbsp; Combat</span></div>
       <svg class="connections" [attr.viewBox]="'0 0 ' + canvasWidth() + ' ' + canvasHeight()"
         [style.width.px]="canvasWidth()" [style.height.px]="canvasHeight()" aria-hidden="true">
-        @for (edge of graph().edges; track edge.fromId + edge.toId) {
-          <path [attr.d]="edgePath(edge.fromId, edge.toId)" [class.complete]="researchedIds().has(edge.fromId)"/>
-        }
+        <defs>
+          <mask id="technology-card-cutouts" maskUnits="userSpaceOnUse" x="0" y="0" [attr.width]="canvasWidth()" [attr.height]="canvasHeight()">
+            <rect x="0" y="0" [attr.width]="canvasWidth()" [attr.height]="canvasHeight()" fill="white"/>
+            @for (node of graph().nodes; track node.refID) {
+              <rect [attr.x]="node.x - 1" [attr.y]="node.y - 1" width="222" height="152" fill="black"/>
+            }
+          </mask>
+        </defs>
+        <g mask="url(#technology-card-cutouts)">
+          @for (edge of graph().edges; track edge.fromId + edge.toId) {
+            <path [attr.d]="edgePath(edge.fromId, edge.toId)" [class.complete]="researchedIds().has(edge.fromId)"/>
+          }
+        </g>
       </svg>
       @for (node of graph().nodes; track node.refID) {
         <app-technology-card class="placed-card" [style.left.px]="node.x" [style.top.px]="node.y"

@@ -1,5 +1,5 @@
 :host { display: block; }
-.card { display: flex; flex-direction: column; align-items: flex-start; width: 220px; height: 140px; padding: 14px; overflow: hidden; text-align: left; cursor: pointer; color: #f1eee6; background: #162d3d; border: 1px solid #38606b; border-left: 3px solid #66a9a2; border-radius: 4px; box-shadow: 0 8px 22px #020e1790; transition: transform .18s, border-color .18s, box-shadow .18s; font: inherit; }
+.card { display: flex; flex-direction: column; align-items: flex-start; width: 220px; height: auto; min-height: 120px; padding: 12px; overflow: hidden; text-align: left; cursor: pointer; color: #f1eee6; background: #162d3d; border: 1px solid #38606b; border-left: 3px solid #66a9a2; border-radius: 4px; box-shadow: 0 8px 22px #020e1790; transition: transform .18s, border-color .18s, box-shadow .18s; font: inherit; }
 .card:hover, .card:focus-visible { transform: translateY(-3px); border-color: #acd8ca; box-shadow: 0 12px 28px #020e17bd; outline: none; }
 .card.combat { border-left-color: #d5a86b; }
 .card.combat:hover, .card.combat:focus-visible { border-color: #e4be86; }
@@ -8,9 +8,9 @@
 .branch { display: flex; gap: 6px; align-items: center; color: #8fc5bc; font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 .combat .branch { color: #deb982; }
 .branch-icon { font-size: 16px; line-height: 1; }
-strong { margin-top: 8px; color: #f5f0e5; font: 21px/1.12 Georgia, 'Times New Roman', serif; }
-.description { margin-top: 5px; color: #aebbc2; font-size: 11px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.status { margin-top: auto; color: #9fd1c9; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
+strong { display: -webkit-box; flex: none; max-width: 100%; margin-top: 8px; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: #f5f0e5; font: 21px/1.12 Georgia, 'Times New Roman', serif; }
+.description { flex: 0 1 auto; min-height: 0; max-width: 100%; margin-top: 5px; color: #aebbc2; font-size: 11px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.status { flex: none; margin-top: 5px; color: #9fd1c9; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
 .combat .status { color: #e0c196; }
 .locked .status { color: #8797a1; }
-@media (max-width: 700px) { .card { width: 100%; height: auto; min-height: 98px; padding: 12px 14px 12px 50px; position: relative; } .branch { font-size: 9px; } .branch-icon { position: absolute; left: 17px; top: 36px; font-size: 21px; } strong { margin-top: 3px; font-size: 18px; } .status { margin-top: 8px; } }
+@media (max-width: 700px) { .card { display: flex; flex-direction: column; align-items: flex-start; width: 100%; height: auto; min-height: 98px; padding: 12px 14px 12px 50px; position: relative; } .branch { font-size: 9px; } .branch-icon { position: absolute; left: 17px; top: 36px; font-size: 21px; } strong { margin-top: 3px; font-size: 18px; } .description { min-height: auto; } .status { margin-top: 8px; } }

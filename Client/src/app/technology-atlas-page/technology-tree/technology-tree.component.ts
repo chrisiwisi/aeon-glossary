@@ -1,7 +1,7 @@
-import {Component, computed, effect, ElementRef, input, output, viewChild} from '@angular/core';
-import {TechnologyCardComponent} from '../technology-card/technology-card.component';
-import {TechnologyFilter, TechnologyStatusFilter} from '../technology-filters/technology-filters.component';
-import {TechnologyGraph, TechnologyNode, technologyStatus} from '../technology.model';
+import { Component, computed, effect, ElementRef, input, output, viewChild } from '@angular/core';
+import { TechnologyCardComponent } from '../technology-card/technology-card.component';
+import { TechnologyFilter, TechnologyStatusFilter } from '../technology-filters/technology-filters.component';
+import { TechnologyGraph, TechnologyNode, technologyStatus } from '../technology.model';
 
 @Component({
   selector: 'app-technology-tree',
@@ -10,7 +10,7 @@ import {TechnologyGraph, TechnologyNode, technologyStatus} from '../technology.m
   styleUrl: './technology-tree.component.css'
 })
 export class TechnologyTreeComponent {
-  private pan: {pointerId: number; x: number; y: number; left: number; top: number; viewport: HTMLElement} | null = null;
+  private pan: { pointerId: number; x: number; y: number; left: number; top: number; viewport: HTMLElement } | null = null;
   private readonly viewport = viewChild<ElementRef<HTMLElement>>('viewport');
   isPanning = false;
   readonly graph = input.required<TechnologyGraph>();
@@ -40,7 +40,7 @@ export class TechnologyTreeComponent {
     if (event.button === 0 && (event.target as Element).closest('app-technology-card')) return;
     event.preventDefault();
     viewport.setPointerCapture(event.pointerId);
-    this.pan = {pointerId: event.pointerId, x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop, viewport};
+    this.pan = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop, viewport };
     this.isPanning = true;
   }
 
@@ -70,7 +70,7 @@ export class TechnologyTreeComponent {
   edgePath(fromId: string, toId: string): string {
     const from = this.graph().nodes.find(node => node.refID === fromId)!;
     const to = this.graph().nodes.find(node => node.refID === toId)!;
-    const x1 = from.x + 220, y1 = from.y + 70, x2 = to.x, y2 = to.y + 70;
+    const x1 = from.x + 220, y1 = from.y + 75, x2 = to.x, y2 = to.y + 75;
     const bend = Math.max(35, (x2 - x1) / 2);
     return `M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}`;
   }
