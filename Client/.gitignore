@@ -49,3 +49,4 @@ Thumbs.db
 /src/environments/environment.local.ts
 /database-debug.log
 /firebase-debug.log
+/pubsub-debug.log

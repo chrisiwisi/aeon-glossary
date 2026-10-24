@@ -16,14 +16,24 @@
   "emulators": {
     "singleProjectMode": true,
     "database": {
-      "port": 9000
+      "port": 9000,
+      "host": "0.0.0.0"
     },
     "ui": {
       "enabled": true,
       "port": 9001
+    },
+    "functions": {
+      "port": 5001
+    },
+    "pubsub": {
+      "port": 8085
     }
   },
   "database": {
     "rules": "database.rules.json"
+  },
+  "functions": {
+    "source": "functions"
   }
 }

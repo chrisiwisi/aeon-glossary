@@ -9,11 +9,21 @@
       "cwd": "${workspaceFolder}/Client"
     },
     {
-      "name": "Firebase: Database emulator + UI",
+      "name": "Firebase: Emulators",
       "type": "node-terminal",
       "request": "launch",
       "command": "npm run emulators",
       "cwd": "${workspaceFolder}/Client"
+    },
+    {
+      "name": "Firebase: Sync technology cache (emulator)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run sync:technology:emulator",
+      "cwd": "${workspaceFolder}/Client",
+      "env": {
+        "FIREBASE_DATABASE_EMULATOR_HOST": "127.0.0.1:9000"
+      }
     }
   ],
   "compounds": [
@@ -21,7 +31,7 @@
       "name": "Angular + Firebase emulators",
       "configurations": [
         "Angular: Serve on local network",
-        "Firebase: Database emulator + UI"
+        "Firebase: Emulators"
       ],
       "stopAll": true
     }

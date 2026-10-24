@@ -5,6 +5,10 @@
     "code-note": {
       ".read": true,
       ".write": true
+    },
+    "technologyCache": {
+      ".read": true,
+      ".write": false
     }
   }
 }

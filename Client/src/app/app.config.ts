@@ -47,7 +47,7 @@ export const appConfig: ApplicationConfig = {
     provideDatabase(() => {
       const db = getDatabase();
       if (!environment.production) {
-        connectDatabaseEmulator(db, 'localhost', 9000);
+        connectDatabaseEmulator(db, window.location.hostname, 9000);
       }
       return db;
     }),
