@@ -10,7 +10,7 @@
           <mask id="technology-card-cutouts" maskUnits="userSpaceOnUse" x="0" y="0" [attr.width]="canvasWidth()" [attr.height]="canvasHeight()">
             <rect x="0" y="0" [attr.width]="canvasWidth()" [attr.height]="canvasHeight()" fill="white"/>
             @for (node of graph().nodes; track node.refID) {
-              <rect [attr.x]="node.x - 1" [attr.y]="node.y - 1" width="222" height="152" fill="black"/>
+              <rect [attr.x]="node.x - 1" [attr.y]="node.y - 1" width="222" [attr.height]="cardHeight(node) + 2" fill="black"/>
             }
           </mask>
         </defs>
@@ -21,10 +21,11 @@
         </g>
       </svg>
       @for (node of graph().nodes; track node.refID) {
-        <app-technology-card class="placed-card" [style.left.px]="node.x" [style.top.px]="node.y"
+        <div class="placed-card" #placedCard [attr.data-technology-id]="node.refID" [style.left.px]="node.x" [style.top.px]="node.y"
           [class.faded]="isDimmed(node)"
-          [attr.inert]="isDimmed(node) ? '' : null"
-          [technology]="node" [status]="status(node)" (selected)="selected.emit($event)"/>
+          [attr.inert]="isDimmed(node) ? '' : null">
+          <app-technology-card [technology]="node" [status]="status(node)" (selected)="selected.emit($event)"/>
+        </div>
       }
     </div>
   </div>
