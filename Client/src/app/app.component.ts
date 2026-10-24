@@ -33,6 +33,14 @@ export class AppComponent {
     this.isSidebarCollapsed = true;
   }
 
+  isGlossaryRoute(): boolean {
+    return this.router.url === '/';
+  }
+
+  isTechTreeRoute(): boolean {
+    return this.router.url.startsWith('/tech-tree');
+  }
+
   isCodeRoute(): boolean {
     return this.router.url.startsWith('/code');
   }

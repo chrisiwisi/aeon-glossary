@@ -11,7 +11,8 @@
   >
     <div class="sidebar-title">Aeon Glossary</div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li nz-menu-item [nzSelected]="!isCodeRoute()"><a routerLink="/">Glossary</a></li>
+      <li nz-menu-item [nzSelected]="isGlossaryRoute()"><a routerLink="/">Glossary</a></li>
+      <li nz-menu-item [nzSelected]="isTechTreeRoute()"><a routerLink="/tech-tree">Technology Tree</a></li>
       <li nz-submenu nzTitle="Code Note" nzOpen>
         <ul>
           <li nz-menu-item><a routerLink="/code">New Code Note</a></li>

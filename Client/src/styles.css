@@ -3,6 +3,13 @@
 
 html {
   height: 100%;
+  background-color: rgb(32, 38, 57);
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background-color: rgb(32, 38, 57);
 }
 
 .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {

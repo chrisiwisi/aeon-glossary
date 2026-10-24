@@ -1,19 +1,18 @@
 :host {
   display: block;
-  height: 100lvh;
+  min-height: 100lvh;
   margin: 0;
   font-family: Arial, serif;
 }
 
 .app-shell {
-  min-height: 100vh;
+  min-height: 100lvh;
   position: relative;
 }
 
 .main-layout {
-  min-height: 100vh;
-  background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%) fixed;
-  background-size: cover;
+  min-height: 100lvh;
+  background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
 }
 
 .sidebar-title {
