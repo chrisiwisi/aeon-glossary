@@ -10,6 +10,10 @@
       ".read": true,
       ".write": false
     },
+    "glossaryCache": {
+      ".read": true,
+      ".write": false
+    },
     "technologySessions": {
       "$sessionCode": {
         ".read": true,

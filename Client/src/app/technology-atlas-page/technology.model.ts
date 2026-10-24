@@ -64,9 +64,9 @@ export function buildTechnologyGraph(cards: TechnologyCardDto[]): TechnologyGrap
       .filter(name => name && name !== '—')
       .map(name => {
         const id = byName.get(name.toLocaleLowerCase());
-        if (!id) throw new Error(`Unknown prerequisite ${name} for ${card.name}`);
         return id;
-      }),
+      })
+      .filter((id): id is string => !!id),
     dependentIds: [],
     depth: 0,
     x: 0,

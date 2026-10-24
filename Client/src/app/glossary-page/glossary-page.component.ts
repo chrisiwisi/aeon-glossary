@@ -1,12 +1,12 @@
-import {Component, inject} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {AionComponent} from "../aion-chatbot/aion.component";
 import {FormsModule} from "@angular/forms";
 import {RulesCardComponent} from "../rules-card/rules-card.component";
 import {SearchPipe} from "../search/search.pipe";
 import {Rule} from "../rules-card/Rule";
-import { HttpClient } from "@angular/common/http";
 import {SearchService} from "../search/search.service";
 import {environment} from "../../environments/environment";
+import {GlossaryCacheService} from './glossary-cache.service';
 
 @Component({
     selector: 'app-glossary-page',
@@ -23,14 +23,21 @@ export class GlossaryPageComponent {
   searchTerm: string = '';
   rules: Rule[] = [];
 
-  http: HttpClient = inject(HttpClient);
-  searchService: SearchService = inject(SearchService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly searchService = inject(SearchService);
+  private readonly glossaryCache = inject(GlossaryCacheService);
+  private disconnect: () => void = () => undefined;
 
   constructor() {
-    this.http.get<Rule[]>('assets/rules.json').subscribe(res => {
-      this.rules = res;
-      this.searchService.addSearchObjects(res);
+    this.disconnect = this.glossaryCache.connect(rules => {
+      this.rules = rules;
+      this.searchService.setSearchObjects(rules);
+    }, () => {
+      this.rules = [];
+      this.searchService.setSearchObjects([]);
     });
+
+    this.destroyRef.onDestroy(() => this.disconnect());
   }
 
   protected readonly environment = environment;

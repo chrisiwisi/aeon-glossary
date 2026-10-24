@@ -7,7 +7,9 @@
   },
   "scripts": {
     "test": "node --test",
-    "sync:emulator": "node scripts/sync-emulator.js"
+    "sync:emulator": "node scripts/sync-emulator.js",
+    "sync:glossary:emulator": "node scripts/sync-glossary.js",
+    "sync:glossary": "node scripts/sync-glossary.js"
   },
   "dependencies": {
     "firebase-admin": "^14.5.0",

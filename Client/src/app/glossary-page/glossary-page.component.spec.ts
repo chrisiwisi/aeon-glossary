@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GlossaryPageComponent } from './glossary-page.component';
+import {GlossaryCacheService} from './glossary-cache.service';
 
 describe('GlossaryPageComponent', () => {
   let component: GlossaryPageComponent;
@@ -8,7 +9,15 @@ describe('GlossaryPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GlossaryPageComponent]
+      imports: [GlossaryPageComponent],
+      providers: [
+        {
+          provide: GlossaryCacheService,
+          useValue: {
+            connect: () => () => undefined,
+          },
+        },
+      ],
     })
     .compileComponents();
     

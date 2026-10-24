@@ -6,9 +6,9 @@
   <h2>{{ technology().name }}</h2>
   <p class="description">{{ flavour() }}</p>
   <div class="detail"><span>Prerequisites</span>
-    @if (prerequisites().length) {
-      <ul>@for (prerequisite of prerequisites(); track prerequisite.refID) {
-        <li><span [class.done]="researchedIds().has(prerequisite.refID)">{{ researchedIds().has(prerequisite.refID) ? '✓' : '◇' }}</span> {{ prerequisite.name }}</li>
+    @if (technology().requirements.length && technology().requirements[0] !== '—') {
+      <ul>@for (requirement of technology().requirements; track $index) {
+        <li>{{ requirement }}</li>
       }</ul>
     } @else {<strong>None — starting technology</strong>}
   </div>

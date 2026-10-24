@@ -10,7 +10,6 @@ import {TechnologyRichTextComponent} from '../technology-rich-text/technology-ri
 })
 export class TechnologyPopupComponent {
   readonly technology = input.required<TechnologyNode>();
-  readonly prerequisites = input.required<TechnologyNode[]>();
   readonly researchedIds = input.required<ReadonlySet<string>>();
   readonly status = input.required<TechnologyStatus>();
   readonly closed = output<void>();

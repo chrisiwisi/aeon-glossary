@@ -9,10 +9,10 @@ import {TechnologyFiltersComponent, TechnologyFilter, TechnologyStatusFilter} fr
 import {TechnologyPopupComponent} from './technology-popup/technology-popup.component';
 import {TechnologyTreeComponent} from './technology-tree/technology-tree.component';
 import {TechnologyCycleService} from './technology-cycle.service';
-import {buildTechnologyGraph, TechnologyNode, TechnologyStatus, technologyStatus} from './technology.model';
-import {MOCK_TECHNOLOGIES} from './technology.mock';
+import {buildTechnologyGraph, TechnologyCardDto, TechnologyNode, TechnologyStatus, technologyStatus} from './technology.model';
 
 const SESSIONS_PATH = 'technologySessions';
+const CACHE_PATH = 'technologyCache/cardsJson';
 const STORED_SESSION_CODE = 'technologySessionCode';
 const SESSION_CODE_PATTERN = /^[a-z0-9-]{3,80}$/;
 
@@ -30,27 +30,49 @@ export class TechnologyAtlasPageComponent {
   private readonly nameGenerator = inject(NameGeneratorService);
   private readonly cycles = inject(TechnologyCycleService);
   private disconnect: () => void = () => undefined;
+  private disconnectCache: () => void = () => undefined;
 
+  readonly technologies = signal<TechnologyCardDto[]>([]);
+  readonly cacheLoading = signal(true);
+  readonly cacheError = signal('');
   readonly sessionCode = signal('');
   readonly sessionState = signal<unknown>(null);
   readonly error = signal('');
   readonly loading = signal(false);
   readonly dialogVisible = signal(false);
-  readonly graph = computed(() => buildTechnologyGraph(MOCK_TECHNOLOGIES.filter(card => card.cycle === this.cycles.selectedCycle())));
+  readonly graph = computed(() => buildTechnologyGraph(this.technologies().filter(card => card.cycle === this.cycles.selectedCycle())));
   readonly filter = signal<TechnologyFilter>('All');
   readonly statusFilter = signal<TechnologyStatusFilter>('All');
-  readonly researchedIds = signal<ReadonlySet<string>>(new Set(['o.1.structural.4']));
+  readonly researchedIds = signal<ReadonlySet<string>>(new Set());
   readonly selectedTechnology = signal<TechnologyNode | null>(null);
-  readonly selectedPrerequisites = computed(() => {
-    const node = this.selectedTechnology();
-    return node ? node.prerequisiteIds.map(id => this.graph().nodes.find(candidate => candidate.refID === id)!) : [];
-  });
   readonly selectedStatus = computed<TechnologyStatus>(() => {
     const node = this.selectedTechnology();
     return node ? technologyStatus(node, this.researchedIds()) : 'locked';
   });
 
   constructor() {
+    this.disconnectCache = onValue(ref(this.db, CACHE_PATH), snapshot => {
+      this.cacheLoading.set(false);
+      try {
+        const cards = JSON.parse(snapshot.val() ?? 'null');
+        if (!Array.isArray(cards) || !cards.length || cards.some(card =>
+          typeof card.refID !== 'string' || typeof card.name !== 'string' ||
+          !Array.isArray(card.requirements) || typeof card.cycle !== 'string' ||
+          !['Structural', 'Combat'].includes(card.techType))) {
+          throw new Error('Invalid technology cache');
+        }
+        this.technologies.set(cards);
+        this.cacheError.set('');
+        this.selectedTechnology.set(null);
+      } catch {
+        this.technologies.set([]);
+        this.cacheError.set('Technology data is unavailable. Sync the technology cache and try again.');
+      }
+    }, () => {
+      this.cacheLoading.set(false);
+      this.cacheError.set('Could not load technology data.');
+    });
+
     this.route.paramMap.pipe(
       map(params => params.get('sessionCode')),
       distinctUntilChanged(),
@@ -99,7 +121,10 @@ export class TechnologyAtlasPageComponent {
       }
     });
 
-    this.destroyRef.onDestroy(() => this.disconnect());
+    this.destroyRef.onDestroy(() => {
+      this.disconnect();
+      this.disconnectCache();
+    });
   }
 
   openDialog(): void {

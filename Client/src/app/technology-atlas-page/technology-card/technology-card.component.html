@@ -3,5 +3,5 @@
   <span class="branch"><span class="branch-icon">{{ technology().techType === 'Structural' ? '⬡' : '✦' }}</span>{{ technology().techType }}</span>
   <strong>{{ technology().name }}</strong>
   <span class="description">{{ flavour() }}</span>
-  <span class="status">@if (status() === 'researched') {✓ Researched} @else if (status() === 'locked') {◇ Requires {{ technology().prerequisiteIds.length }}} @else {View technology →}</span>
+  <span class="status">@if (status() === 'researched') {✓ Researched} @else if (status() === 'locked') {◇ Requirements} @else {View technology →}</span>
 </button>

@@ -17,7 +17,8 @@ export class SearchService {
 
   constructor() { }
 
-  addSearchObjects(rules: Rule[]) {
+  setSearchObjects(rules: Rule[]) {
+    this.miniSearch.removeAll();
     this.miniSearch.addAll(rules);
   }
 
