@@ -49,5 +49,15 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.9.3"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.5.6": true,
+    "esbuild@0.27.3": true,
+    "lmdb@3.5.1": true,
+    "msgpackr-extract@3.0.3": true,
+    "protobufjs@7.6.6": true,
+    "re2": false,
+    "@firebase/util@1.15.0": true,
+    "@firebase/util@1.12.1": true
   }
 }
