@@ -36,7 +36,21 @@
   "database": {
     "rules": "database.rules.json"
   },
-  "functions": {
-    "source": "functions"
-  }
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default"
+    },
+    {
+      "source": "RulesTableConverter",
+      "codebase": "glossary",
+      "runtime": "python312",
+      "ignore": [
+        "venv",
+        "__pycache__",
+        "*.pyc",
+        "test_*.py"
+      ]
+    }
+  ]
 }

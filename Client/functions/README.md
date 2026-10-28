@@ -36,3 +36,10 @@ From `Client`:
 2. Run `FIREBASE_DATABASE_EMULATOR_HOST=127.0.0.1:9000 npm run sync:glossary:emulator`.
 
 To seed production explicitly run `npm run sync:glossary:prod`.
+
+## Law of ATO source (not yet connected to the cache)
+
+The separate Python `glossary` codebase downloads and converts the current Law
+of ATO. See the [Python setup and preview instructions](../RulesTableConverter/README.md).
+The existing sync commands still upload the bundled rules. Set up the Python
+virtual environment before starting the Functions emulator for both codebases.
