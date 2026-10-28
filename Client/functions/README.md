@@ -26,9 +26,11 @@ new production cache before its first 03:00 execution.
 
 # Glossary cache
 
-The glossary page starts with bundled rules and reads live updates from Realtime
-Database at `glossaryCache`. Missing or invalid cache data and read failures show
-a warning without clearing the available rules.
+The glossary page loads rules and live updates from Realtime Database at
+`glossaryCache/rulesJson`.
+Missing or invalid cache data and read failures use bundled rules only if no
+cached rules have loaded yet. Later failures keep the last valid rules and show
+a warning.
 
 The separate Python `glossary` codebase fetches the current Law of ATO,
 converts it, and saves the rules directly to `glossaryCache` every day at

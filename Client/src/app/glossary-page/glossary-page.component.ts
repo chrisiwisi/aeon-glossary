@@ -22,7 +22,8 @@ import bundledRules from '../../assets/rules.json';
 })
 export class GlossaryPageComponent {
   searchTerm: string = '';
-  readonly rules = signal<Rule[]>(bundledRules);
+  readonly rules = signal<Rule[]>([]);
+  readonly cacheLoading = signal(true);
   readonly cacheError = signal('');
 
   private readonly destroyRef = inject(DestroyRef);
@@ -35,9 +36,15 @@ export class GlossaryPageComponent {
     this.disconnect = this.glossaryCache.connect(rules => {
       this.searchService.setSearchObjects(rules);
       this.rules.set(rules);
+      this.cacheLoading.set(false);
       this.cacheError.set('');
     }, error => {
       console.error('Could not load glossary cache.', error);
+      if (!this.rules().length) {
+        this.searchService.setSearchObjects(bundledRules);
+        this.rules.set(bundledRules);
+      }
+      this.cacheLoading.set(false);
       this.cacheError.set('Live glossary updates are unavailable. Showing the last available rules.');
     });
 

@@ -41,10 +41,12 @@ describe('GlossaryPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('renders and indexes bundled rules before the cache responds', () => {
-    expect(component.rules()).toEqual(bundledRules);
-    expect(fixture.nativeElement.querySelectorAll('app-rules-card').length).toBe(bundledRules.length);
-    expect(TestBed.inject(SearchService).search(bundledRules[0].name).length).toBeGreaterThan(0);
+  it('waits for the cache before displaying or indexing rules', () => {
+    expect(component.rules()).toEqual([]);
+    expect(component.cacheLoading()).toBeTrue();
+    expect(fixture.nativeElement.querySelectorAll('app-rules-card').length).toBe(0);
+    expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain('Loading glossary');
+    expect(TestBed.inject(SearchService).search(bundledRules[0].name).length).toBe(0);
   });
 
   it('renders and indexes live cache updates', async () => {
@@ -53,20 +55,38 @@ describe('GlossaryPageComponent', () => {
     await fixture.whenStable();
 
     expect(component.rules()).toEqual(rules);
+    expect(component.cacheLoading()).toBeFalse();
     expect(fixture.nativeElement.querySelectorAll('app-rules-card').length).toBe(1);
     expect(fixture.nativeElement.textContent).toContain('Cached glossary entry');
+    expect(fixture.nativeElement.querySelector('[role="status"]')).toBeNull();
     expect(TestBed.inject(SearchService).search('Cached')[0].id).toBe('cached-rule');
   });
 
-  it('keeps bundled rules and reports cache failures', async () => {
+  it('loads bundled rules as fallback when the cache is missing or unavailable', async () => {
     const error = new Error('Missing glossary cache');
     const logError = spyOn(console, 'error');
     onError(error);
     await fixture.whenStable();
 
     expect(component.rules()).toEqual(bundledRules);
+    expect(component.cacheLoading()).toBeFalse();
+    expect(fixture.nativeElement.querySelectorAll('app-rules-card').length).toBe(bundledRules.length);
+    expect(TestBed.inject(SearchService).search(bundledRules[0].name).length).toBeGreaterThan(0);
     expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain('Live glossary updates are unavailable');
     expect(logError).toHaveBeenCalledWith('Could not load glossary cache.', error);
+  });
+
+  it('replaces fallback rules with cached rules when the cache recovers', async () => {
+    spyOn(console, 'error');
+    onError(new Error('Missing glossary cache'));
+    const rules: Rule[] = [{id: 'cached-rule', name: 'Cached glossary entry', rule: 'Live rules', keywords: []}];
+    onRules(rules);
+    await fixture.whenStable();
+
+    expect(component.rules()).toEqual(rules);
+    expect(fixture.nativeElement.querySelectorAll('app-rules-card').length).toBe(1);
+    expect(TestBed.inject(SearchService).search('Cached')[0].id).toBe('cached-rule');
+    expect(component.cacheError()).toBe('');
   });
 
   it('retains the last valid cache after a failure and clears the warning on recovery', () => {

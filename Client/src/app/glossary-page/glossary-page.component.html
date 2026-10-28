@@ -6,7 +6,9 @@
     <input type="text" class="search-bar" placeholder="Search anything..." [(ngModel)]="searchTerm">
   </div>
 
-  @if (cacheError()) {
+  @if (cacheLoading()) {
+    <p role="status">Loading glossary...</p>
+  } @else if (cacheError()) {
     <p role="status">{{ cacheError() }}</p>
   }
 
