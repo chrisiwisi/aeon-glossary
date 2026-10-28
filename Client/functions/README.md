@@ -9,6 +9,11 @@ cache.
 
 From `Client`:
 
+Use Node.js 22.12 or newer within the configured Node.js 22 runtime and run
+`npm --prefix functions install` after pulling dependency changes. The functions
+pin `jose` for `jwks-rsa` to its CommonJS-compatible v5 release because the
+standalone Firebase CLI can load functions without support for requiring ESM.
+
 1. Run `npm run emulators` (Database, Functions, Pub/Sub, and UI).
 2. In a second terminal run `FIREBASE_DATABASE_EMULATOR_HOST=127.0.0.1:9000 npm run sync:technology:emulator` to fill an empty local cache.
 
