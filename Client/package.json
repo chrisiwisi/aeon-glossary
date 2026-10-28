@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
+    "deploy": "firebase deploy",
+    "deploy:hosting": "firebase deploy --only hosting",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "emulators": "firebase emulators:start --only database,functions,pubsub,ui",

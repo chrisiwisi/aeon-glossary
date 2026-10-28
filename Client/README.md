@@ -8,7 +8,7 @@ There is also the code note component that can be used to help take notes while 
 
 ## Firebase Hosting
 
-From the `Client` directory, run `npm ci` and then `firebase deploy`.
+From the `Client` directory, run `npm ci` and then `npm run deploy`.
 The result will be doployed under: `https://aeon-glossary-cb44f.web.app/` (I wanna get rid of that -cb44f in the future)
 
 # common issues
