@@ -1,23 +1,22 @@
 # AeonGlossary
 
-This is just a very simple webapp that lets you search through the rules and keywords of Aeon Trespass Odyssey. 
-The rules texts are taken from [This very helpful document](https://docs.google.com/document/d/1u3q2ngOWhVvixLbz3PiR-4HG0A1OpcAzCM-9cveigu4/edit?usp=sharing) someone has written up for the game.
+This is just my personal companion web-app for the game Aeon Trespass: Odyssey. It contains a glossary of keywords and other rules directly adapted from from [This very helpful document](https://docs.google.com/document/d/1u3q2ngOWhVvixLbz3PiR-4HG0A1OpcAzCM-9cveigu4/edit?usp=sharing) someone has written up for the game. 
 
-I am currently working on a chatbot powered by OpenAI with the ability to answer rules questions. Maybe it's useful, maybe it isn't.
-It's very much a work in Progress at the moment.
+It also contains the Technology Atlas, a shared session live tech tree that can be used to visualize researched and available projects on desktop or on mobile to quickly see which projects are available to research. All of that snced between your playgroups phones and other devices.
 
-## Features
+There is also the code note component that can be used to help take notes while decoding any substitution cyphers. This is the least refined part of the app and won't really work on mobile, but it helped us a lot with the Cycle 4 babelian language since this is a big part of the cycle.
 
-- [x] A searchable list of definitions and keywords
-- [x] Include all keywords
-- [x] Include the rest of the rules
-- [ ] Make cards load dynamically instead of all at once
-- [ ] add filters for cycles and other categories
-- [ ] dynamically link references to other rules
-- [ ] add an icon glossary
-- [ ] add interactive AI powered chatbot
+## Firebase Hosting
 
-## Build
-Run  ng build --configuration production --base-href https://Christian-Wieser.github.io/aeon-glossary/ to build the project. The build artifacts will be stored in the docs/ directory which will then be automatically deployed to github-pages.
+From the `Client` directory, run `npm ci` and then `firebase deploy`.
+The result will be doployed under: `https://aeon-glossary-cb44f.web.app/` (I wanna get rid of that -cb44f in the future)
 
-Or use `ng deploy` to deploy
+# common issues
+
+Production uses the hosted Firebase database; development builds connect to the local database emulator on port 9000.
+Do not upload development builds to HTTPS hosting, since the emulator's HTTP
+connections will be blocked as mixed content.
+
+The build copies `public/manifest.webmanifest` and `public/icons/` to the hosting
+root. Without these files, the single-page-app rewrite returns HTML instead of
+the manifest, causing a manifest JSON syntax error.
