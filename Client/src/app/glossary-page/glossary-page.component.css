@@ -43,6 +43,28 @@ svg {
   border: 2px solid rgb(115, 162, 255);
 }
 
+.cache-spinner {
+  width: 2rem;
+  height: 2rem;
+  margin: 1rem 0;
+  border: 3px solid #fff4e1;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: glossary-spin .8s linear infinite;
+}
+
+@keyframes glossary-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cache-spinner {
+    animation: none;
+  }
+}
+
 .card-container {
   width: 100%;
   max-width: 900px;

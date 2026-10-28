@@ -7,7 +7,7 @@
   </div>
 
   @if (cacheLoading()) {
-    <p role="status">Loading glossary...</p>
+    <span class="cache-spinner" role="status" aria-label="Loading glossary"></span>
   } @else if (cacheError()) {
     <p role="status">{{ cacheError() }}</p>
   }

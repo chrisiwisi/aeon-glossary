@@ -45,7 +45,9 @@ describe('GlossaryPageComponent', () => {
     expect(component.rules()).toEqual([]);
     expect(component.cacheLoading()).toBeTrue();
     expect(fixture.nativeElement.querySelectorAll('app-rules-card').length).toBe(0);
-    expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain('Loading glossary');
+    const loadingStatus = fixture.nativeElement.querySelector('[role="status"]');
+    expect(loadingStatus.classList.contains('cache-spinner')).toBeTrue();
+    expect(loadingStatus.getAttribute('aria-label')).toBe('Loading glossary');
     expect(TestBed.inject(SearchService).search(bundledRules[0].name).length).toBe(0);
   });
 
