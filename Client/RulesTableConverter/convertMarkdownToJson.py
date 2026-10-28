@@ -14,10 +14,16 @@ def detect_tags(text, include_tags):
 
 def extract_entries(md_text):
     # Capture chapter headers and their position in the text
-    chapter_matches = [
-        (match.start(), match.group(1))
-        for match in re.finditer(r"\{#([^\}]+)\}", md_text)
-    ]
+    chapter_matches = []
+    for match in re.finditer(r"^[ \t]*(?:\d+\.[ \t]+)?#{1,6}[ \t]+([^\n]*)", md_text, re.MULTILINE):
+        heading = match.group(1).strip()
+        anchor = re.search(r"\{#([^}]+)\}", heading)
+        if anchor:
+            chapter = anchor.group(1)
+        else:
+            chapter = re.sub(r"[\s_-]+", "-", re.sub(r"[^\w\s-]", "", heading).strip().lower())
+        if chapter:
+            chapter_matches.append((match.start(), chapter))
 
     # Rule pattern
     pattern = r"\n(?<!# )(\d+)\.\s+(?!#)\*\*(.+?)\*\*\s*((?:.|\n)*?)(?=\n\d+\.\s+(?!#)\*\*(?!\*)|\n\d+\.\s+#|\n#+\s|\Z)"

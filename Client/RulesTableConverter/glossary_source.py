@@ -33,6 +33,8 @@ def fetch_law_of_ato_rules():
         raise ValueError("Law of ATO conversion returned no rules")
     if not all(_is_rule(rule) for rule in rules):
         raise ValueError("Law of ATO conversion returned invalid rules")
+    if len({rule["id"] for rule in rules}) != len(rules):
+        raise ValueError("Law of ATO conversion returned duplicate rule IDs")
     return rules
 
 

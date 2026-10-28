@@ -9,7 +9,7 @@ Markdown and calls `extract_entries` from [the existing converter](./convertMark
 directly. It validates the rules and writes them to Realtime Database at
 `glossaryCache`.
 The cache contains `rulesJson` (a JSON string), `ruleCount`, `updatedAt`, and
-`sourceUrl`. Failed downloads or invalid conversions do not replace the previous cache.
+`sourceUrl`. Failed downloads or invalid conversions, including duplicate rule IDs, do not replace the previous cache.
 
 `sync_glossary_daily` runs the same pipeline every day at **03:00 Europe/Vienna**
 (`0 3 * * *`).

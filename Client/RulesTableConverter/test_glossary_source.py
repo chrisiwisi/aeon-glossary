@@ -38,6 +38,36 @@ class GlossarySourceTest(unittest.TestCase):
             fetch_law_of_ato_rules()
 
     @patch("glossary_source.urlopen")
+    def test_derives_chapter_ids_for_headings_without_anchors(self, open_url):
+        open_url.return_value.__enter__.return_value.read.return_value = (
+            b"6. ## **Battle Aftermath** {#battle-aftermath}\n\n"
+            b"1. **Aftermath.** First rule.\n\n"
+            b"7. ## **Bane Tokens**\n\n"
+            b"1. **Ambrosia.** Second rule.\n\n"
+            b"2. **Despair.** Third rule.\n\n"
+            b"8. ## **Additional Battle Rules** {#additional-battle-rules}\n\n"
+            b"1. **Other.** Fourth rule.\n"
+        )
+
+        rules = fetch_law_of_ato_rules()
+
+        self.assertEqual([rule["id"] for rule in rules], [
+            "battle-aftermath.1", "bane-tokens.1", "bane-tokens.2", "additional-battle-rules.1",
+        ])
+        self.assertEqual(rules[1]["keywords"], ["bane-tokens"])
+
+    @patch("glossary_source.urlopen")
+    def test_duplicate_rule_ids_do_not_replace_the_cache(self, open_url):
+        open_url.return_value.__enter__.return_value.read.return_value = (
+            b"# Rules {#rules}\n\n1. **First.** First rule.\n\n1. **Second.** Second rule.\n"
+        )
+        cache_ref = Mock()
+
+        with self.assertRaisesRegex(ValueError, "duplicate rule IDs"):
+            update_glossary_cache(cache_ref)
+        cache_ref.set.assert_not_called()
+
+    @patch("glossary_source.urlopen")
     def test_propagates_http_errors(self, open_url):
         open_url.side_effect = HTTPError(SOURCE_URL, 503, "Unavailable", None, None)
 
