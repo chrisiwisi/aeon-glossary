@@ -3,9 +3,8 @@ import {Router, RouterModule, RouterOutlet} from "@angular/router";
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzLayoutModule} from "ng-zorro-antd/layout";
-import {NzMenuModule} from "ng-zorro-antd/menu";
 import {NzTagComponent} from "ng-zorro-antd/tag";
-import {CodeNoteLobbiesService} from "./code-note/code-note-lobbies.service";
+import {SidebarComponent} from './sidebar/sidebar.component';
 import {CodeNoteComponent} from './code-note/code-note.component';
 import {TechnologyAtlasPageComponent} from './technology-atlas-page/technology-atlas-page.component';
 import {environment} from '../environments/environment';
@@ -19,7 +18,7 @@ import {TECHNOLOGY_CYCLES, TechnologyCycleService} from './technology-atlas-page
     RouterOutlet,
     RouterModule,
     NzLayoutModule,
-    NzMenuModule,
+    SidebarComponent,
     NzIconModule,
     NzButtonModule,
     NzTagComponent,
@@ -32,7 +31,6 @@ export class AppComponent {
   private readonly router = inject(Router);
   protected readonly technologyCycles = inject(TechnologyCycleService);
   protected readonly cycleOptions = TECHNOLOGY_CYCLES;
-  protected readonly lobbyStorage = inject(CodeNoteLobbiesService)
   protected readonly copyLabel = signal('Share');
   protected readonly theLawUrl = environment.theLawUrl;
   activePage: unknown = null;

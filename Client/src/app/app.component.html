@@ -1,39 +1,7 @@
 <nz-layout class="app-shell">
-  <nz-sider
-    nzTheme="dark"
-    nzCollapsible
-    [(nzCollapsed)]="isSidebarCollapsed"
-    [nzTrigger]="null"
-    [nzZeroTrigger]="null"
-    [nzWidth]="330"
-    [nzCollapsedWidth]="0"
-    class="mobile-sidebar"
-  >
-    <div class="sidebar-title">Aeon Glossary</div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineIndent]="16" class="sidebar-menu">
-      <li nz-menu-item [nzSelected]="isGlossaryRoute()"><a routerLink="/">Glossary</a></li>
-      <li nz-menu-item [nzSelected]="isTechnologyAtlasRoute()"><a routerLink="/technology-atlas">Technology Atlas</a></li>
-      <li nz-submenu nzTitle="Code Note" nzOpen>
-        <ul>
-          <li nz-menu-item class="sidebar-new-code"><a routerLink="/code">New Code Note</a></li>
-          @for (lobbyId of lobbyStorage.lobbyCodes(); track lobbyId) {
-            <li nz-menu-item class="sidebar-code-id">
-              <a class="sidebar-code-link" [routerLink]="['/code', lobbyId]">{{ lobbyId }}</a>
-              <button
-                nz-button
-                nzType="text"
-                nzSize="small"
-                class="sidebar-code-remove"
-                aria-label="Remove code"
-                (click)="$event.preventDefault(); $event.stopPropagation(); lobbyStorage.removeLobbyCode(lobbyId)"
-              >
-                <nz-icon nzType="delete" nzTheme="outline" />
-              </button>
-            </li>
-          }
-        </ul>
-      </li>
-    </ul>
+  <nz-sider nzTheme="dark" nzCollapsible [(nzCollapsed)]="isSidebarCollapsed" [nzTrigger]="null"
+    [nzZeroTrigger]="null" [nzWidth]="330" [nzCollapsedWidth]="0" class="mobile-sidebar">
+    <app-sidebar />
   </nz-sider>
 
   @if (!isSidebarCollapsed) {

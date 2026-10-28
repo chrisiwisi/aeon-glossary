@@ -106,14 +106,6 @@ li+li {
     margin-top: 8px;
 }
 
-li span {
-    color: var(--aeon-text-muted);
-}
-
-li span.done {
-    color: var(--aeon-success);
-}
-
 .ability+.ability,
 .entry+.entry {
     margin-top: 16px;

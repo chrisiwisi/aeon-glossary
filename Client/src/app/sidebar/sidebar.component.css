@@ -1,0 +1,84 @@
+:host {
+  display: contents;
+}
+
+.sidebar-title {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--aeon-text-heading);
+  border-bottom: 1px solid var(--aeon-border-subtle);
+  font: 16px/1.2 Georgia, 'Times New Roman', serif;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark {
+  color: var(--aeon-text-subtle);
+  background: transparent;
+  border-bottom: 1px solid var(--aeon-border-subtle);
+  font-size: 12px;
+}
+
+:host ::ng-deep .sidebar-menu :is(.ant-menu-item, .ant-menu-submenu-title) {
+  width: 100%;
+  height: 42px;
+  margin: 0;
+  color: var(--aeon-text-subtle);
+  background: transparent;
+  line-height: 42px;
+}
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark .ant-menu-item a { color: inherit; }
+:host ::ng-deep .sidebar-menu .ant-menu-submenu-arrow { color: var(--aeon-text-subtle); }
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark .ant-menu-submenu-arrow::before,
+:host ::ng-deep .sidebar-menu.ant-menu-dark .ant-menu-submenu-arrow::after {
+  background: var(--aeon-text-subtle);
+}
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark .ant-menu-sub.ant-menu-inline {
+  padding: 6px 0 8px;
+  background: var(--aeon-surface-inset);
+  box-shadow: none;
+}
+
+:host ::ng-deep .sidebar-menu .ant-menu-sub .ant-menu-item { height: 36px; line-height: 36px; }
+:host ::ng-deep .sidebar-menu .sidebar-new-code { color: var(--aeon-gold); }
+
+:host ::ng-deep .sidebar-menu :is(.ant-menu-item:hover, .ant-menu-submenu-title:hover, .ant-menu-item:focus-within) {
+  color: var(--aeon-accent-text);
+  background: var(--aeon-surface-hover);
+}
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark.ant-menu-inline .ant-menu-item-selected,
+:host ::ng-deep .sidebar-menu.ant-menu-dark.ant-menu-inline .ant-menu-item-selected:is(:hover, :focus-within) {
+  color: var(--aeon-accent-text);
+  background: var(--aeon-surface-active);
+  box-shadow: inset 1px 0 var(--aeon-accent);
+}
+
+:host ::ng-deep .sidebar-code-id .ant-menu-title-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.sidebar-code-link {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-code-remove,
+.sidebar-code-remove:is(:hover, :focus, :active) {
+  border: 0;
+  background: transparent;
+}
+
+.sidebar-code-remove { color: var(--aeon-text-subtle); }
+.sidebar-code-remove:is(:hover, :focus) { color: var(--aeon-accent-text); }

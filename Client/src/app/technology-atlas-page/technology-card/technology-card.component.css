@@ -7,7 +7,6 @@
   flex-direction: column;
   align-items: flex-start;
   width: 220px;
-  height: auto;
   min-height: 120px;
   padding: 12px;
   overflow: hidden;
@@ -23,8 +22,7 @@
   font: inherit;
 }
 
-.card:hover,
-.card:focus-visible {
+.card:is(:hover, :focus-visible) {
   transform: translateY(-3px);
   border-color: var(--aeon-accent-hover);
   box-shadow: 0 12px 28px var(--aeon-shadow-deep);
@@ -35,8 +33,7 @@
   border-left-color: var(--aeon-combat);
 }
 
-.card.combat:hover,
-.card.combat:focus-visible {
+.card.combat:is(:hover, :focus-visible) {
   border-color: var(--aeon-combat-hover);
 }
 
@@ -121,11 +118,7 @@ strong {
 
 @media (max-width: 700px) {
   .card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     width: 100%;
-    height: auto;
     min-height: 98px;
     padding: 12px 14px 12px 50px;
     position: relative;
