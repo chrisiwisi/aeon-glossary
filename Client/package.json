@@ -11,9 +11,7 @@
     "test": "ng test",
     "emulators": "firebase emulators:start --only database,functions,pubsub,ui",
     "emulators:sh": "./start-emulators.sh",
-    "sync:technology:emulator": "npm --prefix functions run sync:emulator",
-    "sync:glossary:emulator": "npm --prefix functions run sync:glossary:emulator",
-    "sync:glossary:prod": "ALLOW_PROD_SYNC=true npm --prefix functions run sync:glossary"
+    "sync:technology:emulator": "npm --prefix functions run sync:emulator"
   },
   "private": true,
   "dependencies": {

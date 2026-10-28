@@ -1,8 +1,10 @@
+import json
 import unittest
+from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
-from glossary_source import SOURCE_URL, fetch_law_of_ato_rules
+from glossary_source import SOURCE_URL, fetch_law_of_ato_rules, update_glossary_cache
 
 
 class GlossarySourceTest(unittest.TestCase):
@@ -49,3 +51,62 @@ class GlossarySourceTest(unittest.TestCase):
                 open_url.side_effect = error
                 with self.assertRaises(type(error)):
                     fetch_law_of_ato_rules()
+
+    @patch("glossary_source.urlopen")
+    def test_fetches_converts_and_saves_rules_directly_to_the_cache(self, open_url):
+        open_url.return_value.__enter__.return_value.read.return_value = (
+            "# Rules {#a}\n\n1. **Élan** Rule text for Cycle IV.\n".encode("utf-8")
+        )
+        cache_ref = Mock()
+
+        result = update_glossary_cache(cache_ref)
+
+        cache_ref.set.assert_called_once()
+        saved = cache_ref.set.call_args.args[0]
+        self.assertEqual(json.loads(saved["rulesJson"]), [{
+            "id": "a.1",
+            "name": "Élan",
+            "rule": "Rule text for Cycle IV.",
+            "keywords": ["Cycle IV", "a"],
+        }])
+        self.assertEqual(saved["ruleCount"], 1)
+        self.assertEqual(saved["sourceUrl"], SOURCE_URL)
+        self.assertEqual(datetime.fromisoformat(saved["updatedAt"]).tzinfo, timezone.utc)
+        self.assertEqual(result, {"ruleCount": 1, "updatedAt": saved["updatedAt"]})
+
+    @patch("glossary_source.urlopen")
+    def test_failed_or_invalid_exports_leave_the_existing_cache_untouched(self, open_url):
+        cache_ref = Mock()
+        for content in [b" ", b"<html>Sign in</html>", b"# No rules", b"\n1. **   ** Invalid name."]:
+            with self.subTest(content=content):
+                open_url.return_value.__enter__.return_value.read.return_value = content
+                with self.assertRaises(ValueError):
+                    update_glossary_cache(cache_ref)
+                cache_ref.set.assert_not_called()
+
+        for error in [HTTPError(SOURCE_URL, 503, "Unavailable", None, None), URLError("Offline"), TimeoutError()]:
+            with self.subTest(error=error):
+                open_url.side_effect = error
+                with self.assertRaises(type(error)):
+                    update_glossary_cache(cache_ref)
+                cache_ref.set.assert_not_called()
+
+    @patch("glossary_source.urlopen")
+    def test_propagates_database_write_failures(self, open_url):
+        open_url.return_value.__enter__.return_value.read.return_value = b"\n1. **Example** Rule text."
+        cache_ref = Mock()
+        cache_ref.set.side_effect = RuntimeError("Database unavailable")
+
+        with self.assertRaisesRegex(RuntimeError, "Database unavailable"):
+            update_glossary_cache(cache_ref)
+        cache_ref.set.assert_called_once()
+
+    @patch.dict("glossary_source.os.environ", {"FUNCTIONS_EMULATOR": "true"}, clear=True)
+    @patch("glossary_source.urlopen")
+    def test_local_sync_requires_the_database_emulator(self, open_url):
+        cache_ref = Mock()
+
+        with self.assertRaisesRegex(RuntimeError, "Realtime Database emulator"):
+            update_glossary_cache(cache_ref)
+        open_url.assert_not_called()
+        cache_ref.set.assert_not_called()

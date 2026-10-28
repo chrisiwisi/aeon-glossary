@@ -4,10 +4,16 @@ These are scripts to convert rules into json data readable by the app. first I s
 
 This directory is also the `glossary` functions codebase using Python.
 
-`preview_glossary` in [main.py](./main.py) downloads the current Law of ATO
+`sync_glossary` in [main.py](./main.py) downloads the current Law of ATO
 Markdown and calls `extract_entries` from [the existing converter](./convertMarkdownToJson.py)
-directly. It returns the rules as JSON and is configured for private invocation
-in production. It does not write to Realtime Database or run on a schedule yet.
+directly. It validates the rules and writes them to Realtime Database at
+`glossaryCache`.
+The cache contains `rulesJson` (a JSON string), `ruleCount`, `updatedAt`, and
+`sourceUrl`. Failed downloads or invalid conversions do not replace the previous cache.
+
+This HTTP function accepts POST requests and is configured for private invocation
+in production. It returns `ruleCount` and `updatedAt` after the database write
+succeeds. It does not run on a schedule yet.
 
 ### Local setup
 
@@ -18,17 +24,25 @@ python3.12 -m venv venv
 venv/bin/python -m pip install -r requirements.txt
 ```
 
-Then run `npm run emulators` from `Client`. Preview the converted rules with:
+Then run `npm run emulators` from `Client`. Fetch, convert, and save the rules to
+the local database emulator with:
 
 ```sh
-curl http://127.0.0.1:5001/aeon-glossary-cb44f/europe-west1/preview_glossary
+curl -X POST http://127.0.0.1:5001/aeon-glossary-cb44f/europe-west1/sync_glossary
 ```
 
-The emulator preview makes a real request to Google Docs, but does not change
-the local or production database. After reviewing this step, only this codebase
-can be deployed from `Client` using `npx firebase deploy --only functions:glossary`.
+The function makes a real request to Google Docs. In the Functions emulator, it
+requires `FIREBASE_DATABASE_EMULATOR_HOST` to be set (automatically configured when
+the database emulator is running) and refuses to sync locally without it.
+It uses the Firebase runtime's database configuration and credentials; no service
+account key is stored in this repository.
 
-Run the isolated fetch/conversion tests without Firebase dependencies or network
+After reviewing this step, only this codebase can be deployed from `Client` using
+`npx firebase deploy --only functions:glossary`. In production, invoke the deployed
+`sync_glossary` URL with an authenticated POST request from an authorized IAM
+identity. That request updates the production cache directly.
+
+Run the isolated fetch/conversion/cache tests without Firebase dependencies or network
 access from this directory:
 
 ```sh

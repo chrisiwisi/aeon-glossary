@@ -1,17 +1,21 @@
 import json
 
+from firebase_admin import db, initialize_app
 from firebase_functions import https_fn
 
-from glossary_source import SOURCE_URL, fetch_law_of_ato_rules
+from glossary_source import CACHE_PATH, update_glossary_cache
+
+
+initialize_app()
 
 
 @https_fn.on_request(region="europe-west1", invoker="private", timeout_sec=180)
-def preview_glossary(request: https_fn.Request) -> https_fn.Response:
-    if request.method != "GET":
-        return https_fn.Response("Method not allowed", status=405, headers={"Allow": "GET"})
+def sync_glossary(request: https_fn.Request) -> https_fn.Response:
+    if request.method != "POST":
+        return https_fn.Response("Method not allowed", status=405, headers={"Allow": "POST"})
 
-    rules = fetch_law_of_ato_rules()
+    result = update_glossary_cache(db.reference(CACHE_PATH))
     return https_fn.Response(
-        json.dumps({"rules": rules, "ruleCount": len(rules), "sourceUrl": SOURCE_URL}, ensure_ascii=False),
+        json.dumps(result),
         mimetype="application/json",
     )
