@@ -12,18 +12,83 @@
 
 .main-layout {
   min-height: 100lvh;
-  background: linear-gradient(112deg, #081722 10%, #102a40 58%, #1b4550 100%);
+  background: linear-gradient(112deg, var(--aeon-background-start) 10%, var(--aeon-background-middle) 58%, var(--aeon-background-end) 100%);
+}
+
+.mobile-sidebar {
+  background: var(--aeon-background-middle);
+  border-right: 1px solid var(--aeon-border-subtle);
 }
 
 .sidebar-title {
-  height: 64px;
+  height: 68px;
   display: flex;
   align-items: center;
   padding: 0 16px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
+  color: var(--aeon-text-heading);
+  border-bottom: 1px solid var(--aeon-border-subtle);
+  font: 16px/1.2 Georgia, 'Times New Roman', serif;
   white-space: nowrap;
+}
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark {
+  color: var(--aeon-text-subtle);
+  background: transparent;
+  border-bottom: 1px solid var(--aeon-border-subtle);
+  font-size: 12px;
+}
+
+:host ::ng-deep .sidebar-menu .ant-menu-item,
+:host ::ng-deep .sidebar-menu .ant-menu-submenu-title {
+  width: 100%;
+  height: 42px;
+  margin: 0;
+  color: var(--aeon-text-subtle);
+  background: transparent;
+  line-height: 42px;
+}
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark .ant-menu-item a {
+  color: inherit;
+}
+
+:host ::ng-deep .sidebar-menu .ant-menu-submenu-arrow {
+  color: var(--aeon-text-subtle);
+}
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark .ant-menu-submenu-arrow::before,
+:host ::ng-deep .sidebar-menu.ant-menu-dark .ant-menu-submenu-arrow::after {
+  background: var(--aeon-text-subtle);
+}
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark .ant-menu-sub.ant-menu-inline {
+  padding: 6px 0 8px;
+  background: var(--aeon-surface-inset);
+  box-shadow: none;
+}
+
+:host ::ng-deep .sidebar-menu .ant-menu-sub .ant-menu-item {
+  height: 36px;
+  line-height: 36px;
+}
+
+:host ::ng-deep .sidebar-menu .sidebar-new-code {
+  color: var(--aeon-gold);
+}
+
+:host ::ng-deep .sidebar-menu .ant-menu-item:hover,
+:host ::ng-deep .sidebar-menu .ant-menu-submenu-title:hover,
+:host ::ng-deep .sidebar-menu .ant-menu-item:focus-within {
+  color: var(--aeon-accent-text);
+  background: var(--aeon-surface-hover);
+}
+
+:host ::ng-deep .sidebar-menu.ant-menu-dark.ant-menu-inline .ant-menu-item-selected,
+:host ::ng-deep .sidebar-menu.ant-menu-dark.ant-menu-inline .ant-menu-item-selected:hover,
+:host ::ng-deep .sidebar-menu.ant-menu-dark.ant-menu-inline .ant-menu-item-selected:focus-within {
+  color: var(--aeon-accent-text);
+  background: var(--aeon-surface-active);
+  box-shadow: inset 1px 0 var(--aeon-accent);
 }
 
 /* NG-ZORRO renders this wrapper inside its own component, so we need a deep selector. */
@@ -43,13 +108,25 @@
   white-space: nowrap;
 }
 
+.burger-button,
+.burger-button:hover,
+.burger-button:focus,
+.burger-button:active,
+.sidebar-code-remove,
+.sidebar-code-remove:hover,
+.sidebar-code-remove:focus,
+.sidebar-code-remove:active {
+  border: 0;
+  background: transparent;
+}
+
 .sidebar-code-remove {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--aeon-text-subtle);
 }
 
 .sidebar-code-remove:hover,
 .sidebar-code-remove:focus {
-  color: #fff;
+  color: var(--aeon-accent-text);
 }
 
 .app-header {
@@ -60,13 +137,13 @@
   min-height: 80px;
   padding: 12px clamp(20px, 5vw, 72px);
   line-height: normal;
-  background: #102a40;
-  border-bottom: 1px solid #2a465b;
+  background: var(--aeon-background-middle);
+  border-bottom: 1px solid var(--aeon-border-subtle);
 }
 
 .burger-button {
   font-size: 18px;
-  color: #fff;
+  color: var(--aeon-white);
   flex: none;
 }
 
@@ -87,8 +164,8 @@
   flex: none;
   width: 42px;
   height: 42px;
-  color: #d9b982;
-  border: 1px solid #ad925f;
+  color: var(--aeon-gold);
+  border: 1px solid var(--aeon-gold-border);
   border-radius: 50%;
   font-size: 30px;
 }
@@ -96,7 +173,7 @@
 .title-lockup .eyebrow {
   display: block;
   margin: 0 0 2px;
-  color: #b8c7cd;
+  color: var(--aeon-text-muted);
   font-size: 9px;
   font-weight: 700;
   letter-spacing: .16em;
@@ -105,13 +182,13 @@
 
 .title-lockup .credits-link:hover,
 .title-lockup .credits-link:focus-visible {
-  color: #fff4e1;
+  color: var(--aeon-text-heading);
   text-decoration: underline;
 }
 
 .title-lockup h1 {
   margin: 0;
-  color: #fff4e1;
+  color: var(--aeon-text-heading);
   font: 25px/1.1 Georgia, 'Times New Roman', serif;
   white-space: nowrap;
 }
@@ -126,15 +203,15 @@
 
 .session-button {
   flex: none;
-  color: #d9e3e5;
+  color: var(--aeon-text-secondary);
   background: transparent;
-  border-color: #587486;
+  border-color: var(--aeon-border-strong);
 }
 
 .cycle-switcher {
   position: relative;
   flex: none;
-  color: #d9e3e5;
+  color: var(--aeon-text-secondary);
 }
 
 .cycle-switcher summary {
@@ -144,9 +221,9 @@
   box-sizing: border-box;
   height: 32px;
   padding: 4px 15px;
-  color: #d9e3e5;
+  color: var(--aeon-text-secondary);
   background: transparent;
-  border: 1px solid #587486;
+  border: 1px solid var(--aeon-border-strong);
   border-radius: 2px;
   cursor: pointer;
   font-size: 14px;
@@ -162,8 +239,8 @@
 
 .cycle-switcher summary:hover,
 .cycle-switcher summary:focus-visible {
-  color: #fff;
-  border-color: #d8e4e6;
+  color: var(--aeon-white);
+  border-color: var(--aeon-text-secondary);
 }
 
 .cycle-chevron {
@@ -182,10 +259,10 @@
   right: 0;
   width: 158px;
   padding: 6px;
-  background: #102837;
-  border: 1px solid #395b6e;
+  background: var(--aeon-surface-raised);
+  border: 1px solid var(--aeon-border);
   border-radius: 4px;
-  box-shadow: 0 18px 36px #0008;
+  box-shadow: 0 18px 36px var(--aeon-shadow-strong);
 }
 
 .cycle-menu button {
@@ -195,7 +272,7 @@
   width: 100%;
   min-height: 38px;
   padding: 0 8px;
-  color: #d9e3e5;
+  color: var(--aeon-text-secondary);
   background: transparent;
   border: 0;
   border-radius: 4px;
@@ -207,17 +284,17 @@
 .cycle-menu button:hover,
 .cycle-menu button:focus-visible,
 .cycle-menu button.active {
-  background: #193747;
+  background: var(--aeon-surface-hover);
 }
 
 .cycle-index {
-  color: #7195ad;
+  color: var(--aeon-text-subtle);
   font-size: 10px;
 }
 
 .cycle-check {
   margin-left: auto;
-  color: #82c7bc;
+  color: var(--aeon-success);
 }
 
 .header-session-code {
@@ -227,13 +304,19 @@
   min-width: 0;
   margin: 0;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--aeon-text-dim);
 }
 
 .header-session-code nz-tag {
   display: inline-flex;
   align-items: center;
   min-width: 0;
+}
+
+.session-tag {
+  color: var(--aeon-accent-text);
+  background: var(--aeon-surface-active);
+  border-color: var(--aeon-accent-border);
 }
 
 .session-code-text {
@@ -243,6 +326,7 @@
 }
 
 .share-btn {
+  color: inherit;
   height: 18px;
   width: 18px;
   padding: 0;
@@ -321,6 +405,6 @@
     position: fixed;
     inset: 0;
     z-index: 1050;
-    background: rgba(0, 0, 0, 0.35);
+    background: var(--aeon-sidebar-backdrop);
   }
 }

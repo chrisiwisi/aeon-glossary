@@ -4,28 +4,29 @@
   right: 50px;
   z-index: 100;
   cursor: pointer;
-  color: slategray;
-  background: #020e1e;
+  color: var(--aeon-text-disabled);
+  background: var(--aeon-text-on-light);
   padding: 2em;
   border-radius: 2em;
 }
 
 .chatbox {
+  color: var(--aeon-text-on-light);
   position: fixed;
   bottom: 120px;
   right: 2.5vw;
   width: 90vw;
   height: 400px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: var(--aeon-surface-light);
+  border: 1px solid var(--aeon-border-light);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px var(--aeon-shadow-subtle);
   padding: 10px;
   display: none;
 
   .header {
     border-bottom-style: solid;
-    border-bottom-color: grey;
+    border-bottom-color: var(--aeon-text-on-light-muted);
 
     h2, h6 {
       margin: 0;
@@ -39,7 +40,7 @@
 
   .footer{
     border-top-style: solid;
-    border-top-color: grey;
+    border-top-color: var(--aeon-text-on-light-muted);
 
   }
 
@@ -53,4 +54,13 @@
   .chatbox-conversation {
     flex: 1;
   }
+}
+
+:host ::ng-deep .chatbox a {
+  color: var(--aeon-link-on-light);
+}
+
+:host ::ng-deep .chatbox a:hover,
+:host ::ng-deep .chatbox a:focus-visible {
+  color: var(--aeon-link-on-light-hover);
 }

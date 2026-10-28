@@ -1,18 +1,28 @@
 :host {
   height: 100%;
-  background-color: #e3e3e3;
+  color: var(--aeon-text-on-light);
+  background-color: var(--aeon-surface-light-card);
   border-radius: 4px;
   padding: 0 .5em .2em .5em;
-  box-shadow: 4px 4px 11px 0 #02020261;
+  box-shadow: 4px 4px 11px 0 var(--aeon-shadow-medium);
   transition: all .5s;
   min-width: 0;
 }
 
 :host:hover {
-  box-shadow: 4px 4px 11px 0 rgba(2, 2, 2, 0.53);
+  box-shadow: 4px 4px 11px 0 var(--aeon-shadow-strong);
 }
 
 h4 {
   margin: .5em 0;
   font-size: 1.1em;
+}
+
+:host ::ng-deep a {
+  color: var(--aeon-link-on-light);
+}
+
+:host ::ng-deep a:hover,
+:host ::ng-deep a:focus-visible {
+  color: var(--aeon-link-on-light-hover);
 }

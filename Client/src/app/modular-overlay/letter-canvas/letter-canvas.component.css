@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: var(--aeon-text);
+  background: var(--aeon-surface-raised);
 }
 
 h1 {
@@ -20,11 +22,11 @@ img {
 }
 
 canvas {
-  border: 1px solid black;
+  border: 1px solid var(--aeon-canvas-border);
 }
 
 #letter-drawing-canvas {
-  background: white;
+  background: var(--aeon-canvas-paper);
 }
 
 .toolbar {
@@ -44,7 +46,7 @@ canvas {
 
 .threshold-label {
   font-size: 12px;
-  color: #666;
+  color: var(--aeon-text-subtle);
   white-space: nowrap;
 }
 
@@ -55,8 +57,7 @@ canvas {
 
 .threshold-value {
   font-size: 12px;
-  color: #666;
+  color: var(--aeon-text-subtle);
   min-width: 26px;
   text-align: right;
 }
-

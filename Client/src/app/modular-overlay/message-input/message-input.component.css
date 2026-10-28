@@ -4,9 +4,9 @@
   flex-direction: column;
   gap: 16px;
   padding: 0 0 24px 0;
-  background: #1e2235;
+  background: var(--aeon-surface);
   border-radius: 16px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 24px 64px var(--aeon-shadow-popup);
   overflow: hidden;
   min-width: min-content;
   max-width: 95vw;
@@ -18,24 +18,24 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px 14px;
-  background: #252b42;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--aeon-surface-raised);
+  border-bottom: 1px solid var(--aeon-overlay-soft);
 }
 
 .dialog-title {
   font-size: 16px;
   font-weight: 600;
-  color: #e8eaf6;
+  color: var(--aeon-text);
   letter-spacing: 0.5px;
 }
 
 .close-btn {
-  color: #9e9ea8 !important;
+  color: var(--aeon-text-disabled) !important;
 }
 
 .close-btn:hover {
-  color: #fff !important;
-  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--aeon-white) !important;
+  background: var(--aeon-overlay-soft) !important;
 }
 
 /* ── Preview Section ───────────────────────────────────────── */
@@ -43,8 +43,8 @@
   margin: 0 20px;
   min-height: 56px;
   padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--aeon-overlay-faint);
+  border: 1px solid var(--aeon-overlay-subtle);
   border-radius: 10px;
 }
 
@@ -78,24 +78,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #2e3452;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--aeon-surface-raised);
+  border: 1px solid var(--aeon-overlay-strong);
   border-radius: 10px;
   cursor: pointer;
   user-select: none;
   transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.12s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px var(--aeon-shadow-medium);
 }
 
 .key:hover {
-  background: #3a4270;
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  background: var(--aeon-surface-hover);
+  border-color: var(--aeon-overlay-focus);
+  box-shadow: 0 4px 12px var(--aeon-shadow-medium);
 }
 
 .key:active {
   transform: scale(0.93);
-  background: #4a5490;
+  background: var(--aeon-surface-active);
 }
 
 .key.space {
@@ -121,6 +121,6 @@
 .letter-label {
   font-size: 18px;
   font-weight: 600;
-  color: #c8cce8;
+  color: var(--aeon-text);
   text-transform: uppercase;
 }

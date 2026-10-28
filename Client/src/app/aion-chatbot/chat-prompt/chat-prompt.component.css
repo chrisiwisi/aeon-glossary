@@ -2,10 +2,12 @@
   display: flex;
   align-items: center;
   padding: 10px 0 10px 0;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--aeon-border-light);
 }
 
 .chat-prompt-input input {
+  color: var(--aeon-text-on-light);
+  background: var(--aeon-surface-light);
   flex: 1;
   padding: 8px;
   border: none;
@@ -14,8 +16,8 @@
 }
 
 .chat-prompt-input button {
-  background-color: #3f51b5;
-  color: white;
+  background-color: var(--aeon-primary);
+  color: var(--aeon-text-on-primary);
   border: none;
   border-radius: 20px;
   padding: 8px 16px;
@@ -25,5 +27,5 @@
 }
 
 .chat-prompt-input button:hover {
-  background-color: #0056b3;
+  background-color: var(--aeon-primary-hover);
 }

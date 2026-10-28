@@ -1,7 +1,7 @@
 :host {
   display: block;
   margin: -16px;
-  color: #e9edf0;
+  color: var(--aeon-text);
   font-family: Arial, sans-serif;
 }
 

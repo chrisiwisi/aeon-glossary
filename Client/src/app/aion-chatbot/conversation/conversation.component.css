@@ -10,7 +10,7 @@
 }
 
 .message {
-  background-color: #f3f3f3;
+  background-color: var(--aeon-surface-light-muted);
   border-radius: 10px;
   padding: 10px;
   max-width: 70%;
@@ -22,10 +22,10 @@
   flex-direction: row-reverse;
 
   .message {
-    background-color: white;
+    background-color: var(--aeon-white);
   }
 }
 
 .bot-message .message {
-  background-color: #f3f3f3;
+  background-color: var(--aeon-surface-light-muted);
 }

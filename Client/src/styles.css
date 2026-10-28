@@ -1,20 +1,136 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/ng-zorro-antd/ng-zorro-antd.min.css';
+@import './theme.css';
 
 html {
   height: 100%;
-  background-color: rgb(32, 38, 57);
+  background-color: var(--aeon-background);
 }
 
 body {
   min-height: 100%;
   margin: 0;
-  background-color: rgb(32, 38, 57);
+  color: var(--aeon-text);
+  background-color: var(--aeon-background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: inherit;
+}
+
+a {
+  color: var(--aeon-link);
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--aeon-accent-hover);
+}
+
+input[type='range'] {
+  accent-color: var(--aeon-accent);
+}
+
+body .ant-btn {
+  color: var(--aeon-text-secondary);
+  background: var(--aeon-surface);
+  border-color: var(--aeon-border-strong);
+}
+
+body .ant-btn:hover,
+body .ant-btn:focus,
+body .ant-btn:active {
+  color: var(--aeon-accent-text);
+  background: var(--aeon-surface-hover);
+  border-color: var(--aeon-accent);
+}
+
+body .ant-btn-primary {
+  color: var(--aeon-text-on-primary);
+  background: var(--aeon-primary);
+  border-color: var(--aeon-primary-border);
+  text-shadow: none;
+}
+
+body .ant-btn-primary:hover,
+body .ant-btn-primary:focus,
+body .ant-btn-primary:active {
+  color: var(--aeon-text-on-primary);
+  background: var(--aeon-primary-hover);
+  border-color: var(--aeon-accent-hover);
+}
+
+body .ant-btn-text,
+body .ant-btn-link {
+  background: transparent;
+  border-color: transparent;
+}
+
+body .ant-btn[disabled],
+body .ant-btn[disabled]:hover {
+  color: var(--aeon-text-disabled);
+  background: var(--aeon-surface-disabled);
+  border-color: var(--aeon-border-disabled);
+}
+
+body .ant-input {
+  color: var(--aeon-text);
+  background: var(--aeon-surface-inset);
+  border-color: var(--aeon-border-strong);
+}
+
+body .ant-input::placeholder {
+  color: var(--aeon-text-disabled);
+}
+
+body .ant-input:hover,
+body .ant-input:focus {
+  border-color: var(--aeon-focus);
+}
+
+body .ant-input:focus {
+  box-shadow: 0 0 0 2px var(--aeon-focus-ring);
+}
+
+body .ant-modal-content,
+body .ant-modal-header,
+body .ant-dropdown-menu,
+body .ant-tooltip-inner {
+  color: var(--aeon-text);
+  background: var(--aeon-surface-raised);
+  border-color: var(--aeon-border);
+}
+
+body .ant-modal-title,
+body .ant-modal-confirm-title {
+  color: var(--aeon-text-heading);
+}
+
+body .ant-modal-confirm-content,
+body .ant-modal-close,
+body .ant-dropdown-menu-item {
+  color: var(--aeon-text-secondary);
+}
+
+body .ant-dropdown-menu-item:hover,
+body .ant-dropdown-menu-item-active {
+  color: var(--aeon-accent-text);
+  background: var(--aeon-surface-hover);
+}
+
+body .ant-modal-mask {
+  background: var(--aeon-backdrop);
+}
+
+body .ant-card {
+  color: var(--aeon-text);
+  background: var(--aeon-surface);
+  border-color: var(--aeon-border);
 }
 
 .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
   &.dark-backdrop {
-    background: #000;
-    opacity: 0.5 !important;
+    background: var(--aeon-backdrop);
+    opacity: 1 !important;
   }
 }

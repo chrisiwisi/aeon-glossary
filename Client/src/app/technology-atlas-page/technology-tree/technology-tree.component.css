@@ -10,8 +10,8 @@
   flex-direction: column;
   min-width: 0;
   min-height: 0;
-  border: 1px solid #254253;
-  background: radial-gradient(circle at 46% 15%, #123447 0, #091f2d 48%, #081a28 100%);
+  border: 1px solid var(--aeon-border);
+  background: radial-gradient(circle at 46% 15%, var(--aeon-atlas-background-start) 0, var(--aeon-atlas-background-middle) 48%, var(--aeon-atlas-background-end) 100%);
   overflow: hidden;
 }
 
@@ -21,7 +21,7 @@
   inset: 0;
   pointer-events: none;
   opacity: .15;
-  background-image: linear-gradient(#577180 1px, transparent 1px), linear-gradient(90deg, #577180 1px, transparent 1px);
+  background-image: linear-gradient(var(--aeon-atlas-grid) 1px, transparent 1px), linear-gradient(90deg, var(--aeon-atlas-grid) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
@@ -33,7 +33,7 @@
   overflow: auto;
   cursor: grab;
   scrollbar-width: thin;
-  scrollbar-color: #587583 transparent;
+  scrollbar-color: var(--aeon-atlas-scrollbar) transparent;
 }
 
 .scroll-area.panning {
@@ -42,7 +42,7 @@
 }
 
 .scroll-area:focus-visible {
-  outline: 2px solid #9acfc4;
+  outline: 2px solid var(--aeon-accent-text);
   outline-offset: -2px;
 }
 
@@ -57,12 +57,12 @@
 }
 
 .scroll-area::-webkit-scrollbar-thumb {
-  background: #587583;
+  background: var(--aeon-atlas-scrollbar);
   border-radius: 6px;
 }
 
 .scroll-area::-webkit-scrollbar-thumb:hover {
-  background: #8baeb2;
+  background: var(--aeon-atlas-scrollbar-hover);
 }
 
 .canvas {
@@ -77,7 +77,7 @@
   z-index: 1;
   display: flex;
   gap: 24px;
-  color: #91a7b2;
+  color: var(--aeon-text-subtle);
   font: 700 11px Arial, sans-serif;
   letter-spacing: .15em;
   text-transform: uppercase;
@@ -92,16 +92,16 @@
 
 path {
   fill: none;
-  stroke: #597b88;
+  stroke: var(--aeon-atlas-connection);
   stroke-width: 2;
   opacity: .67;
 }
 
 path.complete {
-  stroke: #91c6b7;
+  stroke: var(--aeon-atlas-connection-complete);
   stroke-width: 3;
   opacity: .98;
-  filter: drop-shadow(0 0 6px #91c6b74d);
+  filter: drop-shadow(0 0 6px var(--aeon-atlas-connection-glow));
 }
 
 .placed-card {
@@ -124,8 +124,8 @@ path.complete {
   right: 0;
   margin: 0;
   padding: 9px 17px;
-  color: #b3c2c6;
-  background: #0b2532df;
+  color: var(--aeon-text-muted);
+  background: var(--aeon-atlas-hint-background);
   font: 11px Arial, sans-serif;
   pointer-events: none;
 }
@@ -146,7 +146,7 @@ path.complete {
   .mobile-atlas {
     display: block;
     padding: 15px 16px 34px;
-    background: #081d2b;
+    background: var(--aeon-atlas-mobile-background);
   }
 
   .mobile-branch+.mobile-branch {
@@ -159,7 +159,7 @@ path.complete {
     gap: 12px;
     margin-bottom: 13px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #294653;
+    border-bottom: 1px solid var(--aeon-border);
   }
 
   .heading-icon {
@@ -167,22 +167,22 @@ path.complete {
     place-items: center;
     width: 36px;
     height: 36px;
-    color: #9acfc4;
-    background: #1b4550;
-    border: 1px solid #427980;
+    color: var(--aeon-accent-text);
+    background: var(--aeon-background-end);
+    border: 1px solid var(--aeon-accent-border);
     border-radius: 50%;
     font-size: 22px;
   }
 
   .mobile-branch:nth-child(2) .heading-icon {
-    color: #dfb981;
-    background: #493b31;
-    border-color: #866b51;
+    color: var(--aeon-combat-text);
+    background: var(--aeon-combat-surface);
+    border-color: var(--aeon-combat-border);
   }
 
   .mobile-heading small {
     display: block;
-    color: #8ca5b1;
+    color: var(--aeon-text-subtle);
     font: 700 9px Arial, sans-serif;
     letter-spacing: .12em;
     text-transform: uppercase;
@@ -191,13 +191,13 @@ path.complete {
   .mobile-heading strong {
     display: block;
     margin-top: 2px;
-    color: #f3e9da;
+    color: var(--aeon-text-heading);
     font: 20px Georgia, serif;
   }
 
   .count {
     margin-left: auto;
-    color: #91acb7;
+    color: var(--aeon-text-subtle);
     font: 11px Arial, sans-serif;
   }
 
@@ -205,12 +205,12 @@ path.complete {
     display: grid;
     gap: 8px;
     padding-left: 10px;
-    border-left: 1px solid #406574;
+    border-left: 1px solid var(--aeon-border);
   }
 
   .empty-filter {
     margin: 8px 0 12px;
-    color: #91aebb;
+    color: var(--aeon-text-subtle);
     font: 12px Arial, sans-serif;
   }
 }

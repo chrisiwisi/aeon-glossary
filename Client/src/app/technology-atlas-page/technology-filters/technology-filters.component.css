@@ -13,7 +13,7 @@ nav {
 }
 
 .group-label {
-    color: #8da9b5;
+    color: var(--aeon-text-subtle);
     font: 700 10px Arial, sans-serif;
     letter-spacing: .12em;
     text-transform: uppercase;
@@ -22,10 +22,10 @@ nav {
 button {
     min-height: 35px;
     padding: 0 16px;
-    border: 1px solid #38566a;
+    border: 1px solid var(--aeon-border);
     border-radius: 999px;
-    color: #aabcc8;
-    background: #0d2332;
+    color: var(--aeon-text-muted);
+    background: var(--aeon-surface-inset);
     cursor: pointer;
     font: 700 11px Arial, sans-serif;
     letter-spacing: .08em;
@@ -34,15 +34,15 @@ button {
 
 button:hover,
 button:focus-visible {
-    color: #fff;
-    border-color: #83aea9;
+    color: var(--aeon-white);
+    border-color: var(--aeon-accent-hover);
     outline: none;
 }
 
 button.active {
-    color: #fffdf6;
-    background: #183d56;
-    border-color: #6e9ca8;
+    color: var(--aeon-text-heading);
+    background: var(--aeon-surface-active);
+    border-color: var(--aeon-border-strong);
 }
 
 button span {

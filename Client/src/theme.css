@@ -1,0 +1,98 @@
+:root {
+  --aeon-background: #202639;
+  --aeon-background-start: #081722;
+  --aeon-background-middle: #102a40;
+  --aeon-background-end: #1b4550;
+
+  --aeon-surface: #162d3d;
+  --aeon-surface-raised: #122d40;
+  --aeon-surface-inset: #0d2332;
+  --aeon-surface-hover: #193747;
+  --aeon-surface-active: #183d56;
+  --aeon-surface-disabled: #294357;
+  --aeon-surface-light: #fafafa;
+  --aeon-surface-light-card: #e3e3e3;
+  --aeon-surface-light-muted: #f3f3f3;
+
+  --aeon-text: #e9edf0;
+  --aeon-text-heading: #fff4e1;
+  --aeon-text-secondary: #d9e3e5;
+  --aeon-text-muted: #aebbc2;
+  --aeon-text-subtle: #91aebb;
+  --aeon-text-disabled: #8797a1;
+  --aeon-text-on-light: #020e1e;
+  --aeon-text-on-light-muted: #666;
+  --aeon-text-on-primary: #07242c;
+  --aeon-white: #fff;
+
+  --aeon-border: #38566a;
+  --aeon-border-subtle: #2a465b;
+  --aeon-border-strong: #587486;
+  --aeon-border-disabled: #466377;
+  --aeon-border-light: #ccc;
+  --aeon-border-light-strong: #999;
+
+  --aeon-accent: #66a9a2;
+  --aeon-accent-hover: #acd8ca;
+  --aeon-accent-text: #9fd1c9;
+  --aeon-accent-surface: var(--aeon-background-end);
+  --aeon-accent-border: #448d8d;
+  --aeon-gold: #d9b982;
+  --aeon-gold-border: #ad925f;
+  --aeon-primary: #a7d5c6;
+  --aeon-primary-hover: #bce2d9;
+  --aeon-primary-border: #7db6aa;
+  --aeon-success: #91d2bf;
+  --aeon-link: #a9d7df;
+  --aeon-link-on-light: #246a79;
+  --aeon-link-on-light-hover: #174b58;
+  --aeon-focus: var(--aeon-accent);
+  --aeon-focus-ring: color-mix(in srgb, var(--aeon-focus) 20%, transparent);
+  --aeon-danger: #ff7875;
+  --aeon-danger-surface: color-mix(in srgb, var(--aeon-danger) 12%, transparent);
+
+  --aeon-combat: #d5a86b;
+  --aeon-combat-hover: #e4be86;
+  --aeon-combat-text: #e0c196;
+  --aeon-combat-surface: #50402d;
+  --aeon-combat-border: #98754e;
+
+  --aeon-atlas-background-start: #123447;
+  --aeon-atlas-background-middle: #091f2d;
+  --aeon-atlas-background-end: #081a28;
+  --aeon-atlas-mobile-background: #081d2b;
+  --aeon-atlas-grid: #577180;
+  --aeon-atlas-scrollbar: #587583;
+  --aeon-atlas-scrollbar-hover: #8baeb2;
+  --aeon-atlas-connection: #597b88;
+  --aeon-atlas-connection-complete: #91c6b7;
+  --aeon-atlas-connection-glow: color-mix(in srgb, var(--aeon-atlas-connection-complete) 30%, transparent);
+  --aeon-atlas-hint-background: #0b2532df;
+  --aeon-researched-background-start: #0f3035;
+  --aeon-researched-background-end: #122633;
+  --aeon-researched-border: #5ea89c;
+  --aeon-researched-ring: #2b6b64;
+  --aeon-researched-glow: color-mix(in srgb, var(--aeon-accent) 33%, transparent);
+
+  --aeon-overlay-faint: color-mix(in srgb, var(--aeon-white) 5%, transparent);
+  --aeon-overlay-soft: color-mix(in srgb, var(--aeon-white) 8%, transparent);
+  --aeon-overlay-subtle: color-mix(in srgb, var(--aeon-white) 10%, transparent);
+  --aeon-overlay-strong: color-mix(in srgb, var(--aeon-white) 12%, transparent);
+  --aeon-overlay-hover: color-mix(in srgb, var(--aeon-white) 20%, transparent);
+  --aeon-overlay-focus: color-mix(in srgb, var(--aeon-white) 25%, transparent);
+  --aeon-text-faint: color-mix(in srgb, var(--aeon-white) 35%, transparent);
+  --aeon-text-dim: color-mix(in srgb, var(--aeon-white) 60%, transparent);
+
+  --aeon-shadow: #000;
+  --aeon-shadow-subtle: color-mix(in srgb, var(--aeon-shadow) 8%, transparent);
+  --aeon-shadow-soft: color-mix(in srgb, var(--aeon-shadow) 15%, transparent);
+  --aeon-shadow-medium: color-mix(in srgb, var(--aeon-shadow) 38%, transparent);
+  --aeon-shadow-strong: color-mix(in srgb, var(--aeon-shadow) 53%, transparent);
+  --aeon-shadow-deep: color-mix(in srgb, var(--aeon-shadow) 70%, transparent);
+  --aeon-shadow-popup: color-mix(in srgb, var(--aeon-shadow) 60%, transparent);
+  --aeon-backdrop: color-mix(in srgb, var(--aeon-shadow) 72%, transparent);
+  --aeon-sidebar-backdrop: color-mix(in srgb, var(--aeon-shadow) 35%, transparent);
+
+  --aeon-canvas-paper: #fff;
+  --aeon-canvas-border: #000;
+}

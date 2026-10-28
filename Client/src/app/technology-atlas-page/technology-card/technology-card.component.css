@@ -13,12 +13,12 @@
   overflow: hidden;
   text-align: left;
   cursor: pointer;
-  color: #f1eee6;
-  background: #162d3d;
-  border: 1px solid #38606b;
-  border-left: 3px solid #66a9a2;
+  color: var(--aeon-text-heading);
+  background: var(--aeon-surface);
+  border: 1px solid var(--aeon-border);
+  border-left: 3px solid var(--aeon-accent);
   border-radius: 4px;
-  box-shadow: 0 8px 22px #020e1790;
+  box-shadow: 0 8px 22px var(--aeon-shadow-strong);
   transition: transform .18s, border-color .18s, box-shadow .18s;
   font: inherit;
 }
@@ -26,24 +26,24 @@
 .card:hover,
 .card:focus-visible {
   transform: translateY(-3px);
-  border-color: #acd8ca;
-  box-shadow: 0 12px 28px #020e17bd;
+  border-color: var(--aeon-accent-hover);
+  box-shadow: 0 12px 28px var(--aeon-shadow-deep);
   outline: none;
 }
 
 .card.combat {
-  border-left-color: #d5a86b;
+  border-left-color: var(--aeon-combat);
 }
 
 .card.combat:hover,
 .card.combat:focus-visible {
-  border-color: #e4be86;
+  border-color: var(--aeon-combat-hover);
 }
 
 .card.researched {
-  background: linear-gradient(180deg, #0f3035 0%, #122633 70%);
-  border-color: #5ea89c;
-  box-shadow: 0 10px 28px #020e17b5, 0 0 0 2px #2b6b64, 0 0 18px #3aa59b55;
+  background: linear-gradient(180deg, var(--aeon-researched-background-start) 0%, var(--aeon-researched-background-end) 70%);
+  border-color: var(--aeon-researched-border);
+  box-shadow: 0 10px 28px var(--aeon-shadow-deep), 0 0 0 2px var(--aeon-researched-ring), 0 0 18px var(--aeon-researched-glow);
 }
 
 .card.locked {
@@ -52,15 +52,15 @@
 
 .card.locked.teased {
   opacity: .4;
-  border-color: #4f7380;
-  box-shadow: 0 10px 26px #020e17b0, 0 0 0 1px #2e5563;
+  border-color: var(--aeon-border);
+  box-shadow: 0 10px 26px var(--aeon-shadow-deep), 0 0 0 1px var(--aeon-border);
 }
 
 .branch {
   display: flex;
   gap: 6px;
   align-items: center;
-  color: #8fc5bc;
+  color: var(--aeon-accent-text);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .13em;
@@ -68,7 +68,7 @@
 }
 
 .combat .branch {
-  color: #deb982;
+  color: var(--aeon-combat-text);
 }
 
 .branch-icon {
@@ -84,7 +84,7 @@ strong {
   overflow: hidden;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  color: #f5f0e5;
+  color: var(--aeon-text-heading);
   font: 21px/1.12 Georgia, 'Times New Roman', serif;
 }
 
@@ -93,7 +93,7 @@ strong {
   min-height: 0;
   max-width: 100%;
   margin-top: 5px;
-  color: #aebbc2;
+  color: var(--aeon-text-muted);
   font-size: 11px;
   line-height: 1.35;
   display: -webkit-box;
@@ -105,18 +105,18 @@ strong {
 .status {
   flex: none;
   margin-top: 5px;
-  color: #9fd1c9;
+  color: var(--aeon-accent-text);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .04em;
 }
 
 .combat .status {
-  color: #e0c196;
+  color: var(--aeon-combat-text);
 }
 
 .locked .status {
-  color: #8797a1;
+  color: var(--aeon-text-disabled);
 }
 
 @media (max-width: 700px) {

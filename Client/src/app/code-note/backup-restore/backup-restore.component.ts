@@ -12,8 +12,8 @@ import {NzMenuDirective, NzMenuItemComponent} from "ng-zorro-antd/menu";
   templateUrl: './backup-restore.component.html',
   styles: [`
     :host { display: inline-flex; flex: none; }
-    .backup-button { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px; color: #d9e3e5; background: transparent; border: 1px solid #587486; border-radius: 4px; font-weight: 600; }
-    .backup-button:hover, .backup-button:focus-visible { color: #fff4e1; border-color: #9bbdbf; background: #1b3b50; }
+    .backup-button { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px; color: var(--aeon-text-secondary); background: transparent; border: 1px solid var(--aeon-border-strong); border-radius: 4px; font-weight: 600; }
+    .backup-button:hover, .backup-button:focus-visible { color: var(--aeon-text-heading); border-color: var(--aeon-accent-hover); background: var(--aeon-surface-hover); }
     .chevron { margin-left: 2px; font-size: 16px; line-height: 1; transform: translateY(-3px); }
     @media (max-width: 768px) { .backup-button { height: 30px; padding: 0 9px; font-size: 11px; } }
   `],
