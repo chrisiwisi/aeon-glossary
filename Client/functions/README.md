@@ -31,8 +31,9 @@ Database at `glossaryCache`. Missing or invalid cache data and read failures sho
 a warning without clearing the available rules.
 
 The separate Python `glossary` codebase fetches the current Law of ATO,
-converts it, and saves the rules directly to `glossaryCache`. No JavaScript
-glossary sync command is needed. See the
+converts it, and saves the rules directly to `glossaryCache` every day at
+03:00 Europe/Vienna, matching the technology sync. The private manual POST
+endpoint is also available. See the
 [Python setup and sync instructions](../RulesTableConverter/README.md).
 Set up the Python virtual environment before starting the Functions emulator
 for both codebases.

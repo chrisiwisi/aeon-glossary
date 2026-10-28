@@ -11,9 +11,12 @@ directly. It validates the rules and writes them to Realtime Database at
 The cache contains `rulesJson` (a JSON string), `ruleCount`, `updatedAt`, and
 `sourceUrl`. Failed downloads or invalid conversions do not replace the previous cache.
 
-This HTTP function accepts POST requests and is configured for private invocation
-in production. It returns `ruleCount` and `updatedAt` after the database write
-succeeds. It does not run on a schedule yet.
+`sync_glossary_daily` runs the same pipeline every day at **03:00 Europe/Vienna**
+(`0 3 * * *`).
+
+The manual `sync_glossary` HTTP function accepts POST requests and is configured
+for private invocation in production. It returns `ruleCount` and `updatedAt`
+after the database write succeeds.
 
 ### Local setup
 
@@ -38,9 +41,11 @@ It uses the Firebase runtime's database configuration and credentials; no servic
 account key is stored in this repository.
 
 After reviewing this step, only this codebase can be deployed from `Client` using
-`npx firebase deploy --only functions:glossary`. In production, invoke the deployed
-`sync_glossary` URL with an authenticated POST request from an authorized IAM
-identity. That request updates the production cache directly.
+`npx firebase deploy --only functions:glossary`. Deployment creates the daily
+Cloud Scheduler job; no manual sync is needed for daily refreshes. To sync
+manually in production, invoke the deployed `sync_glossary` URL with an
+authenticated POST request from an authorized IAM identity. That request updates
+the production cache directly.
 
 Run the isolated fetch/conversion/cache tests without Firebase dependencies or network
 access from this directory:
