@@ -1,6 +1,6 @@
 import {Component, DestroyRef, computed, inject, signal} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {Database, get, onValue, ref, runTransaction} from '@angular/fire/database';
+import {Database, get, onValue, ref, runTransaction, set} from '@angular/fire/database';
 import {ActivatedRoute, Router} from '@angular/router';
 import {distinctUntilChanged, map} from 'rxjs';
 import {NameGeneratorService} from '../code-note/name-generator.service';
@@ -36,14 +36,19 @@ export class TechnologyAtlasPageComponent {
   readonly cacheLoading = signal(true);
   readonly cacheError = signal('');
   readonly sessionCode = signal('');
-  readonly sessionState = signal<unknown>(null);
+  readonly sessionState = signal<Record<string, boolean>>({});
+  readonly sessionExists = signal(false);
   readonly error = signal('');
   readonly loading = signal(false);
   readonly dialogVisible = signal(false);
   readonly graph = computed(() => buildTechnologyGraph(this.technologies().filter(card => card.cycle === this.cycles.selectedCycle())));
   readonly filter = signal<TechnologyFilter>('All');
   readonly statusFilter = signal<TechnologyStatusFilter>('All');
-  readonly researchedIds = signal<ReadonlySet<string>>(new Set());
+  readonly researchedIds = computed<ReadonlySet<string>>(() => new Set(
+    this.technologies()
+      .filter(card => this.sessionState()[this.technologyKey(card.refID)] === true)
+      .map(card => card.refID)
+  ));
   readonly selectedTechnology = signal<TechnologyNode | null>(null);
   readonly selectedStatus = computed<TechnologyStatus>(() => {
     const node = this.selectedTechnology();
@@ -81,7 +86,8 @@ export class TechnologyAtlasPageComponent {
       this.disconnect();
       this.disconnect = () => undefined;
       this.error.set('');
-      this.sessionState.set(null);
+      this.sessionState.set({});
+      this.sessionExists.set(false);
 
       const code = rawCode?.trim().toLowerCase() ?? '';
       if (rawCode && !SESSION_CODE_PATTERN.test(code)) {
@@ -108,7 +114,9 @@ export class TechnologyAtlasPageComponent {
         this.disconnect = onValue(ref(this.db, `${SESSIONS_PATH}/${code}`), snapshot => {
           this.loading.set(false);
           this.error.set(snapshot.exists() ? '' : 'This technology session does not exist.');
-          this.sessionState.set(snapshot.child('state').val());
+          this.sessionExists.set(snapshot.exists());
+          const state = snapshot.child('state').val();
+          this.sessionState.set(state && typeof state === 'object' && !Array.isArray(state) ? state : {});
           if (snapshot.exists()) {
             localStorage.setItem(STORED_SESSION_CODE, code);
           } else if (localStorage.getItem(STORED_SESSION_CODE) === code) {
@@ -116,6 +124,8 @@ export class TechnologyAtlasPageComponent {
           }
         }, () => {
           this.loading.set(false);
+          this.sessionExists.set(false);
+          this.sessionState.set({});
           this.error.set('Could not load this technology session.');
         });
       }
@@ -132,11 +142,25 @@ export class TechnologyAtlasPageComponent {
     this.dialogVisible.set(true);
   }
 
-  researchTechnology(id: string): void {
+  private technologyKey(id: string): string {
+    return encodeURIComponent(id).replace(/\./g, '%2E');
+  }
+
+  async researchTechnology(id: string): Promise<void> {
     const node = this.graph().nodes.find(candidate => candidate.refID === id);
     if (!node || technologyStatus(node, this.researchedIds()) !== 'available') return;
-    this.researchedIds.update(current => new Set([...current, id]));
-    this.selectedTechnology.set(null);
+    if (!this.sessionExists()) {
+      this.selectedTechnology.set(null);
+      if (!this.sessionCode()) this.openDialog();
+      return;
+    }
+    try {
+      await set(ref(this.db, `${SESSIONS_PATH}/${this.sessionCode()}/state/${this.technologyKey(id)}`), true);
+      this.selectedTechnology.set(null);
+    } catch {
+      this.selectedTechnology.set(null);
+      this.error.set('Could not save the technology research status. Please try again.');
+    }
   }
 
   closeDialog(): void {
@@ -150,7 +174,10 @@ export class TechnologyAtlasPageComponent {
       for (let attempt = 0; attempt < 5; attempt++) {
         const code = this.nameGenerator.generateLobbyCode().toLowerCase();
         const result = await runTransaction(ref(this.db, `${SESSIONS_PATH}/${code}`), current =>
-          current === null ? {createdAt: new Date().toISOString(), state: {initialized: true}} : undefined
+          current === null ? {
+            createdAt: new Date().toISOString(),
+            state: Object.fromEntries(this.technologies().map(card => [this.technologyKey(card.refID), false]))
+          } : undefined
         );
         if (result.committed) {
           await this.router.navigate(['/technology-atlas', code]);
