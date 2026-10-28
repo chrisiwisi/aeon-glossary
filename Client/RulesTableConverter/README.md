@@ -1,0 +1,1 @@
+These are scripts to convert rules into json data readable by the app. first I started with an excel file where I entered each keyword manually. But that process was too laborious for a software developer so I decided to write a converter for the markdown version of "The law of ato" into the json format I needed. 
