@@ -6,8 +6,12 @@
     <input type="text" class="search-bar" placeholder="Search anything..." [(ngModel)]="searchTerm">
   </div>
 
+  @if (cacheError()) {
+    <p role="status">{{ cacheError() }}</p>
+  }
+
   <div class="card-container">
-    @for (rule of rules | search: searchTerm; track rule) {
+    @for (rule of rules() | search: searchTerm; track rule) {
       <app-rules-card [rule]="rule"></app-rules-card>
     }
   </div>

@@ -26,11 +26,13 @@ new production cache before its first 03:00 execution.
 
 # Glossary cache
 
-The glossary page reads rules from Realtime Database at `glossaryCache`.
+The glossary page starts with bundled rules and reads live updates from Realtime
+Database at `glossaryCache`. Missing or invalid cache data and read failures show
+a warning without clearing the available rules.
 
 From `Client`:
 
 1. Run `npm run emulators`.
-2. Run `npm run sync:technology:emulator`.
+2. Run `FIREBASE_DATABASE_EMULATOR_HOST=127.0.0.1:9000 npm run sync:glossary:emulator`.
 
 To seed production explicitly run `npm run sync:glossary:prod`.

@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {NgClass} from "@angular/common";
 import {ConversationComponent} from "./conversation/conversation.component";
 import {ChatPromptComponent} from "./chat-prompt/chat-prompt.component";
@@ -16,9 +16,12 @@ import {FullThreadDTO} from "./DTOs/FullThreadDTO";
     templateUrl: './aion.component.html',
     styleUrl: './aion.component.css'
 })
-export class AionComponent implements OnInit {
+export class AionComponent {
   chatBox: boolean = false;
   messages = signal<MessageDTO[]>([]);
+  readonly loading = signal(false);
+  readonly disabled = signal(false);
+  readonly threadLoaded = signal(false);
 
   constructor(
     private aionService: AionService,
@@ -26,22 +29,38 @@ export class AionComponent implements OnInit {
   }
 
   toggleChatbox(): void {
+    if (this.disabled()) return;
     this.chatBox = !this.chatBox;
+    if (this.chatBox && !this.threadLoaded() && !this.loading()) {
+      this.loadThread();
+    }
   }
 
   handleMessage(event: string): void {
+    if (this.disabled() || !this.threadLoaded() || this.loading()) return;
     this.aionService.promptAndAwaitResponse(event).subscribe({
       next: (thread: FullThreadDTO) => {
         this.messages.set(thread.data)
-      }
+      },
+      error: () => this.disableChat()
     });
   }
 
-  ngOnInit(): void {
+  private loadThread(): void {
+    this.loading.set(true);
     this.aionService.getFullThread().subscribe({
       next: (thread: FullThreadDTO) => {
-        this.messages.set(thread.data)
-      }
+        this.messages.set(thread.data);
+        this.threadLoaded.set(true);
+        this.loading.set(false);
+      },
+      error: () => this.disableChat()
     })
+  }
+
+  private disableChat(): void {
+    this.disabled.set(true);
+    this.loading.set(false);
+    this.chatBox = false;
   }
 }

@@ -9,18 +9,21 @@ export class GlossaryCacheService {
   private readonly db = inject(Database);
   private readonly cachePath = 'glossaryCache/rulesJson';
 
-  connect(onRules: (rules: Rule[]) => void, onError: () => void): () => void {
+  connect(onRules: (rules: Rule[]) => void, onError: (error: Error) => void): () => void {
     return onValue(ref(this.db, this.cachePath), snapshot => {
+      let rules: Rule[];
       try {
-        const rules = JSON.parse(snapshot.val() ?? 'null');
-        if (!Array.isArray(rules) || rules.some(rule => !this.isRule(rule))) {
-          throw new Error('Invalid glossary cache');
+        const cachedRules = JSON.parse(snapshot.val() ?? 'null');
+        if (!Array.isArray(cachedRules) || !cachedRules.length || cachedRules.some(rule => !this.isRule(rule))) {
+          throw new Error('Glossary cache is missing, empty, or invalid.');
         }
-        onRules(rules);
-      } catch {
-        onRules([]);
+        rules = cachedRules;
+      } catch (error) {
+        onError(error instanceof Error ? error : new Error('Invalid glossary cache.'));
+        return;
       }
-    }, () => onError());
+      onRules(rules);
+    }, error => onError(error));
   }
 
   private isRule(candidate: unknown): candidate is Rule {

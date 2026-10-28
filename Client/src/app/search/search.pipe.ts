@@ -11,12 +11,10 @@ export class SearchPipe implements PipeTransform {
   private searchService: SearchService = inject(SearchService);
 
   transform(rules: Rule[], searchTerm: string | undefined): Rule[] {
-    console.log(searchTerm)
     if (!searchTerm) {
       return rules;
     }
     const searchResult = this.searchService.search(searchTerm);
-    console.log(searchResult);
     return searchResult.map((result: SearchResult) => rules.find(e => result.id === e.id)).filter(Boolean) as Rule[];
   }
 
