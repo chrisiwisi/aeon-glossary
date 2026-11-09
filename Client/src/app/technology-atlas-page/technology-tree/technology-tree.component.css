@@ -94,6 +94,8 @@ path {
   fill: none;
   stroke: var(--aeon-atlas-connection);
   stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   opacity: .67;
 }
 

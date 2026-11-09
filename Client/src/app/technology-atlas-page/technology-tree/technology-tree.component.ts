@@ -2,6 +2,7 @@ import { Component, computed, effect, ElementRef, input, output, signal, viewChi
 import { TechnologyCardComponent } from '../technology-card/technology-card.component';
 import { TechnologyFilter, TechnologyStatusFilter } from '../technology-filters/technology-filters.component';
 import { TechnologyEdge, TechnologyGraph, TechnologyNode, technologyStatus } from '../technology.model';
+import { layoutTechnologyTree, TECHNOLOGY_CARD_HEIGHT, TECHNOLOGY_CARD_WIDTH } from './technology-tree.layout';
 
 @Component({
   selector: 'app-technology-tree',
@@ -21,6 +22,8 @@ export class TechnologyTreeComponent {
   readonly researchedIds = input.required<ReadonlySet<string>>();
   readonly selected = output<TechnologyNode>();
   readonly branches = ['Structural', 'Combat'] as const;
+  readonly cardWidth = TECHNOLOGY_CARD_WIDTH;
+  readonly layout = computed(() => layoutTechnologyTree(this.graph(), this.cardHeights()));
   readonly lockedPreviewIds = computed(() => {
     const currentFilter = this.statusFilter();
     if (currentFilter === 'locked' || currentFilter === 'researched') {
@@ -44,7 +47,7 @@ export class TechnologyTreeComponent {
   readonly visibleNodes = computed(() => {
     const currentFilter = this.statusFilter();
     const preview = this.lockedPreviewIds();
-    return this.graph().nodes.filter(node => {
+    return this.layout().nodes.filter(node => {
       const status = this.status(node);
       if (currentFilter === 'All') {
         return status !== 'locked' || preview.has(node.refID);
@@ -65,8 +68,8 @@ export class TechnologyTreeComponent {
     return this.graph().edges.filter(edge => visible.has(edge.fromId) && visible.has(edge.toId));
   });
 
-  readonly canvasWidth = computed(() => Math.max(1100, ...this.graph().nodes.map(node => node.x + 300)));
-  readonly canvasHeight = computed(() => Math.max(750, ...this.graph().nodes.map(node => node.y + 200)));
+  readonly canvasWidth = computed(() => this.layout().width);
+  readonly canvasHeight = computed(() => this.layout().height);
 
   constructor() {
     effect(() => {
@@ -160,13 +163,8 @@ export class TechnologyTreeComponent {
     return this.branchNodes(branch);
   }
 
-  cardHeight(node: TechnologyNode): number { return this.cardHeights().get(node.refID) ?? 150; }
+  cardHeight(node: TechnologyNode): number { return this.cardHeights().get(node.refID) ?? TECHNOLOGY_CARD_HEIGHT; }
   edgePath(fromId: string, toId: string): string {
-    const from = this.graph().nodes.find(node => node.refID === fromId)!;
-    const to = this.graph().nodes.find(node => node.refID === toId)!;
-    const x1 = from.x + 220, y1 = from.y + this.cardHeight(from) / 2;
-    const x2 = to.x, y2 = to.y + this.cardHeight(to) / 2;
-    const bend = Math.max(35, (x2 - x1) / 2);
-    return `M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}`;
+    return this.layout().edgePaths.get(fromId)?.get(toId) ?? '';
   }
 }

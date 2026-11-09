@@ -94,29 +94,6 @@ export function buildTechnologyGraph(cards: TechnologyCardDto[]): TechnologyGrap
   };
   nodes.forEach(depthOf);
 
-  // Place each prerequisite tier in a column. Keep children near their parents
-  // regardless of technology type, then separate cards sharing a column.
-  const maxDepth = Math.max(0, ...nodes.map(node => node.depth));
-  for (let depth = 1; depth <= maxDepth; depth++) {
-    const column = nodes.filter(node => node.depth === depth).map((node, index) => ({
-      node,
-      index,
-      targetY: node.prerequisiteIds.length
-        ? node.prerequisiteIds.reduce((sum, id) => sum + byId.get(id)!.y, 0) / node.prerequisiteIds.length
-        : 350,
-    })).sort((a, b) => a.targetY - b.targetY || a.index - b.index);
-    const positions: number[] = [];
-    for (const item of column) {
-      positions.push(Math.max(item.targetY, (positions[positions.length - 1] ?? -Infinity) + 158));
-    }
-    const targetCenter = column.reduce((sum, item) => sum + item.targetY, 0) / column.length;
-    const positionCenter = positions.reduce((sum, y) => sum + y, 0) / positions.length;
-    const offset = Math.max(targetCenter - positionCenter, 70 - positions[0]);
-    column.forEach(({node}, index) => {
-      node.x = 80 + (depth - 1) * 270;
-      node.y = positions[index] + offset;
-    });
-  }
   return {nodes, edges};
 }
 
