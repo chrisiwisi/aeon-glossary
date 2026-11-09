@@ -1,14 +1,15 @@
-import type { TechnologyGraph, TechnologyNode } from '../technology.model';
+import type { TechnologyGraph, TechnologyTreeNode } from '../technology.model';
 
 export const TECHNOLOGY_CARD_WIDTH = 220;
 export const TECHNOLOGY_CARD_HEIGHT = 150;
+export const PREREQUISITE_CARD_HEIGHT = 110;
 const COLUMN_GAP = 100;
 const ROW_GAP = 48;
 const LEFT_PADDING = 80;
 const TOP_PADDING = 80;
 
 interface LayoutVertex {
-  node?: TechnologyNode;
+  node?: TechnologyTreeNode;
   layer: number;
   height: number;
   center: number;
@@ -17,7 +18,7 @@ interface LayoutVertex {
 }
 
 export interface TechnologyTreeLayout {
-  nodes: TechnologyNode[];
+  nodes: TechnologyTreeNode[];
   edgePaths: ReadonlyMap<string, ReadonlyMap<string, string>>;
   width: number;
   height: number;
@@ -84,25 +85,36 @@ export function layoutTechnologyTree(
   graph: TechnologyGraph,
   cardHeights: ReadonlyMap<string, number> = new Map(),
 ): TechnologyTreeLayout {
-  const layerCount = Math.max(0, ...graph.nodes.map(node => node.depth));
+  const graphById = new Map(graph.nodes.map(node => [node.refID, node]));
+  const layoutNodes = graph.nodes.flatMap(node => {
+    if (node.kind === 'technology' || !node.dependentIds.length) return [node];
+    const depths = new Set(node.dependentIds.map(id => graphById.get(id)!.depth - 1));
+    return [...depths].map(depth => ({
+      ...node,
+      depth,
+      dependentIds: node.dependentIds.filter(id => graphById.get(id)!.depth === depth + 1),
+    }));
+  });
+  const layerCount = Math.max(0, ...layoutNodes.map(node => node.depth));
   let layers: LayoutVertex[][] = Array.from({length: layerCount}, () => []);
-  const byId = new Map<string, LayoutVertex>();
-  for (const node of graph.nodes) {
+  const byId = new Map<string, LayoutVertex[]>();
+  for (const node of layoutNodes) {
     const vertex: LayoutVertex = {
       node,
       layer: node.depth - 1,
-      height: cardHeights.get(node.refID) ?? TECHNOLOGY_CARD_HEIGHT,
+      height: cardHeights.get(node.refID) ?? (node.kind === 'prerequisite' ? PREREQUISITE_CARD_HEIGHT : TECHNOLOGY_CARD_HEIGHT),
       center: 0,
       parents: [],
       children: [],
     };
     layers[vertex.layer].push(vertex);
-    byId.set(node.refID, vertex);
+    if (!byId.has(node.refID)) byId.set(node.refID, []);
+    byId.get(node.refID)!.push(vertex);
   }
 
   const routes = graph.edges.map(edge => {
-    const source = byId.get(edge.fromId)!;
-    const target = byId.get(edge.toId)!;
+    const target = byId.get(edge.toId)![0];
+    const source = byId.get(edge.fromId)!.find(vertex => vertex.node!.kind === 'technology' || vertex.layer === target.layer - 1)!;
     const vertices = [source];
     for (let layer = source.layer + 1; layer < target.layer; layer++) {
       const vertex: LayoutVertex = {layer, height: 12, center: 0, parents: [], children: []};
@@ -154,8 +166,8 @@ export function layoutTechnologyTree(
   const top = Math.min(0, ...vertices.map(vertex => vertex.center - vertex.height / 2));
   vertices.forEach(vertex => vertex.center += TOP_PADDING - top);
 
-  const nodes = graph.nodes.map(node => {
-    const vertex = byId.get(node.refID)!;
+  const nodes = layoutNodes.map(node => {
+    const vertex = byId.get(node.refID)!.find(candidate => candidate.layer === node.depth - 1)!;
     return {...node, x: columnLeft(vertex), y: vertex.center - vertex.height / 2};
   });
   const edgePaths = new Map<string, Map<string, string>>();

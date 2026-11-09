@@ -9,7 +9,7 @@ import {TechnologyFiltersComponent, TechnologyFilter, TechnologyStatusFilter} fr
 import {TechnologyPopupComponent} from './technology-popup/technology-popup.component';
 import {TechnologyTreeComponent} from './technology-tree/technology-tree.component';
 import {TechnologyCycleService} from './technology-cycle.service';
-import {buildTechnologyGraph, TechnologyCardDto, TechnologyNode, TechnologyStatus, technologyStatus} from './technology.model';
+import {buildTechnologyGraph, isStartingTechnology, researchedTechnologyIds, TechnologyCardDto, TechnologyNode, TechnologyStatus, technologyStatus} from './technology.model';
 
 const SESSIONS_PATH = 'technologySessions';
 const CACHE_PATH = 'technologyCache/cardsJson';
@@ -44,15 +44,16 @@ export class TechnologyAtlasPageComponent {
   readonly graph = computed(() => buildTechnologyGraph(this.technologies().filter(card => card.cycle === this.cycles.selectedCycle())));
   readonly filter = signal<TechnologyFilter>('All');
   readonly statusFilter = signal<TechnologyStatusFilter>('All');
-  readonly researchedIds = computed<ReadonlySet<string>>(() => new Set(
-    this.technologies()
-      .filter(card => this.sessionState()[this.technologyKey(card.refID)] === true)
-      .map(card => card.refID)
+  readonly researchedIds = computed(() => researchedTechnologyIds(
+    this.graph(),
+    new Set(this.graph().nodes
+      .filter(node => this.sessionState()[this.technologyKey(node.refID)] === true)
+      .map(node => node.refID))
   ));
   readonly selectedTechnology = signal<TechnologyNode | null>(null);
   readonly selectedStatus = computed<TechnologyStatus>(() => {
     const node = this.selectedTechnology();
-    return node ? technologyStatus(node, this.researchedIds()) : 'locked';
+    return node ? technologyStatus(node, this.researchedIds(), this.graph()) : 'locked';
   });
 
   constructor() {
@@ -148,7 +149,7 @@ export class TechnologyAtlasPageComponent {
 
   async researchTechnology(id: string): Promise<void> {
     const node = this.graph().nodes.find(candidate => candidate.refID === id);
-    if (!node || technologyStatus(node, this.researchedIds()) !== 'available') return;
+    if (!node || technologyStatus(node, this.researchedIds(), this.graph()) !== 'available') return;
     if (!this.sessionExists()) {
       this.selectedTechnology.set(null);
       if (!this.sessionCode()) this.openDialog();
@@ -159,7 +160,9 @@ export class TechnologyAtlasPageComponent {
       this.selectedTechnology.set(null);
     } catch {
       this.selectedTechnology.set(null);
-      this.error.set('Could not save the technology research status. Please try again.');
+      this.error.set(node.kind === 'prerequisite'
+        ? 'Could not save prerequisite completion. Please try again.'
+        : 'Could not save the technology research status. Please try again.');
     }
   }
 
@@ -176,7 +179,7 @@ export class TechnologyAtlasPageComponent {
         const result = await runTransaction(ref(this.db, `${SESSIONS_PATH}/${code}`), current =>
           current === null ? {
             createdAt: new Date().toISOString(),
-            state: Object.fromEntries(this.technologies().map(card => [this.technologyKey(card.refID), false]))
+            state: Object.fromEntries(this.technologies().map(card => [this.technologyKey(card.refID), isStartingTechnology(card)]))
           } : undefined
         );
         if (result.committed) {

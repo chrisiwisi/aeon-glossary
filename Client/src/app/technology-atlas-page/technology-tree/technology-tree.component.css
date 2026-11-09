@@ -173,7 +173,7 @@ path.complete {
     font-size: 22px;
   }
 
-  .mobile-branch:nth-child(2) .heading-icon {
+  .mobile-branch.combat .heading-icon {
     color: var(--aeon-combat-text);
     background: var(--aeon-combat-surface);
     border-color: var(--aeon-combat-border);

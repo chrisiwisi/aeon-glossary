@@ -1,5 +1,5 @@
 import { buildTechnologyGraph, TechnologyCardDto } from '../technology.model';
-import { layoutTechnologyTree, TECHNOLOGY_CARD_HEIGHT, TECHNOLOGY_CARD_WIDTH } from './technology-tree.layout';
+import { layoutTechnologyTree, PREREQUISITE_CARD_HEIGHT, TECHNOLOGY_CARD_HEIGHT, TECHNOLOGY_CARD_WIDTH } from './technology-tree.layout';
 
 function technology(name: string, requirements: string[] = []): TechnologyCardDto {
   return {
@@ -145,6 +145,63 @@ describe('layoutTechnologyTree', () => {
     expect(resized.height).toBeGreaterThan(initial.height);
     expect(JSON.stringify(graph)).toEqual(original);
     expect(layoutTechnologyTree(graph, heights)).toEqual(resized);
+  });
+
+  it('lays out non-technology prerequisites before their technologies and routes all their edges', () => {
+    const graph = buildTechnologyGraph([
+      technology('Starting', ['—']),
+      technology('Project', ['Starting', 'Build a settlement']),
+      technology('Other project', ['Defeat a level 1 Primordial']),
+    ]);
+    const layout = layoutTechnologyTree(graph);
+    const prerequisites = layout.nodes.filter(node => node.kind === 'prerequisite');
+    expect(prerequisites.length).toBe(2);
+    for (const prerequisite of prerequisites) {
+      expect(prerequisite.y + PREREQUISITE_CARD_HEIGHT).toBeLessThan(layout.height);
+      for (const dependentId of prerequisite.dependentIds) {
+        const dependent = layout.nodes.find(node => node.refID === dependentId)!;
+        expect(dependent.x).toBeGreaterThan(prerequisite.x + TECHNOLOGY_CARD_WIDTH);
+        expect(layout.edgePaths.get(prerequisite.refID)!.get(dependentId)).toMatch(/^M /);
+      }
+    }
+  });
+
+  it('places prerequisites exactly one level before technologies at any depth', () => {
+    const graph = buildTechnologyGraph([
+      technology('Starting', ['—']),
+      technology('Intermediate', ['Starting']),
+      technology('Advanced', ['Intermediate']),
+      technology('Project', ['Advanced', 'Build a settlement']),
+    ]);
+    const layout = layoutTechnologyTree(graph);
+    const project = layout.nodes.find(node => node.name === 'Project')!;
+    const prerequisite = layout.nodes.find(node => node.kind === 'prerequisite')!;
+    expect(prerequisite.depth).toBe(project.depth - 1);
+    expect(prerequisite.x).toBe(layout.nodes.find(node => node.name === 'Advanced')!.x);
+    expect(layout.edgePaths.get(prerequisite.refID)!.get(project.refID)).not.toContain(' L ');
+    expect(graph.nodes.find(node => node.kind === 'prerequisite')!.depth).toBe(1);
+  });
+
+  it('repeats shared prerequisites at each required level while preserving their completion ID', () => {
+    const graph = buildTechnologyGraph([
+      technology('Starting', ['—']),
+      technology('Early', ['Starting', 'Build a settlement']),
+      technology('Intermediate', ['Early']),
+      technology('Late', ['Intermediate', 'Build a settlement']),
+      technology('Other late', ['Intermediate', 'Build a settlement']),
+    ]);
+    const layout = layoutTechnologyTree(graph);
+    const prerequisites = layout.nodes.filter(node => node.kind === 'prerequisite');
+    expect(prerequisites.map(node => node.depth)).toEqual([1, 3]);
+    expect(new Set(prerequisites.map(node => node.refID)).size).toBe(1);
+    expect(prerequisites.map(node => node.dependentIds)).toEqual([['Early'], ['Late', 'Other late']]);
+    for (const name of ['Early', 'Late', 'Other late']) {
+      const target = layout.nodes.find(node => node.name === name)!;
+      const source = prerequisites.find(node => node.depth === target.depth - 1)!;
+      const path = layout.edgePaths.get(source.refID)!.get(target.refID)!;
+      expect(path).not.toContain(' L ');
+      expect(samplePath(path)[0].x).toBe(source.x + TECHNOLOGY_CARD_WIDTH);
+    }
   });
 
   it('retains a route for every edge in a graph with unavoidable crossings', () => {

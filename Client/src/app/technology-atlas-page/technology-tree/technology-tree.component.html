@@ -3,29 +3,33 @@
     (pointerdown)="startPan($event)" (pointermove)="movePan($event)" (pointerup)="endPan($event)"
     (pointercancel)="endPan($event)" (lostpointercapture)="endPan($event)" (auxclick)="preventMiddleClick($event)">
     <div class="canvas" [style.width.px]="canvasWidth()" [style.height.px]="canvasHeight()">
-      <div class="branch-legend" aria-label="Technology types"><span>⬡ &nbsp; Structural</span><span>✦ &nbsp; Combat</span></div>
+      <div class="branch-legend" aria-label="Technology types"><span>⬡ &nbsp; Structural</span><span>✦ &nbsp; Combat</span><span>◇ &nbsp; Prerequisite</span></div>
       <svg class="connections" [attr.viewBox]="'0 0 ' + canvasWidth() + ' ' + canvasHeight()"
         [style.width.px]="canvasWidth()" [style.height.px]="canvasHeight()" aria-hidden="true">
         <defs>
           <mask id="technology-card-cutouts" maskUnits="userSpaceOnUse" x="0" y="0" [attr.width]="canvasWidth()" [attr.height]="canvasHeight()">
             <rect x="0" y="0" [attr.width]="canvasWidth()" [attr.height]="canvasHeight()" fill="white"/>
-            @for (node of visibleNodes(); track node.refID) {
+            @for (node of visibleNodes(); track node.refID + ':' + node.depth) {
               <rect [attr.x]="node.x - 1" [attr.y]="node.y - 1" [attr.width]="cardWidth + 2" [attr.height]="cardHeight(node) + 2" fill="black"/>
             }
           </mask>
         </defs>
         <g mask="url(#technology-card-cutouts)">
           @for (edge of visibleEdges(); track edge.fromId + edge.toId) {
-            <path [attr.d]="edgePath(edge.fromId, edge.toId)" [class.complete]="researchedIds().has(edge.fromId)"/>
+            <path [attr.d]="edgePath(edge.fromId, edge.toId)" [class.complete]="isEdgeComplete(edge)"/>
           }
         </g>
       </svg>
-      @for (node of visibleNodes(); track node.refID) {
+      @for (node of visibleNodes(); track node.refID + ':' + node.depth) {
         <div class="placed-card" #placedCard [attr.data-technology-id]="node.refID" [style.width.px]="cardWidth" [style.left.px]="node.x" [style.top.px]="node.y"
           [class.faded]="isDimmed(node)"
           [class.teased-locked]="isTeasedLocked(node)"
           [attr.inert]="isDimmed(node) ? '' : null">
-          <app-technology-card [technology]="node" [status]="status(node)" [teased]="isTeasedLocked(node)" (selected)="selected.emit($event)"/>
+          @if (node.kind === 'technology') {
+            <app-technology-card [technology]="node" [status]="status(node)" [teased]="isTeasedLocked(node)" (selected)="selected.emit($event)"/>
+          } @else {
+            <app-technology-prerequisite [prerequisite]="node" [status]="status(node)" (completed)="prerequisiteCompleted.emit($event)"/>
+          }
         </div>
       }
     </div>
@@ -33,9 +37,19 @@
   <p class="hint">Drag empty space or middle-drag to explore <span aria-hidden="true">↔</span></p>
 </section>
 <section class="mobile-atlas" aria-label="Technology branches">
+  @if (visiblePrerequisites().length) {
+    <div class="mobile-branch">
+      <div class="mobile-heading"><span class="heading-icon">◇</span><div><small>Non-technology requirements</small><strong>Prerequisites</strong></div></div>
+      <div class="mobile-list">
+        @for (node of visiblePrerequisites(); track node.refID) {
+          <app-technology-prerequisite [prerequisite]="node" [status]="status(node)" (completed)="prerequisiteCompleted.emit($event)"/>
+        }
+      </div>
+    </div>
+  }
   @for (branch of branches; track branch) {
     @if (filter() === 'All' || filter() === branch) {
-      <div class="mobile-branch">
+      <div class="mobile-branch" [class.combat]="branch === 'Combat'">
         <div class="mobile-heading"><span class="heading-icon">{{ branch === 'Structural' ? '⬡' : '✦' }}</span><div><small>Technology branch</small><strong>{{ branch }}</strong></div><span class="count">{{ researchedCount(branch) }}/{{ branchNodes(branch).length }}</span></div>
         <div class="mobile-list">
         @for (node of visibleBranchNodes(branch); track node.refID) {

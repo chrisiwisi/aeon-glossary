@@ -1,0 +1,7 @@
+<button type="button" class="prerequisite" [class.complete]="status() === 'researched'" [class.locked]="status() === 'locked'" [disabled]="status() !== 'available'"
+  [attr.aria-label]="prerequisite().name + (status() === 'researched' ? ': complete' : status() === 'locked' ? ': research technology prerequisites first' : ': mark prerequisite complete')"
+  (click)="completed.emit(prerequisite().refID)">
+  <span class="label">◇ &nbsp; Prerequisite</span>
+  <strong>{{ prerequisite().name }}</strong>
+  <span class="completion">{{ status() === 'researched' ? '✓ Complete' : status() === 'locked' ? 'Research technology prerequisites first' : '☐ Mark complete' }}</span>
+</button>
